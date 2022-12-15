@@ -26,7 +26,7 @@ LEADERBOARD_INPUT = ["1", "b", "back"]
 SHIP_INPUT = ["1", "p", "place", "2", "r", "rotate"]
 
 def valid_menu_input(choice):
-    # function to check validity of input on menu screen
+    """function to check validity of input on menu screen"""
     n = 0
     is_valid = False
     while n < 9:
@@ -38,6 +38,7 @@ def valid_menu_input(choice):
     return is_valid
 
 def ai_difficulty(difficulty):
+    """function translates difficulty into text for user"""
     if difficulty == 0:
         return "Easy"
     elif difficulty == 1:
@@ -45,11 +46,47 @@ def ai_difficulty(difficulty):
     elif difficulty == 2:
         return "Hard"
 
+def map_size(size):
+    """function translates map size into text for user"""
+    if size == 0:
+        return "Small"
+    elif size == 1:
+        return "Medium"
+    elif size == 2:
+        return "Large"
+
+def start_game(difficulty, size):
+    print("placeholder")
+
+def menu_output(validity, choice, difficulty, size):
+    """funtion controls result of user input on menu screen"""
+    if not validity:
+        print(f"Invalid input, please input one of the following: {MENU_INPUT}")
+        menu_screen(difficulty, size)
+    
+    if choice == "1" or choice == "s" or choice == "start":
+        start_game(difficulty, size)
+    elif choice == "2" or choice == "o" or choice == "options":
+        options_screen(difficulty, size)
+    elif choice == "3" or choice == "l" or choice == "leaderboard":
+        leaderboard_screen(difficulty, size)
+
 def menu_screen(difficulty, size):
-    # function that controls menu screen
-    ai = "Easy"
-    map = "Small"
+    """function that controls menu screen"""
+    ai = ai_difficulty(difficulty)
+    map = map_size(size)
 
     print("BATTLESHIPS")
-    print(f"Current Difficulty: {difficulty} - Current Map Size: ")
-    choice = input("Please enter your choice here: ")
+    print(f"Current Difficulty: {ai} - Current Map Size: {map}")
+    print("1. [S]tart")
+    print("2. [O]ptions")
+    print("3. [L]eaderboard")
+    choice = input("Please enter your choice here: ").lower()
+    validity = valid_menu_input(choice)
+    menu_output(validity, choice, difficulty, size)
+
+def options_screen(difficulty, size):
+    print("placeholder")
+
+def leaderboard_screen(difficulty, size):
+    print("placeholder")
