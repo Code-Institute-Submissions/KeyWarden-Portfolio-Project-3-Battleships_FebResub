@@ -16,3 +16,11 @@ SHEET = GSPREAD_CLIENT.open('project3_leaderboard')
 leaderboard = SHEET.worksheet('board')
 
 data = leaderboard.get_all_values()
+
+#declare contants to be used for input verification
+VALID_MENU_INPUT = ["1", "s", "start", "2", "o", "options", "3", "l", "leaderboard"]
+VALID_OPTIONS_INPUT = ["1", "d", "difficulty", "2", "m", "map", "3", "b", "back"]
+VALID_AI_INPUT = ["1", "e", "easy", "2", "n", "normal", "3", "h", "hard", "4", "b", "back"]
+VALID_MAP_SIZE_INPUT = ["1", "s", "small", "2", "m", "medium", "3", "l", "large", "4", "b", "back"]
+VALID_LEADERBOARD_INPUT = ["1", "b", "back"]
+VALID_SHIP_INPUT = ["1", "p", "place", "2", "r", "rotate"]
