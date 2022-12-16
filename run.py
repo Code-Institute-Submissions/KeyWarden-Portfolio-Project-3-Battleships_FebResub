@@ -30,6 +30,75 @@ MAP_SIZE_INPUT = [
     ]
 LEADERBOARD_INPUT = ["1", "b", "back"]
 SHIP_INPUT = ["1", "p", "place", "2", "r", "rotate"]
+SMALL_INPUT_CARRIER = [
+    "1", "2", "3", "4", "5", "6", "A", "B", "C", "D", "E", "F"
+    ]
+MEDIUM_INPUT_CARRIER = [
+    "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "A",
+    "B", "C", "D", "E", "F", "G", "H", "I", "J", "K"
+     ]
+LARGE_INPUT_CARRIER = [
+    "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12",
+    "13", "14", "15", "16", "A", "B", "C", "D", "E", "F", "G", "H",
+    "I", "J", "K", "L", "M", "N", "O", "P"
+    ]
+SMALL_INPUT_BATTLESHIP = [
+    "1", "2", "3", "4", "5", "6", "7", "A", "B", "C", "D", "E",
+    "F", "G"
+    ]
+MEDIUM_INPUT_BATTLESHIP = [
+    "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12",
+    "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L"
+    ]
+LARGE_INPUT_BATTLESHIP = [
+    "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12",
+    "13", "14", "15", "16", "17", "A", "B", "C", "D", "E", "F", "G",
+    "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q"
+    ]
+SMALL_INPUT_SUB_DES = [
+    "1", "2", "3", "4", "5", "6", "7", "8", "A", "B", "C", "D", "E",
+    "F", "G", "H"
+    ]
+MEDIUM_INPUT_SUB_DES = [
+    "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12",
+    "13", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K",
+    "L", "M"
+    ]
+LARGE_INPUT_SUB_DES = [
+    "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12",
+    "13", "14", "15", "16", "17", "18", "A", "B", "C", "D", "E", "F",
+    "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R"
+    ]
+SMALL_INPUT_GUNBOAT = [
+    "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D",
+    "E", "F", "G", "H", "I"
+    ]
+MEDIUM_INPUT_GUNBOAT = [
+    "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12",
+    "13", "14", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J",
+    "K", "L", "M", "N",
+    ]
+LARGE_INPUT_GUNBOAT = [
+    "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12",
+    "13", "14", "15", "16", "17", "18", "19", "A", "B", "C", "D",
+    "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P",
+    "Q", "R", "S"
+    ]
+SMALL_INPUT = [
+    "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "A", "B", "C",
+    "D", "E", "F", "G", "H", "I", "J"
+    ]
+MEDIUM_INPUT = [
+    "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12",
+    "13", "14", "15", "A", "B", "C", "D", "E", "F", "G", "H", "I",
+    "J", "K", "L", "M", "N", "O"
+    ]
+LARGE_INPUT = [
+    "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12",
+    "13", "14", "15", "16", "17", "18", "19", "20", "A", "B", "C",
+    "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P",
+    "Q", "R", "S", "T"
+    ]
 
 
 class MapGrid:
@@ -502,6 +571,218 @@ class MapGrid:
                             num += 1
         return is_valid
 
+    def validate_col_place(self, ship_direction, ship_length, collumn_choice):
+        "validates collumn placement input of ship on map"
+        is_valid = False
+        if self.size == 0:
+            if ship_length == 5:
+                if ship_direction == 0:
+                    num = 0
+                    while num < len(SMALL_INPUT):
+                        if collumn_choice == SMALL_INPUT[num]:
+                            is_valid = True
+                            num = len(SMALL_INPUT)
+                        else:
+                            num += 1
+                elif ship_direction == 1:
+                    num = 0
+                    while num < len(SMALL_INPUT_CARRIER):
+                        if int(row_choice) == SMALL_INPUT_CARRIER[num]:
+                            is_valid = True
+                            num = len(SMALL_INPUT_CARRIER)
+                        else:
+                            num += 1
+            elif ship_length == 4:
+                if ship_direction == 0:
+                    num = 0
+                    while num < len(SMALL_INPUT):
+                        if int(row_choice) == SMALL_INPUT[num]:
+                            is_valid = True
+                            num = len(SMALL_INPUT)
+                        else:
+                            num += 1
+                elif ship_direction == 1:
+                    num = 0
+                    while num < len(SMALL_INPUT_BATTLESHIP):
+                        if int(row_choice) == SMALL_INPUT_BATTLESHIP[num]:
+                            is_valid = True
+                            num = len(SMALL_INPUT_BATTLESHIP)
+                        else:
+                            num += 1
+            elif ship_length == 3:
+                if ship_direction == 0:
+                    num = 0
+                    while num < len(SMALL_INPUT):
+                        if int(row_choice) == SMALL_INPUT[num]:
+                            is_valid = True
+                            num = len(SMALL_INPUT)
+                        else:
+                            num += 1
+                elif ship_direction == 1:
+                    num = 0
+                    while num < len(SMALL_INPUT_SUB_DES):
+                        if int(row_choice) == SMALL_INPUT_SUB_DES[num]:
+                            is_valid = True
+                            num = len(SMALL_INPUT_SUB_DES)
+                        else:
+                            num += 1
+            elif ship_length == 2:
+                if ship_direction == 0:
+                    num = 0
+                    while num < len(SMALL_INPUT):
+                        if int(row_choice) == SMALL_INPUT[num]:
+                            is_valid = True
+                            num = len(SMALL_INPUT)
+                        else:
+                            num += 1
+                elif ship_direction == 1:
+                    num = 0
+                    while num < len(SMALL_INPUT_GUNBOAT):
+                        if int(row_choice) == SMALL_INPUT_GUNBOAT[num]:
+                            is_valid = True
+                            num = len(SMALL_INPUT_GUNBOAT)
+                        else:
+                            num += 1
+        elif self.size == 1:
+            if ship_length == 5:
+                if ship_direction == 0:
+                    num = 0
+                    while num < len(MEDIUM_INPUT):
+                        if int(row_choice) == MEDIUM_INPUT[num]:
+                            is_valid = True
+                            num = len(MEDIUM_INPUT)
+                        else:
+                            num += 1
+                elif ship_direction == 1:
+                    num = 0
+                    while num < len(MEDIUM_INPUT_CARRIER):
+                        if int(row_choice) == MEDIUM_INPUT_CARRIER[num]:
+                            is_valid = True
+                            num = len(MEDIUM_INPUT_CARRIER)
+                        else:
+                            num += 1
+            elif ship_length == 4:
+                if ship_direction == 0:
+                    num = 0
+                    while num < len(MEDIUM_INPUT):
+                        if int(row_choice) == MEDIUM_INPUT[num]:
+                            is_valid = True
+                            num = len(MEDIUM_INPUT)
+                        else:
+                            num += 1
+                elif ship_direction == 1:
+                    num = 0
+                    while num < len(MEDIUM_INPUT_BATTLESHIP):
+                        if int(row_choice) == MEDIUM_INPUT_BATTLESHIP[num]:
+                            is_valid = True
+                            num = len(MEDIUM_INPUT_BATTLESHIP)
+                        else:
+                            num += 1
+            elif ship_length == 3:
+                if ship_direction == 0:
+                    num = 0
+                    while num < len(MEDIUM_INPUT):
+                        if int(row_choice) == MEDIUM_INPUT[num]:
+                            is_valid = True
+                            num = len(MEDIUM_INPUT)
+                        else:
+                            num += 1
+                elif ship_direction == 1:
+                    num = 0
+                    while num < len(MEDIUM_INPUT_SUB_DES):
+                        if int(row_choice) == MEDIUM_INPUT_SUB_DES[num]:
+                            is_valid = True
+                            num = len(MEDIUM_INPUT_SUB_DES)
+                        else:
+                            num += 1
+            elif ship_length == 2:
+                if ship_direction == 0:
+                    num = 0
+                    while num < len(MEDIUM_INPUT):
+                        if int(row_choice) == MEDIUM_INPUT[num]:
+                            is_valid = True
+                            num = len(MEDIUM_INPUT)
+                        else:
+                            num += 1
+                elif ship_direction == 1:
+                    num = 0
+                    while num < len(MEDIUM_INPUT_GUNBOAT):
+                        if int(row_choice) == MEDIUM_INPUT_GUNBOAT[num]:
+                            is_valid = True
+                            num = len(MEDIUM_INPUT_GUNBOAT)
+                        else:
+                            num += 1
+        elif self.size == 2:
+            if ship_length == 5:
+                if ship_direction == 0:
+                    num = 0
+                    while num < len(LARGE_INPUT):
+                        if int(row_choice) == LARGE_INPUT[num]:
+                            is_valid = True
+                            num = len(LARGE_INPUT)
+                        else:
+                            num += 1
+                elif ship_direction == 1:
+                    num = 0
+                    while num < len(LARGE_INPUT_CARRIER):
+                        if int(row_choice) == LARGE_INPUT_CARRIER[num]:
+                            is_valid = True
+                            num = len(LARGE_INPUT_CARRIER)
+                        else:
+                            num += 1
+            elif ship_length == 4:
+                if ship_direction == 0:
+                    num = 0
+                    while num < len(LARGE_INPUT):
+                        if int(row_choice) == LARGE_INPUT[num]:
+                            is_valid = True
+                            num = len(LARGE_INPUT)
+                        else:
+                            num += 1
+                elif ship_direction == 1:
+                    num = 0
+                    while num < len(LARGE_INPUT_BATTLESHIP):
+                        if int(row_choice) == LARGE_INPUT_BATTLESHIP[num]:
+                            is_valid = True
+                            num = len(LARGE_INPUT_BATTLESHIP)
+                        else:
+                            num += 1
+            elif ship_length == 3:
+                if ship_direction == 0:
+                    num = 0
+                    while num < len(LARGE_INPUT):
+                        if int(row_choice) == LARGE_INPUT[num]:
+                            is_valid = True
+                            num = len(LARGE_INPUT)
+                        else:
+                            num += 1
+                elif ship_direction == 1:
+                    num = 0
+                    while num < len(LARGE_INPUT_SUB_DES):
+                        if int(row_choice) == LARGE_INPUT_SUB_DES[num]:
+                            is_valid = True
+                            num = len(LARGE_INPUT_SUB_DES)
+                        else:
+                            num += 1
+            elif ship_length == 2:
+                if ship_direction == 0:
+                    num = 0
+                    while num < len(LARGE_INPUT):
+                        if int(row_choice) == LARGE_INPUT[num]:
+                            is_valid = True
+                            num = len(LARGE_INPUT)
+                        else:
+                            num += 1
+                elif ship_direction == 1:
+                    num = 0
+                    while num < len(LARGE_INPUT_GUNBOAT):
+                        if int(collumn_choice) == LARGE_INPUT_GUNBOAT[num]:
+                            is_valid = True
+                            num = len(LARGE_INPUT_GUNBOAT)
+                        else:
+                            num += 1
+        return is_valid
+
     def print_grid(self):
         """function to print the grid to the console"""
         dividing_row = ""
@@ -966,6 +1247,19 @@ def valid_start_placing_input(choice):
     return is_valid
 
 
+def place_current_ship_small_invalid_input(number_placed):
+    """controls output in event of an invalid input"""
+    print(
+        "Invalid input, please enter a number between 1 and 10, or a letter" +
+        " between A and J if enterring a collumn."
+        )
+    print(
+        "Also, please remember that your ship cannot go over" +
+        " the edge of the map"
+        )
+    place_current_ship_small(number_placed)
+
+
 def place_current_ship_small(number_placed):
     """controls actual placing of ship on small map"""
     if number_placed == 1:
@@ -990,6 +1284,16 @@ def place_current_ship_small(number_placed):
                 "top-most segment of the ship."
                 )
         row_choice = input("Please enter the row number here: ")
+        row_validity = player_map_small.validate_row_placement(
+            player_carrier.direction, 5, row_choice
+            )
+        if not row_validity:
+            place_current_ship_small_invalid_input(number_placed)
+        collumn_choice = input("Please enter the collumn letter here: ")
+        collumn_validity = player_map_small.validate_col_place(
+            player_carrier.direction, 5, collumn_choice
+            )
+        if not collumn_validity:
 
 
 def place_ships_small_output(validity, choice, number_placed):
