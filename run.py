@@ -80,7 +80,7 @@ class MapGrid:
                 "   |", "   |", "   |"
                 ]
             self.row_divide = [
-                "---|", "---|", "---|", "---|", "---|", "---|", "---|", "---|",
+                "--|", "---|", "---|", "---|", "---|", "---|", "---|", "---|",
                 "---|", "---|", "---|"
             ]
         elif self.size == 1:
@@ -149,7 +149,7 @@ class MapGrid:
                 "   |", "   |", "   |", "   |", "   |", "   |", "   |", "   |"
                 ]
             self.row_divide = [
-                "---|", "---|", "---|", "---|", "---|", "---|", "---|", "---|",
+                "--|", "---|", "---|", "---|", "---|", "---|", "---|", "---|",
                 "---|", "---|", "---|", "---|", "---|", "---|", "---|", "---|"
             ]
         elif self.size == 2:
@@ -259,110 +259,188 @@ class MapGrid:
                 "   |", "   |", "   |", "   |", "   |"
                 ]
             self.row_divide = [
-                "---|", "---|", "---|", "---|", "---|", "---|", "---|", "---|",
+                "--|", "---|", "---|", "---|", "---|", "---|", "---|", "---|",
                 "---|", "---|", "---|", "---|", "---|", "---|", "---|", "---|",
                 "---|", "---|", "---|", "---|", "---|"
             ]
+
     def print_grid(self):
+        """function to print the grid to the console"""
+        dividing_row = ""
+        title_row = ""
+        first_row = ""
+        second_row = ""
+        third_row = ""
+        fourth_row = ""
+        fifth_row = ""
+        sixth_row = ""
+        seventh_row = ""
+        eighth_row = ""
+        ninth_row = ""
+        tenth_row = ""
+        eleventh_row = ""
+        twelth_row = ""
+        thirteenth_row = ""
+        fourteenth_row = ""
+        fifteenth_row = ""
+        sixteenth_row = ""
+        seventeenth_row = ""
+        eighteenth_row = ""
+        ninteenth_row = ""
+        twentieth_row = ""
         if self.size == 0:
-            print(self.row0)
-            print(self.row_divide)
-            print(self.row1)
-            print(self.row_divide)
-            print(self.row2)
-            print(self.row_divide)
-            print(self.row3)
-            print(self.row_divide)
-            print(self.row4)
-            print(self.row_divide)
-            print(self.row5)
-            print(self.row_divide)
-            print(self.row6)
-            print(self.row_divide)
-            print(self.row7)
-            print(self.row_divide)
-            print(self.row8)
-            print(self.row_divide)
-            print(self.row9)
-            print(self.row_divide)
-            print(self.row10)
-            print(self.row_divide)
+            for i in range(0, 11):
+                dividing_row += self.row_divide[i]
+                title_row += self.row0[i]
+                first_row += self.row1[i]
+                second_row += self.row2[i]
+                third_row += self.row3[i]
+                fourth_row += self.row4[i]
+                fifth_row += self.row5[i]
+                sixth_row += self.row6[i]
+                seventh_row += self.row7[i]
+                eighth_row += self.row8[i]
+                ninth_row += self.row9[i]
+                tenth_row += self.row10[i]
+            print(title_row)
+            print(dividing_row)
+            print(first_row)
+            print(dividing_row)
+            print(second_row)
+            print(dividing_row)
+            print(third_row)
+            print(dividing_row)
+            print(fourth_row)
+            print(dividing_row)
+            print(fifth_row)
+            print(dividing_row)
+            print(sixth_row)
+            print(dividing_row)
+            print(seventh_row)
+            print(dividing_row)
+            print(eighth_row)
+            print(dividing_row)
+            print(ninth_row)
+            print(dividing_row)
+            print(tenth_row)
+            print(dividing_row)
         if self.size == 1:
-            print(self.row0)
-            print(self.row_divide)
-            print(self.row1)
-            print(self.row_divide)
-            print(self.row2)
-            print(self.row_divide)
-            print(self.row3)
-            print(self.row_divide)
-            print(self.row4)
-            print(self.row_divide)
-            print(self.row5)
-            print(self.row_divide)
-            print(self.row6)
-            print(self.row_divide)
-            print(self.row7)
-            print(self.row_divide)
-            print(self.row8)
-            print(self.row_divide)
-            print(self.row9)
-            print(self.row_divide)
-            print(self.row10)
-            print(self.row_divide)
-            print(self.row11)
-            print(self.row_divide)
-            print(self.row12)
-            print(self.row_divide)
-            print(self.row13)
-            print(self.row_divide)
-            print(self.row14)
-            print(self.row_divide)
-            print(self.row15)
-            print(self.row_divide)
+            for i in range(0, 16):
+                dividing_row += self.row_divide[i]
+                title_row += self.row0[i]
+                first_row += self.row1[i]
+                second_row += self.row2[i]
+                third_row += self.row3[i]
+                fourth_row += self.row4[i]
+                fifth_row += self.row5[i]
+                sixth_row += self.row6[i]
+                seventh_row += self.row7[i]
+                eighth_row += self.row8[i]
+                ninth_row += self.row9[i]
+                tenth_row += self.row10[i]
+                eleventh_row += self.row11[i]
+                twelth_row += self.row12[i]
+                thirteenth_row += self.row13[i]
+                fourteenth_row += self.row14[i]
+                fifteenth_row += self.row15[i]
+            print(title_row)
+            print(dividing_row)
+            print(first_row)
+            print(dividing_row)
+            print(second_row)
+            print(dividing_row)
+            print(third_row)
+            print(dividing_row)
+            print(fourth_row)
+            print(dividing_row)
+            print(fifth_row)
+            print(dividing_row)
+            print(sixth_row)
+            print(dividing_row)
+            print(seventh_row)
+            print(dividing_row)
+            print(eighth_row)
+            print(dividing_row)
+            print(ninth_row)
+            print(dividing_row)
+            print(tenth_row)
+            print(dividing_row)
+            print(eleventh_row)
+            print(dividing_row)
+            print(twelth_row)
+            print(dividing_row)
+            print(thirteenth_row)
+            print(dividing_row)
+            print(fourteenth_row)
+            print(dividing_row)
+            print(fifteenth_row)
+            print(dividing_row)
         if self.size == 2:
-            print(self.row0)
-            print(self.row_divide)
-            print(self.row1)
-            print(self.row_divide)
-            print(self.row2)
-            print(self.row_divide)
-            print(self.row3)
-            print(self.row_divide)
-            print(self.row4)
-            print(self.row_divide)
-            print(self.row5)
-            print(self.row_divide)
-            print(self.row6)
-            print(self.row_divide)
-            print(self.row7)
-            print(self.row_divide)
-            print(self.row8)
-            print(self.row_divide)
-            print(self.row9)
-            print(self.row_divide)
-            print(self.row10)
-            print(self.row_divide)
-            print(self.row11)
-            print(self.row_divide)
-            print(self.row12)
-            print(self.row_divide)
-            print(self.row13)
-            print(self.row_divide)
-            print(self.row14)
-            print(self.row_divide)
-            print(self.row15)
-            print(self.row_divide)
-            print(self.row16)
-            print(self.row_divide)
-            print(self.row17)
-            print(self.row_divide)
-            print(self.row18)
-            print(self.row_divide)
-            print(self.row19)
-            print(self.row_divide)
-            print(self.row20)
-            print(self.row_divide)
+            for i in range(0, 21):
+                dividing_row += self.row_divide[i]
+                title_row += self.row0[i]
+                first_row += self.row1[i]
+                second_row += self.row2[i]
+                third_row += self.row3[i]
+                fourth_row += self.row4[i]
+                fifth_row += self.row5[i]
+                sixth_row += self.row6[i]
+                seventh_row += self.row7[i]
+                eighth_row += self.row8[i]
+                ninth_row += self.row9[i]
+                tenth_row += self.row10[i]
+                eleventh_row += self.row11[i]
+                twelth_row += self.row12[i]
+                thirteenth_row += self.row13[i]
+                fourteenth_row += self.row14[i]
+                fifteenth_row += self.row15[i]
+                sixteenth_row += self.row16[i]
+                seventeenth_row += self.row17[i]
+                eighteenth_row += self.row18[i]
+                ninteenth_row += self.row19[i]
+                twentieth_row += self.row20[i]
+            print(title_row)
+            print(dividing_row)
+            print(first_row)
+            print(dividing_row)
+            print(second_row)
+            print(dividing_row)
+            print(third_row)
+            print(dividing_row)
+            print(fourth_row)
+            print(dividing_row)
+            print(fifth_row)
+            print(dividing_row)
+            print(sixth_row)
+            print(dividing_row)
+            print(seventh_row)
+            print(dividing_row)
+            print(eighth_row)
+            print(dividing_row)
+            print(ninth_row)
+            print(dividing_row)
+            print(tenth_row)
+            print(dividing_row)
+            print(eleventh_row)
+            print(dividing_row)
+            print(twelth_row)
+            print(dividing_row)
+            print(thirteenth_row)
+            print(dividing_row)
+            print(fourteenth_row)
+            print(dividing_row)
+            print(fifteenth_row)
+            print(dividing_row)
+            print(sixteenth_row)
+            print(dividing_row)
+            print(seventeenth_row)
+            print(dividing_row)
+            print(eighteenth_row)
+            print(dividing_row)
+            print(ninteenth_row)
+            print(dividing_row)
+            print(twentieth_row)
+            print(dividing_row)
 
 
 def valid_menu_input(choice):
@@ -406,6 +484,8 @@ def map_size(size):
 def start_game(difficulty, size):
     """funtion that controls the game starting"""
     player_map = MapGrid(size)
+    print("YOUR GRID:")
+    player_map.print_grid()
 
 
 def menu_output(validity, choice, difficulty, size):
