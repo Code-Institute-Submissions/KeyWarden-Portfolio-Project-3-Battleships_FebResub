@@ -198,6 +198,41 @@ def difficulty_screen(difficulty, size):
     difficulty_output(validity, choice, difficulty, size)
 
 
+def valid_map_input(choice):
+    """function to check validity of input on map size screen"""
+
+    num = 0
+    is_valid = False
+    while num < 12:
+        if choice == MAP_SIZE_INPUT[num]:
+            is_valid = True
+            num = 12
+        else:
+            num += 1
+    return is_valid
+
+
+def map_output(validity, choice, difficulty, size):
+    """funtion controls result of user input on map size screen"""
+    if not validity:
+        print(
+            f"Invalid input, please input one of the following: {MAP_SIZE_INPUT}"
+            )
+        map_screen(difficulty, size)
+
+    if choice == "1" or choice == "s" or choice == "small":
+        size = 0
+        map_screen(difficulty, size)
+    elif choice == "2" or choice == "m" or choice == "medium":
+        size = 1
+        map_screen(difficulty, size)
+    elif choice == "3" or choice == "l" or choice == "large":
+        size = 2
+        map_screen(difficulty, size)
+    elif choice == "4" or choice == "b" or choice == "back":
+        options_screen(difficulty, size)
+
+
 def map_screen(difficulty, size):
     """funtion that controls the map size screen"""
     a_i = ai_difficulty(difficulty)
