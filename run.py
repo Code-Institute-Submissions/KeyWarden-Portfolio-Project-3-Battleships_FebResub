@@ -494,8 +494,35 @@ class EnemyAI:
                         elif increase_decrease == 1:
                             self.turn_collumn += 1
         elif self.difficulty == 2:
-            if sunk_last and not unsunk_ship:
-                
+            if not unsunk_ship:
+                self.turn_row = random.randint(1, self.map_size)
+                self.turn_collumn = random.randint(1, self.map_size)
+            elif unsunk_ship:
+                self.turn_row = row
+                self.turn_collumn = collumn
+                direction = random.randint(0, 1)
+                if direction == 0:
+                    if self.turn_row == self.map_size:
+                        self.turn_row -= 1
+                    elif self.turn_row == 1:
+                        self.turn_row += 1
+                    else:
+                        increase_decrease = random.randint(0, 1)
+                        if increase_decrease == 0:
+                            self.turn_row -= 1
+                        elif increase_decrease == 1:
+                            self.turn_row += 1
+                if direction == 1:
+                    if self.turn_collumn == self.map_size:
+                        self.turn_collumn -= 1
+                    elif self.turn_collumn == 1:
+                        self.turn_collumn += 1
+                    else:
+                        increase_decrease = random.randint(0, 1)
+                        if increase_decrease == 0:
+                            self.turn_collumn -= 1
+                        elif increase_decrease == 1:
+                            self.turn_collumn += 1
 
 
 def valid_menu_input(choice):
