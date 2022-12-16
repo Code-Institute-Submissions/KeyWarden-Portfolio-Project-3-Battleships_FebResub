@@ -266,6 +266,242 @@ class MapGrid:
                 "---|", "---|", "---|", "---|", "---|"
             ]
 
+    def validate_row_placement(self, ship_direction, ship_length, row_choice):
+        "validates row placement input of ship on map"
+        is_valid = False
+        if self.size == 0:
+            if ship_length == 5:
+                if ship_direction == 0:
+                    length_input = list(range(1, 7))
+                    num = 0
+                    while num < len(length_input):
+                        if int(row_choice) == length_input[num]:
+                            is_valid = True
+                            num = len(length_input)
+                        else:
+                            num += 1
+                elif ship_direction == 1:
+                    length_input = list(range(1, 11))
+                    num = 0
+                    while num < len(length_input):
+                        if int(row_choice) == length_input[num]:
+                            is_valid = True
+                            num = len(length_input)
+                        else:
+                            num += 1
+            elif ship_length == 4:
+                if ship_direction == 0:
+                    length_input = list(range(1, 8))
+                    num = 0
+                    while num < len(length_input):
+                        if int(row_choice) == length_input[num]:
+                            is_valid = True
+                            num = len(length_input)
+                        else:
+                            num += 1
+                elif ship_direction == 1:
+                    length_input = list(range(1, 11))
+                    num = 0
+                    while num < len(length_input):
+                        if int(row_choice) == length_input[num]:
+                            is_valid = True
+                            num = len(length_input)
+                        else:
+                            num += 1
+            elif ship_length == 3:
+                if ship_direction == 0:
+                    length_input = list(range(1, 9))
+                    num = 0
+                    while num < len(length_input):
+                        if int(row_choice) == length_input[num]:
+                            is_valid = True
+                            num = len(length_input)
+                        else:
+                            num += 1
+                elif ship_direction == 1:
+                    length_input = list(range(1, 11))
+                    num = 0
+                    while num < len(length_input):
+                        if int(row_choice) == length_input[num]:
+                            is_valid = True
+                            num = len(length_input)
+                        else:
+                            num += 1
+            elif ship_length == 2:
+                if ship_direction == 0:
+                    length_input = list(range(1, 10))
+                    num = 0
+                    while num < len(length_input):
+                        if int(row_choice) == length_input[num]:
+                            is_valid = True
+                            num = len(length_input)
+                        else:
+                            num += 1
+                elif ship_direction == 1:
+                    length_input = list(range(1, 11))
+                    num = 0
+                    while num < len(length_input):
+                        if int(row_choice) == length_input[num]:
+                            is_valid = True
+                            num = len(length_input)
+                        else:
+                            num += 1
+        elif self.size == 1:
+            if ship_length == 5:
+                if ship_direction == 0:
+                    length_input = list(range(1, 12))
+                    num = 0
+                    while num < len(length_input):
+                        if int(row_choice) == length_input[num]:
+                            is_valid = True
+                            num = len(length_input)
+                        else:
+                            num += 1
+                elif ship_direction == 1:
+                    length_input = list(range(1, 16))
+                    num = 0
+                    while num < len(length_input):
+                        if int(row_choice) == length_input[num]:
+                            is_valid = True
+                            num = len(length_input)
+                        else:
+                            num += 1
+            elif ship_length == 4:
+                if ship_direction == 0:
+                    length_input = list(range(1, 13))
+                    num = 0
+                    while num < len(length_input):
+                        if int(row_choice) == length_input[num]:
+                            is_valid = True
+                            num = len(length_input)
+                        else:
+                            num += 1
+                elif ship_direction == 1:
+                    length_input = list(range(1, 16))
+                    num = 0
+                    while num < len(length_input):
+                        if int(row_choice) == length_input[num]:
+                            is_valid = True
+                            num = len(length_input)
+                        else:
+                            num += 1
+            elif ship_length == 3:
+                if ship_direction == 0:
+                    length_input = list(range(1, 14))
+                    num = 0
+                    while num < len(length_input):
+                        if int(row_choice) == length_input[num]:
+                            is_valid = True
+                            num = len(length_input)
+                        else:
+                            num += 1
+                elif ship_direction == 1:
+                    length_input = list(range(1, 16))
+                    num = 0
+                    while num < len(length_input):
+                        if int(row_choice) == length_input[num]:
+                            is_valid = True
+                            num = len(length_input)
+                        else:
+                            num += 1
+            elif ship_length == 2:
+                if ship_direction == 0:
+                    length_input = list(range(1, 15))
+                    num = 0
+                    while num < len(length_input):
+                        if int(row_choice) == length_input[num]:
+                            is_valid = True
+                            num = len(length_input)
+                        else:
+                            num += 1
+                elif ship_direction == 1:
+                    length_input = list(range(1, 16))
+                    num = 0
+                    while num < len(length_input):
+                        if int(row_choice) == length_input[num]:
+                            is_valid = True
+                            num = len(length_input)
+                        else:
+                            num += 1
+        elif self.size == 2:
+            if ship_length == 5:
+                if ship_direction == 0:
+                    length_input = list(range(1, 17))
+                    num = 0
+                    while num < len(length_input):
+                        if int(row_choice) == length_input[num]:
+                            is_valid = True
+                            num = len(length_input)
+                        else:
+                            num += 1
+                elif ship_direction == 1:
+                    length_input = list(range(1, 21))
+                    num = 0
+                    while num < len(length_input):
+                        if int(row_choice) == length_input[num]:
+                            is_valid = True
+                            num = len(length_input)
+                        else:
+                            num += 1
+            elif ship_length == 4:
+                if ship_direction == 0:
+                    length_input = list(range(1, 18))
+                    num = 0
+                    while num < len(length_input):
+                        if int(row_choice) == length_input[num]:
+                            is_valid = True
+                            num = len(length_input)
+                        else:
+                            num += 1
+                elif ship_direction == 1:
+                    length_input = list(range(1, 21))
+                    num = 0
+                    while num < len(length_input):
+                        if int(row_choice) == length_input[num]:
+                            is_valid = True
+                            num = len(length_input)
+                        else:
+                            num += 1
+            elif ship_length == 3:
+                if ship_direction == 0:
+                    length_input = list(range(1, 19))
+                    num = 0
+                    while num < len(length_input):
+                        if int(row_choice) == length_input[num]:
+                            is_valid = True
+                            num = len(length_input)
+                        else:
+                            num += 1
+                elif ship_direction == 1:
+                    length_input = list(range(1, 21))
+                    num = 0
+                    while num < len(length_input):
+                        if int(row_choice) == length_input[num]:
+                            is_valid = True
+                            num = len(length_input)
+                        else:
+                            num += 1
+            elif ship_length == 2:
+                if ship_direction == 0:
+                    length_input = list(range(1, 20))
+                    num = 0
+                    while num < len(length_input):
+                        if int(row_choice) == length_input[num]:
+                            is_valid = True
+                            num = len(length_input)
+                        else:
+                            num += 1
+                elif ship_direction == 1:
+                    length_input = list(range(1, 21))
+                    num = 0
+                    while num < len(length_input):
+                        if int(row_choice) == length_input[num]:
+                            is_valid = True
+                            num = len(length_input)
+                        else:
+                            num += 1
+        return is_valid
+
     def print_grid(self):
         """function to print the grid to the console"""
         dividing_row = ""
@@ -717,26 +953,12 @@ def map_size(size):
     return result
 
 
-def start_game(difficulty, size):
-    """funtion that controls the game starting"""
-    print("YOUR GRID:")
-    if size == 0:
-        player_map_small.print_grid()
-        place_ships_small()
-    elif size == 1:
-        player_map_medium.print_grid()
-        place_ships_medium()
-    elif size == 2:
-        player_map_large.print_grid()
-        place_ships_large()
-
-
 def valid_start_placing_input(choice):
     """function validating first input related to ship placing"""
     num = 0
     is_valid = False
     while num < 6:
-        if choice == OPTIONS_INPUT[num]:
+        if choice == SHIP_INPUT[num]:
             is_valid = True
             num = 9
         else:
@@ -744,7 +966,33 @@ def valid_start_placing_input(choice):
     return is_valid
 
 
-def place_ships_small_output(validity, choice):
+def place_current_ship_small(number_placed):
+    """controls actual placing of ship on small map"""
+    if number_placed == 1:
+        if player_carrier.direction == 0:
+            print(
+                f"The {player_carrier.type} cannot be closer than" +
+                f" {len(player_carrier.segments)} grid spaces to the" +
+                " right-hand edge of the map."
+                )
+            print(
+                "You will now choose the row and collumn of the" +
+                "left-most segment of the ship."
+                )
+        else:
+            print(
+                f"The {player_carrier.type} cannot be closer than" +
+                f" {len(player_carrier.segments)} grid spaces to the" +
+                " bottom edge of the map."
+                )
+            print(
+                "You will now choose the row and collumn of the" +
+                "top-most segment of the ship."
+                )
+        row_choice = input("Please enter the row number here: ")
+
+
+def place_ships_small_output(validity, choice, number_placed):
     """controls result of user input on ship placement for small maps"""
     if not validity:
         print(
@@ -753,9 +1001,34 @@ def place_ships_small_output(validity, choice):
         placing_ship(number_placed)
 
     if choice == "1" or choice == "p" or choice == "place":
-        start_game(difficulty, size)
+        place_current_ship_small(number_placed)
     elif choice == "2" or choice == "r" or choice == "rotate":
-        options_screen(difficulty, size)
+        if number_placed == 1:
+            if player_carrier.direction == 0:
+                player_carrier.direction = 1
+            else:
+                player_carrier.direction = 0
+        elif number_placed == 2:
+            if player_battleship.direction == 0:
+                player_battleship.direction = 1
+            else:
+                player_battleship.direction = 0
+        elif number_placed == 3:
+            if player_submarine.direction == 0:
+                player_submarine.direction = 1
+            else:
+                player_submarine.direction = 0
+        elif number_placed == 4:
+            if player_destroyer.direction == 0:
+                player_destroyer.direction = 1
+            else:
+                player_destroyer.direction = 0
+        elif number_placed == 5:
+            if player_gunboat.direction == 0:
+                player_gunboat.direction = 1
+            else:
+                player_gunboat.direction = 0
+        placing_ship(number_placed)
 
 
 def placing_ship(number_placed):
@@ -771,7 +1044,7 @@ def placing_ship(number_placed):
             print("2. [R]otate")
             choice = input("Please enter your choice here: ")
             validity = valid_start_placing_input(choice)
-            place_ships_small_output(validity, choice)
+            place_ships_small_output(validity, choice, number_placed)
         elif player_carrier.direction == 1:
             print(
                 f"Current ship: {player_carrier.type}" +
@@ -782,17 +1055,107 @@ def placing_ship(number_placed):
             print("2. [R]otate")
             choice = input("Please enter your choice here: ")
             validity = valid_start_placing_input(choice)
-            place_ships_small_output(validity, choice)
+            place_ships_small_output(validity, choice, number_placed)
+    elif number_placed == 2:
+        if player_battleship.direction == 0:
+            print(
+                f"Current ship: {player_battleship.type}" +
+                f"- {player_battleship.segments}"
+                )
+            print("Current orientation: Horizontal (left to right)")
+            print("1. [P]lace")
+            print("2. [R]otate")
+            choice = input("Please enter your choice here: ")
+            validity = valid_start_placing_input(choice)
+            place_ships_small_output(validity, choice, number_placed)
+        elif player_battleship.direction == 1:
+            print(
+                f"Current ship: {player_battleship.type}" +
+                f"- {player_battleship.segments}"
+                )
+            print("Current orientation: Vertical (top to bottom)")
+            print("1. [P]lace")
+            print("2. [R]otate")
+            choice = input("Please enter your choice here: ")
+            validity = valid_start_placing_input(choice)
+            place_ships_small_output(validity, choice, number_placed)
+    elif number_placed == 3:
+        if player_submarine.direction == 0:
+            print(
+                f"Current ship: {player_submarine.type}" +
+                f"- {player_submarine.segments}"
+                )
+            print("Current orientation: Horizontal (left to right)")
+            print("1. [P]lace")
+            print("2. [R]otate")
+            choice = input("Please enter your choice here: ")
+            validity = valid_start_placing_input(choice)
+            place_ships_small_output(validity, choice, number_placed)
+        elif player_submarine.direction == 1:
+            print(
+                f"Current ship: {player_submarine.type}" +
+                f"- {player_submarine.segments}"
+                )
+            print("Current orientation: Vertical (top to bottom)")
+            print("1. [P]lace")
+            print("2. [R]otate")
+            choice = input("Please enter your choice here: ")
+            validity = valid_start_placing_input(choice)
+            place_ships_small_output(validity, choice, number_placed)
+    elif number_placed == 4:
+        if player_destroyer.direction == 0:
+            print(
+                f"Current ship: {player_destroyer.type}" +
+                f"- {player_destroyer.segments}"
+                )
+            print("Current orientation: Horizontal (left to right)")
+            print("1. [P]lace")
+            print("2. [R]otate")
+            choice = input("Please enter your choice here: ")
+            validity = valid_start_placing_input(choice)
+            place_ships_small_output(validity, choice, number_placed)
+        elif player_destroyer.direction == 1:
+            print(
+                f"Current ship: {player_destroyer.type}" +
+                f"- {player_destroyer.segments}"
+                )
+            print("Current orientation: Vertical (top to bottom)")
+            print("1. [P]lace")
+            print("2. [R]otate")
+            choice = input("Please enter your choice here: ")
+            validity = valid_start_placing_input(choice)
+            place_ships_small_output(validity, choice, number_placed)
+    elif number_placed == 5:
+        if player_gunboat.direction == 0:
+            print(
+                f"Current ship: {player_gunboat.type}" +
+                f"- {player_gunboat.segments}"
+                )
+            print("Current orientation: Horizontal (left to right)")
+            print("1. [P]lace")
+            print("2. [R]otate")
+            choice = input("Please enter your choice here: ")
+            validity = valid_start_placing_input(choice)
+            place_ships_small_output(validity, choice, number_placed)
+        elif player_gunboat.direction == 1:
+            print(
+                f"Current ship: {player_gunboat.type}" +
+                f"- {player_gunboat.segments}"
+                )
+            print("Current orientation: Vertical (top to bottom)")
+            print("1. [P]lace")
+            print("2. [R]otate")
+            choice = input("Please enter your choice here: ")
+            validity = valid_start_placing_input(choice)
+            place_ships_small_output(validity, choice, number_placed)
 
 
 def place_ships_small():
     """function controlling ship placing process for small maps"""
     print("Please place your ships.")
-    number_placed = 0
+    number_placed = 1
     while number_placed < 5:
         placing_ship(number_placed)
-
-
 
 
 def place_ships_medium():
@@ -801,6 +1164,20 @@ def place_ships_medium():
 
 def place_ships_large():
     """function controlling ship placing process for large maps"""
+
+
+def start_game(difficulty, size):
+    """funtion that controls the game starting"""
+    print("YOUR GRID:")
+    if size == 0:
+        player_map_small.print_grid()
+        place_ships_small()
+    elif size == 1:
+        player_map_medium.print_grid()
+        place_ships_medium()
+    elif size == 2:
+        player_map_large.print_grid()
+        place_ships_large()
 
 
 def menu_output(validity, choice, difficulty, size):
