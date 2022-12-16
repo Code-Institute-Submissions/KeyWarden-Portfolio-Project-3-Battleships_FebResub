@@ -458,9 +458,17 @@ class EnemyAI:
         self.turn_row = 0
         self.turn_collumn = 0
 
-    def turn(self, last_turn, sunk_last):
+    def turn(self, hit_last, sunk_last, unsunk_ship):
         if self.difficulty == 0:
-            self.turn_row = random.rand
+            self.turn_row = random.randint(1, self.map_size)
+            self.turn_collumn = random.randint(1, self.map_size)
+        if self.difficulty == 1:
+            if sunk_last:
+                self.turn_row = random.randint(1, self.map_size)
+                self.turn_collumn = random.randint(1, self.map_size)
+            if not hit_last:
+                self.turn_row = random.randint(1, self.map_size)
+                self.turn_collumn = random.randint(1, self.map_size)
 
 
 def valid_menu_input(choice):
