@@ -1,4 +1,6 @@
-"""code needed to connect game to leaderboard in Google Sheets"""
+"""code needed to connect game to leaderboard in Google Sheets, as well as to
+produce random numbers"""
+import random
 import gspread
 from google.oauth2.service_account import Credentials
 
@@ -441,6 +443,24 @@ class MapGrid:
             print(dividing_row)
             print(twentieth_row)
             print(dividing_row)
+
+
+class EnemyAI:
+    """defining a class to manage the AI"""
+    def __init__(self, difficulty, size):
+        self.difficulty = difficulty
+        if size == 0:
+            self.map_size = 10
+        elif size == 1:
+            self.map_size = 15
+        elif size == 2:
+            self.map_size = 20
+        self.turn_row = 0
+        self.turn_collumn = 0
+
+    def turn(self, last_turn, sunk_last):
+        if self.difficulty == 0:
+            self.turn_row = random.rand
 
 
 def valid_menu_input(choice):
