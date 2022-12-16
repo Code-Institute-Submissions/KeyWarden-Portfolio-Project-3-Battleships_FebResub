@@ -443,6 +443,10 @@ class MapGrid:
             print(dividing_row)
             print(twentieth_row)
             print(dividing_row)
+    
+    def valid_enemy_shot_input(self, row, collumn):
+        """function validates ai input when ai chooses a grid to shoot"""
+        print(placeholder)
 
 
 class EnemyAI:
@@ -525,6 +529,53 @@ class EnemyAI:
                             self.turn_collumn += 1
 
 
+class Ship:
+    """class for all ships used"""
+    def __init__(self, type, direction = 0):
+        self.type = type
+        self.direction = direction
+        if self.type == "carrier":
+            self.segments = ["", "", "", "", ""]
+        elif self.type == "battleship":
+            self.segments = ["", "", "", ""]
+        elif self.type == "destroyer" or self.type == "submarine":
+            self.segments = ["", "", ""]
+        elif self.type == "gunboat":
+            self.segments = ["", ""]
+
+
+"""declaring all possible class instances to be used within later functions"""
+player_map_small = MapGrid(0)
+player_map_medium = MapGrid(1)
+player_map_large = MapGrid(2)
+hidden_map_small = MapGrid(0)
+hidden_map_medium = MapGrid(1)
+hidden_map_large = MapGrid(2)
+enemy_map_small = MapGrid(0)
+enemy_map_medium = MapGrid(1)
+enemy_map_large = MapGrid(2)
+enemy_easy_small = EnemyAI(0, 0)
+enemy_easy_medium = EnemyAI(0, 1)
+enemy_easy_large = EnemyAI(0, 2)
+enemy_normal_small = EnemyAI(1, 0)
+enemy_normal_medium = EnemyAI(1, 1)
+enemy_normal_large = EnemyAI(1, 2)
+enemy_hard_small = EnemyAI(2, 0)
+enemy_hard_medium = EnemyAI(2, 1)
+enemy_hard_large = EnemyAI(2, 2)
+player_carrier = Ship("carrier")
+player_battleship = Ship("battleship")
+player_submarine = Ship("submarine")
+player_destroyer = Ship("destroyer")
+player_gunboat = Ship("gunboat")
+enemy_carrier = Ship("carrier")
+enemy_battleship = Ship("battleship")
+enemy_submarine = Ship("submarine")
+enemy_destroyer = Ship("destroyer")
+enemy_gunboat = Ship("gunboat")
+
+
+
 def valid_menu_input(choice):
     """function to check validity of input on menu screen"""
 
@@ -565,9 +616,9 @@ def map_size(size):
 
 def start_game(difficulty, size):
     """funtion that controls the game starting"""
-    player_map = MapGrid(size)
     print("YOUR GRID:")
-    player_map.print_grid()
+    if size == 0:
+        player_map_small.print_grid()
 
 
 def menu_output(validity, choice, difficulty, size):
