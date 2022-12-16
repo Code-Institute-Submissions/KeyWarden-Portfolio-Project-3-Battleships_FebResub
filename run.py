@@ -119,7 +119,19 @@ def valid_options_input(choice):
 
 
 def options_output(validity, choice, difficulty, size):
-    print("placeholder")
+    """funtion controls result of user input on menu screen"""
+    if not validity:
+        print(
+            f"Invalid input, please input one of the following: {OPTIONS_INPUT}"
+            )
+        menu_screen(difficulty, size)
+
+    if choice == "1" or choice == "d" or choice == "difficulty":
+        difficulty_screen(difficulty, size)
+    elif choice == "2" or choice == "m" or choice == "map":
+        map_screen(difficulty, size)
+    elif choice == "3" or choice == "b" or choice == "back":
+        menu_screen(difficulty, size)
 
 
 def options_screen(difficulty, size):
@@ -133,6 +145,14 @@ def options_screen(difficulty, size):
     print("3. [B]ack")
     choice = input("Please enter your choice here: ").lower()
     validity = valid_options_input(choice)
+
+
+def difficulty_screen(difficulty, size):
+    print("placeholder")
+
+
+def map_screen(difficulty, size):
+    print("placeholder")
 
 
 def leaderboard_screen(difficulty, size):
