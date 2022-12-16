@@ -187,7 +187,7 @@ def difficulty_screen(difficulty, size):
     """funtion that controls the difficulty screen"""
     a_i = ai_difficulty(difficulty)
     game_map = map_size(size)
-    print("OPTIONS")
+    print("DIFFICULTY")
     print(f"Current Difficulty: {a_i} - Current Map Size: {game_map}")
     print("1. [E]asy")
     print("2. [N]ormal")
@@ -199,7 +199,18 @@ def difficulty_screen(difficulty, size):
 
 
 def map_screen(difficulty, size):
-    print("placeholder")
+    """funtion that controls the map size screen"""
+    a_i = ai_difficulty(difficulty)
+    game_map = map_size(size)
+    print("MAP SIZE")
+    print(f"Current Difficulty: {a_i} - Current Map Size: {game_map}")
+    print("1. [S]mall (10x10)")
+    print("2. [M]edium (15x15)")
+    print("3. [L]arge (20x20)")
+    print("4. [B]ack")
+    choice = input("Please enter your choice here: ").lower()
+    validity = valid_map_input(choice)
+    map_output(validity, choice, difficulty, size)
 
 
 def leaderboard_screen(difficulty, size):
