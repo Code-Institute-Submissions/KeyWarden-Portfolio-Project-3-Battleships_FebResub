@@ -443,7 +443,7 @@ class MapGrid:
             print(dividing_row)
             print(twentieth_row)
             print(dividing_row)
-    
+
     def valid_enemy_shot_input(self, row, collumn):
         """function validates ai input when ai chooses a grid to shoot"""
         print(placeholder)
@@ -529,9 +529,100 @@ class EnemyAI:
                             self.turn_collumn += 1
 
 
+def convert_collumn(collumn):
+    """converts collumn number into letter"""
+    letter = ""
+    if collumn == 1:
+        letter = "A"
+    elif collumn == 2:
+        letter = "B"
+    elif collumn == 3:
+        letter = "C"
+    elif collumn == 4:
+        letter = "D"
+    elif collumn == 5:
+        letter = "E"
+    elif collumn == 6:
+        letter = "F"
+    elif collumn == 7:
+        letter = "G"
+    elif collumn == 8:
+        letter = "H"
+    elif collumn == 9:
+        letter = "I"
+    elif collumn == 10:
+        letter = "J"
+    elif collumn == 11:
+        letter = "K"
+    elif collumn == 12:
+        letter = "L"
+    elif collumn == 13:
+        letter = "M"
+    elif collumn == 14:
+        letter = "N"
+    elif collumn == 15:
+        letter = "O"
+    elif collumn == 16:
+        letter = "P"
+    elif collumn == 17:
+        letter = "Q"
+    elif collumn == 18:
+        letter = "R"
+    elif collumn == 19:
+        letter = "S"
+    elif collumn == 20:
+        letter = "T"
+    return letter
+
+
+def convert_letter(letter):
+    """converts collumn letter into number"""
+    if letter == "A":
+        collumn = 1
+    elif letter == "B":
+        collumn = 2
+    elif letter == "C":
+        collumn = 3
+    elif letter == "D":
+        collumn = 4
+    elif letter == "E":
+        collumn = 5
+    elif letter == "F":
+        collumn = 6
+    elif letter == "G":
+        collumn = 7
+    elif letter == "H":
+        collumn = 8
+    elif letter == "I":
+        collumn = 9
+    elif letter == "J":
+        collumn = 10
+    elif letter == "K":
+        collumn = 11
+    elif letter == "L":
+        collumn = 12
+    elif letter == "M":
+        collumn = 13
+    elif letter == "N":
+        collumn = 14
+    elif letter == "O":
+        collumn = 15
+    elif letter == "P":
+        collumn = 16
+    elif letter == "Q":
+        collumn = 17
+    elif letter == "R":
+        collumn = 18
+    elif letter == "S":
+        collumn = 19
+    elif letter == "T":
+        collumn = 20
+    return collumn
+
+
 class Ship:
     """class for all ships used"""
-    def __init__(self, type, direction = 0):
+    def __init__(self, type, direction=0):
         self.type = type
         self.direction = direction
         if self.type == "carrier":
@@ -542,6 +633,19 @@ class Ship:
             self.segments = ["", "", ""]
         elif self.type == "gunboat":
             self.segments = ["", ""]
+
+    def ship_placed(self, row, collumn):
+        """function for filling segments lists with co-ordinates"""
+        if self.direction == 0:
+            for i in range(len(self.segments)):
+                letter = convert_collumn(collumn)
+                self.segments[i] = letter + str(row)
+                collumn += 1
+        elif self.direction == 1:
+            letter = convert_collumn(collumn)
+            for i in range(len(self.segments)):
+                self.segments[i] = letter + str(row)
+                row += 1
 
 
 """declaring all possible class instances to be used within later functions"""
@@ -573,7 +677,6 @@ enemy_battleship = Ship("battleship")
 enemy_submarine = Ship("submarine")
 enemy_destroyer = Ship("destroyer")
 enemy_gunboat = Ship("gunboat")
-
 
 
 def valid_menu_input(choice):
