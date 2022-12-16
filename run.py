@@ -145,10 +145,35 @@ def options_screen(difficulty, size):
     print("3. [B]ack")
     choice = input("Please enter your choice here: ").lower()
     validity = valid_options_input(choice)
+    options_output(validity, choice, difficulty, size)
+
+
+def valid_difficulty_input(choice):
+    """function to check validity of input on difficulty screen"""
+
+    num = 0
+    is_valid = False
+    while num < 12:
+        if choice == AI_INPUT[num]:
+            is_valid = True
+            num = 12
+        else:
+            num += 1
+    return is_valid
 
 
 def difficulty_screen(difficulty, size):
-    print("placeholder")
+    """funtion that controls the difficulty screen"""
+    a_i = ai_difficulty(difficulty)
+    game_map = map_size(size)
+    print("OPTIONS")
+    print(f"Current Difficulty: {a_i} - Current Map Size: {game_map}")
+    print("1. [E]asy")
+    print("2. [N]ormal")
+    print("3. [H]ard")
+    print("4. [B]ack")
+    choice = input("Please enter your choice here: ").lower()
+    validity = valid_difficulty_input(choice)
 
 
 def map_screen(difficulty, size):
