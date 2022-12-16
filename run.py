@@ -122,9 +122,9 @@ def options_output(validity, choice, difficulty, size):
     """funtion controls result of user input on menu screen"""
     if not validity:
         print(
-            f"Invalid input, please input one of the following: {OPTIONS_INPUT}"
+            f"Invalid input, please input one of the following:{OPTIONS_INPUT}"
             )
-        menu_screen(difficulty, size)
+        options_screen(difficulty, size)
 
     if choice == "1" or choice == "d" or choice == "difficulty":
         difficulty_screen(difficulty, size)
@@ -162,6 +162,27 @@ def valid_difficulty_input(choice):
     return is_valid
 
 
+def difficulty_output(validity, choice, difficulty, size):
+    """funtion controls result of user input on difficulty screen"""
+    if not validity:
+        print(
+            f"Invalid input, please input one of the following: {AI_INPUT}"
+            )
+        difficulty_screen(difficulty, size)
+
+    if choice == "1" or choice == "e" or choice == "easy":
+        difficulty = 0
+        difficulty_screen(difficulty, size)
+    elif choice == "2" or choice == "n" or choice == "normal":
+        difficulty = 1
+        difficulty_screen(difficulty, size)
+    elif choice == "3" or choice == "h" or choice == "hard":
+        difficulty = 2
+        difficulty_screen(difficulty, size)
+    elif choice == "4" or choice == "b" or choice == "back":
+        options_screen(difficulty, size)
+
+
 def difficulty_screen(difficulty, size):
     """funtion that controls the difficulty screen"""
     a_i = ai_difficulty(difficulty)
@@ -174,6 +195,7 @@ def difficulty_screen(difficulty, size):
     print("4. [B]ack")
     choice = input("Please enter your choice here: ").lower()
     validity = valid_difficulty_input(choice)
+    difficulty_output(validity, choice, difficulty, size)
 
 
 def map_screen(difficulty, size):
