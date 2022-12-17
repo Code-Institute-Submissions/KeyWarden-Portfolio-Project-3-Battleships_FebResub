@@ -1332,13 +1332,13 @@ def place_current_ship_small(number_placed):
                 "You will now choose the row and collumn of the" +
                 "top-most segment of the ship."
                 )
-        row_choice = input("Please enter the row number here: ")
+        row_choice = input("Please enter the row number here: \n")
         row_validity = player_map_small.validate_row_placement(
             player_carrier.direction, 5, row_choice
             )
         if not row_validity:
             place_current_ship_small_invalid_input(number_placed)
-        col_choice = input("Please enter the collumn letter here: ").upper()
+        col_choice = input("Please enter the collumn letter here: \n").upper()
         collumn_validity = player_map_small.validate_col_place(
             player_carrier.direction, 5, col_choice
             )
@@ -1396,7 +1396,7 @@ def placing_ship(number_placed):
             print("Current orientation: Horizontal (left to right)")
             print("1. [P]lace")
             print("2. [R]otate")
-            choice = input("Please enter your choice here: ")
+            choice = input("Please enter your choice here: \n")
             validity = valid_start_placing_input(choice)
             place_ships_small_output(validity, choice, number_placed)
         elif player_carrier.direction == 1:
@@ -1407,7 +1407,7 @@ def placing_ship(number_placed):
             print("Current orientation: Vertical (top to bottom)")
             print("1. [P]lace")
             print("2. [R]otate")
-            choice = input("Please enter your choice here: ")
+            choice = input("Please enter your choice here: \n")
             validity = valid_start_placing_input(choice)
             place_ships_small_output(validity, choice, number_placed)
     elif number_placed == 2:
@@ -1419,7 +1419,7 @@ def placing_ship(number_placed):
             print("Current orientation: Horizontal (left to right)")
             print("1. [P]lace")
             print("2. [R]otate")
-            choice = input("Please enter your choice here: ")
+            choice = input("Please enter your choice here: \n")
             validity = valid_start_placing_input(choice)
             place_ships_small_output(validity, choice, number_placed)
         elif player_battleship.direction == 1:
@@ -1430,7 +1430,7 @@ def placing_ship(number_placed):
             print("Current orientation: Vertical (top to bottom)")
             print("1. [P]lace")
             print("2. [R]otate")
-            choice = input("Please enter your choice here: ")
+            choice = input("Please enter your choice here: \n")
             validity = valid_start_placing_input(choice)
             place_ships_small_output(validity, choice, number_placed)
     elif number_placed == 3:
@@ -1442,7 +1442,7 @@ def placing_ship(number_placed):
             print("Current orientation: Horizontal (left to right)")
             print("1. [P]lace")
             print("2. [R]otate")
-            choice = input("Please enter your choice here: ")
+            choice = input("Please enter your choice here: \n")
             validity = valid_start_placing_input(choice)
             place_ships_small_output(validity, choice, number_placed)
         elif player_submarine.direction == 1:
@@ -1453,7 +1453,7 @@ def placing_ship(number_placed):
             print("Current orientation: Vertical (top to bottom)")
             print("1. [P]lace")
             print("2. [R]otate")
-            choice = input("Please enter your choice here: ")
+            choice = input("Please enter your choice here: \n")
             validity = valid_start_placing_input(choice)
             place_ships_small_output(validity, choice, number_placed)
     elif number_placed == 4:
@@ -1465,7 +1465,7 @@ def placing_ship(number_placed):
             print("Current orientation: Horizontal (left to right)")
             print("1. [P]lace")
             print("2. [R]otate")
-            choice = input("Please enter your choice here: ")
+            choice = input("Please enter your choice here: \n")
             validity = valid_start_placing_input(choice)
             place_ships_small_output(validity, choice, number_placed)
         elif player_destroyer.direction == 1:
@@ -1476,7 +1476,7 @@ def placing_ship(number_placed):
             print("Current orientation: Vertical (top to bottom)")
             print("1. [P]lace")
             print("2. [R]otate")
-            choice = input("Please enter your choice here: ")
+            choice = input("Please enter your choice here: \n")
             validity = valid_start_placing_input(choice)
             place_ships_small_output(validity, choice, number_placed)
     elif number_placed == 5:
@@ -1488,7 +1488,7 @@ def placing_ship(number_placed):
             print("Current orientation: Horizontal (left to right)")
             print("1. [P]lace")
             print("2. [R]otate")
-            choice = input("Please enter your choice here: ")
+            choice = input("Please enter your choice here: \n")
             validity = valid_start_placing_input(choice)
             place_ships_small_output(validity, choice, number_placed)
         elif player_gunboat.direction == 1:
@@ -1499,7 +1499,7 @@ def placing_ship(number_placed):
             print("Current orientation: Vertical (top to bottom)")
             print("1. [P]lace")
             print("2. [R]otate")
-            choice = input("Please enter your choice here: ")
+            choice = input("Please enter your choice here: \n")
             validity = valid_start_placing_input(choice)
             place_ships_small_output(validity, choice, number_placed)
 
@@ -1560,7 +1560,7 @@ def menu_screen(difficulty, size):
     print("1. [S]tart")
     print("2. [O]ptions")
     print("3. [L]eaderboard")
-    choice = input("Please enter your choice here: ").lower()
+    choice = input("Please enter your choice here: \n").lower()
     validity = valid_menu_input(choice)
     menu_output(validity, choice, difficulty, size)
 
@@ -1604,7 +1604,7 @@ def options_screen(difficulty, size):
     print("1. [D]ifficulty")
     print("2. [M]ap")
     print("3. [B]ack")
-    choice = input("Please enter your choice here: ").lower()
+    choice = input("Please enter your choice here: \n").lower()
     validity = valid_options_input(choice)
     options_output(validity, choice, difficulty, size)
 
@@ -1654,7 +1654,7 @@ def difficulty_screen(difficulty, size):
     print("2. [N]ormal")
     print("3. [H]ard")
     print("4. [B]ack")
-    choice = input("Please enter your choice here: ").lower()
+    choice = input("Please enter your choice here: \n").lower()
     validity = valid_difficulty_input(choice)
     difficulty_output(validity, choice, difficulty, size)
 
@@ -1704,7 +1704,7 @@ def map_screen(difficulty, size):
     print("2. [M]edium (15x15)")
     print("3. [L]arge (20x20)")
     print("4. [B]ack")
-    choice = input("Please enter your choice here: ").lower()
+    choice = input("Please enter your choice here: \n").lower()
     validity = valid_map_input(choice)
     map_output(validity, choice, difficulty, size)
 
