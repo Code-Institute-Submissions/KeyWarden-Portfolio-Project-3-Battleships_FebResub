@@ -20,4 +20,8 @@ Unfortunately, I became over-confidant in this project, and was unable to finish
 * Almost all input validation functions have been created, missing only the Leaderboard and Firing input validation methods.
 * Approximately half of the work on the methods allowing the player to place their ships on their map has been completed, with most of the remaining half consisting primarily of copy-paste work that then needs minor edits to function, and the methods for the AI to do the same.
 
+## Unfixed Bug
+
+One "bug" I have not yet been able to remedy is that when starting ship placement you end up in an infinte loop. Most of the problem seems to simply be the parts I have not yet finished coding.
+
 At this point there is simply nothing I can do to finish this work in even a simplified state by the deadline, and so I am submitting what I can here instead. Thank you.
