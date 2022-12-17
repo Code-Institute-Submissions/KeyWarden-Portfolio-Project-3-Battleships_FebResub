@@ -31,73 +31,57 @@ MAP_SIZE_INPUT = [
 LEADERBOARD_INPUT = ["1", "b", "back"]
 SHIP_INPUT = ["1", "p", "place", "2", "r", "rotate"]
 SMALL_INPUT_CARRIER = [
-    "1", "2", "3", "4", "5", "6", "A", "B", "C", "D", "E", "F"
+    "1", "2", "3", "4", "5", "6"
     ]
 MEDIUM_INPUT_CARRIER = [
-    "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "A",
-    "B", "C", "D", "E", "F", "G", "H", "I", "J", "K"
+    "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11"
      ]
 LARGE_INPUT_CARRIER = [
     "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12",
-    "13", "14", "15", "16", "A", "B", "C", "D", "E", "F", "G", "H",
-    "I", "J", "K", "L", "M", "N", "O", "P"
+    "13", "14", "15", "16"
     ]
 SMALL_INPUT_BATTLESHIP = [
-    "1", "2", "3", "4", "5", "6", "7", "A", "B", "C", "D", "E",
-    "F", "G"
+    "1", "2", "3", "4", "5", "6", "7"
     ]
 MEDIUM_INPUT_BATTLESHIP = [
-    "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12",
-    "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L"
+    "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"
     ]
 LARGE_INPUT_BATTLESHIP = [
     "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12",
-    "13", "14", "15", "16", "17", "A", "B", "C", "D", "E", "F", "G",
-    "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q"
+    "13", "14", "15", "16", "17"
     ]
 SMALL_INPUT_SUB_DES = [
-    "1", "2", "3", "4", "5", "6", "7", "8", "A", "B", "C", "D", "E",
-    "F", "G", "H"
+    "1", "2", "3", "4", "5", "6", "7", "8"
     ]
 MEDIUM_INPUT_SUB_DES = [
     "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12",
-    "13", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K",
-    "L", "M"
+    "13"
     ]
 LARGE_INPUT_SUB_DES = [
     "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12",
-    "13", "14", "15", "16", "17", "18", "A", "B", "C", "D", "E", "F",
-    "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R"
+    "13", "14", "15", "16", "17", "18"
     ]
 SMALL_INPUT_GUNBOAT = [
-    "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D",
-    "E", "F", "G", "H", "I"
+    "1", "2", "3", "4", "5", "6", "7", "8", "9"
     ]
 MEDIUM_INPUT_GUNBOAT = [
     "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12",
-    "13", "14", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J",
-    "K", "L", "M", "N",
+    "13", "14"
     ]
 LARGE_INPUT_GUNBOAT = [
     "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12",
-    "13", "14", "15", "16", "17", "18", "19", "A", "B", "C", "D",
-    "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P",
-    "Q", "R", "S"
+    "13", "14", "15", "16", "17", "18", "19"
     ]
 SMALL_INPUT = [
-    "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "A", "B", "C",
-    "D", "E", "F", "G", "H", "I", "J"
+    "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"
     ]
 MEDIUM_INPUT = [
     "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12",
-    "13", "14", "15", "A", "B", "C", "D", "E", "F", "G", "H", "I",
-    "J", "K", "L", "M", "N", "O"
+    "13", "14", "15"
     ]
 LARGE_INPUT = [
     "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12",
-    "13", "14", "15", "16", "17", "18", "19", "20", "A", "B", "C",
-    "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P",
-    "Q", "R", "S", "T"
+    "13", "14", "15", "16", "17", "18", "19", "20"
     ]
 
 """global variables"""
@@ -431,7 +415,7 @@ class MapGrid:
             ]
 
     def validate_row_placement(
-        self, ship_direction, ship_length, row_choice, number_placed
+        self, ship_direction, ship_length, row_choice
     ):
         """validates row placement input of ship on map"""
         is_valid = False
@@ -669,7 +653,7 @@ class MapGrid:
         return is_valid
 
     def validate_col_place(
-        self, ship_direction, ship_length, collumn_choice, number_placed
+        self, ship_direction, ship_length, collumn_choice
     ):
         """validates collumn placement input of ship on map"""
         is_valid = False
@@ -1307,8 +1291,7 @@ def taken_spaces(number_placed, who):
 def place_current_ship_small_invalid_input(number_placed):
     """controls output in event of an invalid input"""
     print(
-        "Invalid input, please enter a number between 1 and 10, or a letter" +
-        " between A and J if enterring a collumn."
+        "Invalid input, please enter a number between 1 and 10."
         )
     print(
         "Also, please remember that your ship cannot go over" +
@@ -1317,8 +1300,13 @@ def place_current_ship_small_invalid_input(number_placed):
     place_current_ship_small(number_placed)
 
 
-def update_placements(row_choice, collumn_choice, ship_length):
-    """updates map and ship objects with ship placement info"""
+def update_small_places(row_choice, collumn_choice, number_placed):
+    """updates small map and ship objects with ship placement info"""
+    row = int(row_choice)
+    collumn = int(collumn_choice)
+    if number_placed == 1:
+        if row == 1:
+            print("placeholder")
 
 
 def place_current_ship_small(number_placed):
@@ -1346,13 +1334,13 @@ def place_current_ship_small(number_placed):
                 )
         row_choice = input("Please enter the row number here: ")
         row_validity = player_map_small.validate_row_placement(
-            player_carrier.direction, 5, row_choice, number_placed
+            player_carrier.direction, 5, row_choice
             )
         if not row_validity:
             place_current_ship_small_invalid_input(number_placed)
         col_choice = input("Please enter the collumn letter here: ").upper()
         collumn_validity = player_map_small.validate_col_place(
-            player_carrier.direction, 5, col_choice, number_placed
+            player_carrier.direction, 5, col_choice
             )
         if not collumn_validity:
             place_current_ship_small_invalid_input(number_placed)
