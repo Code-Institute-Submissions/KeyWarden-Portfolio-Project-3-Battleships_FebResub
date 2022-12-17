@@ -24,4 +24,10 @@ Unfortunately, I became over-confidant in this project, and was unable to finish
 
 One "bug" I have not yet been able to remedy is that when starting ship placement you end up in an infinte loop. Most of the problem seems to simply be the parts I have not yet finished coding.
 
+## Sources
+
+I copied the code for connecting the program to the Google Sheets API from the love sandwiches project.
+
+## Conclusion
+
 At this point there is simply nothing I can do to finish this work in even a simplified state by the deadline, and so I am submitting what I can here instead. Thank you.
