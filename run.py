@@ -100,6 +100,101 @@ LARGE_INPUT = [
     "Q", "R", "S", "T"
     ]
 
+"""global variables"""
+taken_player_grid_spaces = []
+taken_enemy_grid_spaces = []
+
+
+def convert_collumn(collumn):
+    """converts collumn number into letter"""
+    letter = ""
+    if collumn == 1:
+        letter = "A"
+    elif collumn == 2:
+        letter = "B"
+    elif collumn == 3:
+        letter = "C"
+    elif collumn == 4:
+        letter = "D"
+    elif collumn == 5:
+        letter = "E"
+    elif collumn == 6:
+        letter = "F"
+    elif collumn == 7:
+        letter = "G"
+    elif collumn == 8:
+        letter = "H"
+    elif collumn == 9:
+        letter = "I"
+    elif collumn == 10:
+        letter = "J"
+    elif collumn == 11:
+        letter = "K"
+    elif collumn == 12:
+        letter = "L"
+    elif collumn == 13:
+        letter = "M"
+    elif collumn == 14:
+        letter = "N"
+    elif collumn == 15:
+        letter = "O"
+    elif collumn == 16:
+        letter = "P"
+    elif collumn == 17:
+        letter = "Q"
+    elif collumn == 18:
+        letter = "R"
+    elif collumn == 19:
+        letter = "S"
+    elif collumn == 20:
+        letter = "T"
+    return letter
+
+
+def convert_letter(letter):
+    """converts collumn letter into number"""
+    if letter == "A":
+        collumn = 1
+    elif letter == "B":
+        collumn = 2
+    elif letter == "C":
+        collumn = 3
+    elif letter == "D":
+        collumn = 4
+    elif letter == "E":
+        collumn = 5
+    elif letter == "F":
+        collumn = 6
+    elif letter == "G":
+        collumn = 7
+    elif letter == "H":
+        collumn = 8
+    elif letter == "I":
+        collumn = 9
+    elif letter == "J":
+        collumn = 10
+    elif letter == "K":
+        collumn = 11
+    elif letter == "L":
+        collumn = 12
+    elif letter == "M":
+        collumn = 13
+    elif letter == "N":
+        collumn = 14
+    elif letter == "O":
+        collumn = 15
+    elif letter == "P":
+        collumn = 16
+    elif letter == "Q":
+        collumn = 17
+    elif letter == "R":
+        collumn = 18
+    elif letter == "S":
+        collumn = 19
+    elif letter == "T":
+        collumn = 20
+    return collumn
+
 
 class MapGrid:
     """define a class to handle the map grids for the game"""
@@ -335,8 +430,10 @@ class MapGrid:
                 "---|", "---|", "---|", "---|", "---|"
             ]
 
-    def validate_row_placement(self, ship_direction, ship_length, row_choice):
-        "validates row placement input of ship on map"
+    def validate_row_placement(
+        self, ship_direction, ship_length, row_choice, number_placed
+    ):
+        """validates row placement input of ship on map"""
         is_valid = False
         if self.size == 0:
             if ship_length == 5:
@@ -571,8 +668,10 @@ class MapGrid:
                             num += 1
         return is_valid
 
-    def validate_col_place(self, ship_direction, ship_length, collumn_choice):
-        "validates collumn placement input of ship on map"
+    def validate_col_place(
+        self, ship_direction, ship_length, collumn_choice, number_placed
+    ):
+        """validates collumn placement input of ship on map"""
         is_valid = False
         if self.size == 0:
             if ship_length == 5:
@@ -587,7 +686,7 @@ class MapGrid:
                 elif ship_direction == 1:
                     num = 0
                     while num < len(SMALL_INPUT_CARRIER):
-                        if int(row_choice) == SMALL_INPUT_CARRIER[num]:
+                        if collumn_choice == SMALL_INPUT_CARRIER[num]:
                             is_valid = True
                             num = len(SMALL_INPUT_CARRIER)
                         else:
@@ -596,7 +695,7 @@ class MapGrid:
                 if ship_direction == 0:
                     num = 0
                     while num < len(SMALL_INPUT):
-                        if int(row_choice) == SMALL_INPUT[num]:
+                        if collumn_choice == SMALL_INPUT[num]:
                             is_valid = True
                             num = len(SMALL_INPUT)
                         else:
@@ -604,7 +703,7 @@ class MapGrid:
                 elif ship_direction == 1:
                     num = 0
                     while num < len(SMALL_INPUT_BATTLESHIP):
-                        if int(row_choice) == SMALL_INPUT_BATTLESHIP[num]:
+                        if collumn_choice == SMALL_INPUT_BATTLESHIP[num]:
                             is_valid = True
                             num = len(SMALL_INPUT_BATTLESHIP)
                         else:
@@ -613,7 +712,7 @@ class MapGrid:
                 if ship_direction == 0:
                     num = 0
                     while num < len(SMALL_INPUT):
-                        if int(row_choice) == SMALL_INPUT[num]:
+                        if collumn_choice == SMALL_INPUT[num]:
                             is_valid = True
                             num = len(SMALL_INPUT)
                         else:
@@ -621,7 +720,7 @@ class MapGrid:
                 elif ship_direction == 1:
                     num = 0
                     while num < len(SMALL_INPUT_SUB_DES):
-                        if int(row_choice) == SMALL_INPUT_SUB_DES[num]:
+                        if collumn_choice == SMALL_INPUT_SUB_DES[num]:
                             is_valid = True
                             num = len(SMALL_INPUT_SUB_DES)
                         else:
@@ -630,7 +729,7 @@ class MapGrid:
                 if ship_direction == 0:
                     num = 0
                     while num < len(SMALL_INPUT):
-                        if int(row_choice) == SMALL_INPUT[num]:
+                        if collumn_choice == SMALL_INPUT[num]:
                             is_valid = True
                             num = len(SMALL_INPUT)
                         else:
@@ -638,7 +737,7 @@ class MapGrid:
                 elif ship_direction == 1:
                     num = 0
                     while num < len(SMALL_INPUT_GUNBOAT):
-                        if int(row_choice) == SMALL_INPUT_GUNBOAT[num]:
+                        if collumn_choice == SMALL_INPUT_GUNBOAT[num]:
                             is_valid = True
                             num = len(SMALL_INPUT_GUNBOAT)
                         else:
@@ -648,7 +747,7 @@ class MapGrid:
                 if ship_direction == 0:
                     num = 0
                     while num < len(MEDIUM_INPUT):
-                        if int(row_choice) == MEDIUM_INPUT[num]:
+                        if collumn_choice == MEDIUM_INPUT[num]:
                             is_valid = True
                             num = len(MEDIUM_INPUT)
                         else:
@@ -656,7 +755,7 @@ class MapGrid:
                 elif ship_direction == 1:
                     num = 0
                     while num < len(MEDIUM_INPUT_CARRIER):
-                        if int(row_choice) == MEDIUM_INPUT_CARRIER[num]:
+                        if collumn_choice == MEDIUM_INPUT_CARRIER[num]:
                             is_valid = True
                             num = len(MEDIUM_INPUT_CARRIER)
                         else:
@@ -665,7 +764,7 @@ class MapGrid:
                 if ship_direction == 0:
                     num = 0
                     while num < len(MEDIUM_INPUT):
-                        if int(row_choice) == MEDIUM_INPUT[num]:
+                        if collumn_choice == MEDIUM_INPUT[num]:
                             is_valid = True
                             num = len(MEDIUM_INPUT)
                         else:
@@ -673,7 +772,7 @@ class MapGrid:
                 elif ship_direction == 1:
                     num = 0
                     while num < len(MEDIUM_INPUT_BATTLESHIP):
-                        if int(row_choice) == MEDIUM_INPUT_BATTLESHIP[num]:
+                        if collumn_choice == MEDIUM_INPUT_BATTLESHIP[num]:
                             is_valid = True
                             num = len(MEDIUM_INPUT_BATTLESHIP)
                         else:
@@ -682,7 +781,7 @@ class MapGrid:
                 if ship_direction == 0:
                     num = 0
                     while num < len(MEDIUM_INPUT):
-                        if int(row_choice) == MEDIUM_INPUT[num]:
+                        if collumn_choice == MEDIUM_INPUT[num]:
                             is_valid = True
                             num = len(MEDIUM_INPUT)
                         else:
@@ -690,7 +789,7 @@ class MapGrid:
                 elif ship_direction == 1:
                     num = 0
                     while num < len(MEDIUM_INPUT_SUB_DES):
-                        if int(row_choice) == MEDIUM_INPUT_SUB_DES[num]:
+                        if collumn_choice == MEDIUM_INPUT_SUB_DES[num]:
                             is_valid = True
                             num = len(MEDIUM_INPUT_SUB_DES)
                         else:
@@ -699,7 +798,7 @@ class MapGrid:
                 if ship_direction == 0:
                     num = 0
                     while num < len(MEDIUM_INPUT):
-                        if int(row_choice) == MEDIUM_INPUT[num]:
+                        if collumn_choice == MEDIUM_INPUT[num]:
                             is_valid = True
                             num = len(MEDIUM_INPUT)
                         else:
@@ -707,7 +806,7 @@ class MapGrid:
                 elif ship_direction == 1:
                     num = 0
                     while num < len(MEDIUM_INPUT_GUNBOAT):
-                        if int(row_choice) == MEDIUM_INPUT_GUNBOAT[num]:
+                        if collumn_choice == MEDIUM_INPUT_GUNBOAT[num]:
                             is_valid = True
                             num = len(MEDIUM_INPUT_GUNBOAT)
                         else:
@@ -717,7 +816,7 @@ class MapGrid:
                 if ship_direction == 0:
                     num = 0
                     while num < len(LARGE_INPUT):
-                        if int(row_choice) == LARGE_INPUT[num]:
+                        if collumn_choice == LARGE_INPUT[num]:
                             is_valid = True
                             num = len(LARGE_INPUT)
                         else:
@@ -725,7 +824,7 @@ class MapGrid:
                 elif ship_direction == 1:
                     num = 0
                     while num < len(LARGE_INPUT_CARRIER):
-                        if int(row_choice) == LARGE_INPUT_CARRIER[num]:
+                        if collumn_choice == LARGE_INPUT_CARRIER[num]:
                             is_valid = True
                             num = len(LARGE_INPUT_CARRIER)
                         else:
@@ -734,7 +833,7 @@ class MapGrid:
                 if ship_direction == 0:
                     num = 0
                     while num < len(LARGE_INPUT):
-                        if int(row_choice) == LARGE_INPUT[num]:
+                        if collumn_choice == LARGE_INPUT[num]:
                             is_valid = True
                             num = len(LARGE_INPUT)
                         else:
@@ -742,7 +841,7 @@ class MapGrid:
                 elif ship_direction == 1:
                     num = 0
                     while num < len(LARGE_INPUT_BATTLESHIP):
-                        if int(row_choice) == LARGE_INPUT_BATTLESHIP[num]:
+                        if collumn_choice == LARGE_INPUT_BATTLESHIP[num]:
                             is_valid = True
                             num = len(LARGE_INPUT_BATTLESHIP)
                         else:
@@ -751,7 +850,7 @@ class MapGrid:
                 if ship_direction == 0:
                     num = 0
                     while num < len(LARGE_INPUT):
-                        if int(row_choice) == LARGE_INPUT[num]:
+                        if collumn_choice == LARGE_INPUT[num]:
                             is_valid = True
                             num = len(LARGE_INPUT)
                         else:
@@ -759,7 +858,7 @@ class MapGrid:
                 elif ship_direction == 1:
                     num = 0
                     while num < len(LARGE_INPUT_SUB_DES):
-                        if int(row_choice) == LARGE_INPUT_SUB_DES[num]:
+                        if collumn_choice == LARGE_INPUT_SUB_DES[num]:
                             is_valid = True
                             num = len(LARGE_INPUT_SUB_DES)
                         else:
@@ -768,7 +867,7 @@ class MapGrid:
                 if ship_direction == 0:
                     num = 0
                     while num < len(LARGE_INPUT):
-                        if int(row_choice) == LARGE_INPUT[num]:
+                        if collumn_choice == LARGE_INPUT[num]:
                             is_valid = True
                             num = len(LARGE_INPUT)
                         else:
@@ -776,7 +875,7 @@ class MapGrid:
                 elif ship_direction == 1:
                     num = 0
                     while num < len(LARGE_INPUT_GUNBOAT):
-                        if int(collumn_choice) == LARGE_INPUT_GUNBOAT[num]:
+                        if collumn_choice == LARGE_INPUT_GUNBOAT[num]:
                             is_valid = True
                             num = len(LARGE_INPUT_GUNBOAT)
                         else:
@@ -1046,97 +1145,6 @@ class EnemyAI:
                             self.turn_collumn += 1
 
 
-def convert_collumn(collumn):
-    """converts collumn number into letter"""
-    letter = ""
-    if collumn == 1:
-        letter = "A"
-    elif collumn == 2:
-        letter = "B"
-    elif collumn == 3:
-        letter = "C"
-    elif collumn == 4:
-        letter = "D"
-    elif collumn == 5:
-        letter = "E"
-    elif collumn == 6:
-        letter = "F"
-    elif collumn == 7:
-        letter = "G"
-    elif collumn == 8:
-        letter = "H"
-    elif collumn == 9:
-        letter = "I"
-    elif collumn == 10:
-        letter = "J"
-    elif collumn == 11:
-        letter = "K"
-    elif collumn == 12:
-        letter = "L"
-    elif collumn == 13:
-        letter = "M"
-    elif collumn == 14:
-        letter = "N"
-    elif collumn == 15:
-        letter = "O"
-    elif collumn == 16:
-        letter = "P"
-    elif collumn == 17:
-        letter = "Q"
-    elif collumn == 18:
-        letter = "R"
-    elif collumn == 19:
-        letter = "S"
-    elif collumn == 20:
-        letter = "T"
-    return letter
-
-
-def convert_letter(letter):
-    """converts collumn letter into number"""
-    if letter == "A":
-        collumn = 1
-    elif letter == "B":
-        collumn = 2
-    elif letter == "C":
-        collumn = 3
-    elif letter == "D":
-        collumn = 4
-    elif letter == "E":
-        collumn = 5
-    elif letter == "F":
-        collumn = 6
-    elif letter == "G":
-        collumn = 7
-    elif letter == "H":
-        collumn = 8
-    elif letter == "I":
-        collumn = 9
-    elif letter == "J":
-        collumn = 10
-    elif letter == "K":
-        collumn = 11
-    elif letter == "L":
-        collumn = 12
-    elif letter == "M":
-        collumn = 13
-    elif letter == "N":
-        collumn = 14
-    elif letter == "O":
-        collumn = 15
-    elif letter == "P":
-        collumn = 16
-    elif letter == "Q":
-        collumn = 17
-    elif letter == "R":
-        collumn = 18
-    elif letter == "S":
-        collumn = 19
-    elif letter == "T":
-        collumn = 20
-    return collumn
-
-
 class Ship:
     """class for all ships used"""
     def __init__(self, type, direction=0):
@@ -1247,6 +1255,55 @@ def valid_start_placing_input(choice):
     return is_valid
 
 
+def taken_spaces(number_placed, who):
+    """ensures already taken spaces are tracked"""
+    if number_placed == 1:
+        if who == "player":
+            for i in len(player_carrier.segments):
+                taken_space = player_carrier.segments[i]
+                taken_player_grid_spaces.append(taken_space)
+        elif who == "enemy":
+            for i in len(enemy_carrier.segments):
+                taken_space = enemy_carrier.segments[i]
+                taken_enemy_grid_spaces.append(taken_space)
+    elif number_placed == 2:
+        if who == "player":
+            for i in len(player_battleship.segments):
+                taken_space = player_battleship.segments[i]
+                taken_player_grid_spaces.append(taken_space)
+        elif who == "enemy":
+            for i in len(enemy_battleship.segments):
+                taken_space = enemy_battleship.segments[i]
+                taken_enemy_grid_spaces.append(taken_space)
+    elif number_placed == 3:
+        if who == "player":
+            for i in len(player_submarine.segments):
+                taken_space = player_submarine.segments[i]
+                taken_player_grid_spaces.append(taken_space)
+        elif who == "enemy":
+            for i in len(enemy_submarine.segments):
+                taken_space = enemy_submarine.segments[i]
+                taken_enemy_grid_spaces.append(taken_space)
+    elif number_placed == 4:
+        if who == "player":
+            for i in len(player_destroyer.segments):
+                taken_space = player_destroyer.segments[i]
+                taken_player_grid_spaces.append(taken_space)
+        elif who == "enemy":
+            for i in len(enemy_destroyer.segments):
+                taken_space = enemy_destroyer.segments[i]
+                taken_enemy_grid_spaces.append(taken_space)
+    elif number_placed == 5:
+        if who == "player":
+            for i in len(player_gunboat.segments):
+                taken_space = player_gunboat.segments[i]
+                taken_player_grid_spaces.append(taken_space)
+        elif who == "enemy":
+            for i in len(enemy_gunboat.segments):
+                taken_space = enemy_gunboat.segments[i]
+                taken_enemy_grid_spaces.append(taken_space)
+
+
 def place_current_ship_small_invalid_input(number_placed):
     """controls output in event of an invalid input"""
     print(
@@ -1258,6 +1315,10 @@ def place_current_ship_small_invalid_input(number_placed):
         " the edge of the map"
         )
     place_current_ship_small(number_placed)
+
+
+def update_placements(row_choice, collumn_choice, ship_length):
+    """updates map and ship objects with ship placement info"""
 
 
 def place_current_ship_small(number_placed):
@@ -1285,15 +1346,16 @@ def place_current_ship_small(number_placed):
                 )
         row_choice = input("Please enter the row number here: ")
         row_validity = player_map_small.validate_row_placement(
-            player_carrier.direction, 5, row_choice
+            player_carrier.direction, 5, row_choice, number_placed
             )
         if not row_validity:
             place_current_ship_small_invalid_input(number_placed)
-        collumn_choice = input("Please enter the collumn letter here: ")
+        col_choice = input("Please enter the collumn letter here: ").upper()
         collumn_validity = player_map_small.validate_col_place(
-            player_carrier.direction, 5, collumn_choice
+            player_carrier.direction, 5, col_choice, number_placed
             )
         if not collumn_validity:
+            place_current_ship_small_invalid_input(number_placed)
 
 
 def place_ships_small_output(validity, choice, number_placed):
