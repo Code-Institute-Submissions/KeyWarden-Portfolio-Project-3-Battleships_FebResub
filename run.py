@@ -49,6 +49,11 @@ LARGE_MAP_ROW_INPUT = [
     "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"
     ]
 
+"""declare variables for input verification"""
+map_col_input = []
+map_row_input = []
+all_hit_grids = []
+
 """global variables"""
 taken_player_grid_spaces = []
 taken_enemy_grid_spaces = []
