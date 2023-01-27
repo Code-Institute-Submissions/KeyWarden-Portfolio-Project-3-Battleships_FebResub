@@ -518,10 +518,6 @@ class MapGrid:
             print(twentieth_row)
             print(dividing_row)
 
-    def valid_enemy_shot_input(self, row, collumn):
-        """function validates ai input when ai chooses a grid to shoot"""
-        print("placeholder")
-
 
 class EnemyAI:
     """defining a class to manage the AI"""
@@ -619,16 +615,7 @@ class Ship:
 
     def ship_placed(self, row, collumn):
         """function for filling segments lists with co-ordinates"""
-        if self.direction == 0:
-            for i in range(len(self.segments)):
-                letter = convert_collumn(collumn)
-                self.segments[i] = letter + str(row)
-                collumn += 1
-        elif self.direction == 1:
-            letter = convert_collumn(collumn)
-            for i in range(len(self.segments)):
-                self.segments[i] = letter + str(row)
-                row += 1
+        print("placeholder")
 
 
 """declaring all possible class instances to be used within later functions"""
@@ -662,17 +649,57 @@ enemy_destroyer = Ship("destroyer")
 enemy_gunboat = Ship("gunboat")
 
 
-def valid_menu_input(choice):
-    """function to check validity of input on menu screen"""
-
-    num = 0
+def valid_general_input(choice, screen):
+    """function to check validity of general input on all screens"""
     is_valid = False
-    while num < 9:
-        if choice == MENU_INPUT[num]:
-            is_valid = True
-            num = 9
-        else:
-            num += 1
+    if screen == "menu":
+        for i in range(len(MENU_INPUT)):
+            if choice.lower() == MENU_INPUT[i]:
+                is_valid = True
+    elif screen == "options":
+        for i in range(len(OPTIONS_INPUT)):
+            if choice.lower() == OPTIONS_INPUT[i]:
+                is_valid = True
+    elif screen == "difficulty":
+        for i in range(len(AI_INPUT)):
+            if choice.lower() == AI_INPUT[i]:
+                is_valid = True
+    elif screen == "size":
+        for i in range(len(MAP_SIZE_INPUT)):
+            if choice.lower() == MAP_SIZE_INPUT[i]:
+                is_valid = True
+    elif screen == "leaderboard":
+        for i in range(len(LEADERBOARD_INPUT)):
+            if choice.lower() == LEADERBOARD_INPUT[i]:
+                is_valid = True
+    elif screen == "rotate":
+        for i in range(len(SHIP_INPUT)):
+            if choice.lower() == SHIP_INPUT[i]:
+                is_valid = True
+    elif screen == "place-col-small":
+        for i in range(len(SMALL_MAP_COL_INPUT)):
+            if choice.lower() == SMALL_MAP_COL_INPUT[i]:
+                is_valid = True
+    elif screen == "place-col-medium":
+        for i in range(len(MED_MAP_COL_INPUT)):
+            if choice.lower() == MED_MAP_COL_INPUT[i]:
+                is_valid = True
+    elif screen == "place-col-large":
+        for i in range(len(LARGE_MAP_COL_INPUT)):
+            if choice.lower() == LARGE_MAP_COL_INPUT[i]:
+                is_valid = True
+    elif screen == "place-row-small":
+        for i in range(len(SMALL_MAP_ROW_INPUT)):
+            if choice.lower() == SMALL_MAP_ROW_INPUT[i]:
+                is_valid = True
+    elif screen == "place-row-medium":
+        for i in range(len(MED_MAP_ROW_INPUT)):
+            if choice.lower() == MED_MAP_ROW_INPUT[i]:
+                is_valid = True
+    elif screen == "place-row-large":
+        for i in range(len(LARGE_MAP_ROW_INPUT)):
+            if choice.lower() == LARGE_MAP_ROW_INPUT[i]:
+                is_valid = True
     return is_valid
 
 
