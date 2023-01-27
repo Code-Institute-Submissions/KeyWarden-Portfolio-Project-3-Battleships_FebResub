@@ -31,13 +31,19 @@ MAP_SIZE_INPUT = [
 LEADERBOARD_INPUT = ["1", "b", "back"]
 SHIP_INPUT = ["1", "p", "place", "2", "r", "rotate"]
 SMALL_MAP_COL_INPUT = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j"]
-MED_MAP_COL_INPUT = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o"]
+MED_MAP_COL_INPUT = [
+    "a", "b", "c", "d", "e", "f", "g", "h", "i", "j",
+    "k", "l", "m", "n", "o"
+    ]
 LARGE_MAP_COL_INPUT = [
     "a", "b", "c", "d", "e", "f", "g", "h", "i", "j",
     "k", "l", "m", "n", "o", "p", "q", "r", "s", "t"
     ]
 SMALL_MAP_ROW_INPUT = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]
-MED_MAP_ROW_INPUT = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15"]
+MED_MAP_ROW_INPUT = [
+    "1", "2", "3", "4", "5", "6", "7", "8", "9", "10",
+    "11", "12", "13", "14", "15"
+    ]
 LARGE_MAP_ROW_INPUT = [
     "1", "2", "3", "4", "5", "6", "7", "8", "9", "10",
     "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"
@@ -48,93 +54,49 @@ taken_player_grid_spaces = []
 taken_enemy_grid_spaces = []
 
 
-def convert_collumn(collumn):
-    """converts collumn number into letter"""
-    letter = ""
-    if collumn == 1:
-        letter = "A"
-    elif collumn == 2:
-        letter = "B"
-    elif collumn == 3:
-        letter = "C"
-    elif collumn == 4:
-        letter = "D"
-    elif collumn == 5:
-        letter = "E"
-    elif collumn == 6:
-        letter = "F"
-    elif collumn == 7:
-        letter = "G"
-    elif collumn == 8:
-        letter = "H"
-    elif collumn == 9:
-        letter = "I"
-    elif collumn == 10:
-        letter = "J"
-    elif collumn == 11:
-        letter = "K"
-    elif collumn == 12:
-        letter = "L"
-    elif collumn == 13:
-        letter = "M"
-    elif collumn == 14:
-        letter = "N"
-    elif collumn == 15:
-        letter = "O"
-    elif collumn == 16:
-        letter = "P"
-    elif collumn == 17:
-        letter = "Q"
-    elif collumn == 18:
-        letter = "R"
-    elif collumn == 19:
-        letter = "S"
-    elif collumn == 20:
-        letter = "T"
-    return letter
-
-
 def convert_letter(letter):
     """converts collumn letter into number"""
-    if letter == "A":
+    check = letter.upper()
+    collumn = 0
+    if check == "A":
         collumn = 1
-    elif letter == "B":
+    elif check == "B":
         collumn = 2
-    elif letter == "C":
+    elif check == "C":
         collumn = 3
-    elif letter == "D":
+    elif check == "D":
         collumn = 4
-    elif letter == "E":
+    elif check == "E":
         collumn = 5
-    elif letter == "F":
+    elif check == "F":
         collumn = 6
-    elif letter == "G":
+    elif check == "G":
         collumn = 7
-    elif letter == "H":
+    elif check == "H":
         collumn = 8
-    elif letter == "I":
+    elif check == "I":
         collumn = 9
-    elif letter == "J":
+    elif check == "J":
         collumn = 10
-    elif letter == "K":
+    elif check == "K":
         collumn = 11
-    elif letter == "L":
+    elif check == "L":
         collumn = 12
-    elif letter == "M":
+    elif check == "M":
         collumn = 13
-    elif letter == "N":
+    elif check == "N":
         collumn = 14
-    elif letter == "O":
+    elif check == "O":
         collumn = 15
-    elif letter == "P":
+    elif check == "P":
         collumn = 16
-    elif letter == "Q":
+    elif check == "Q":
         collumn = 17
-    elif letter == "R":
+    elif check == "R":
         collumn = 18
-    elif letter == "S":
+    elif check == "S":
         collumn = 19
-    elif letter == "T":
+    elif check == "T":
         collumn = 20
     return collumn
 
