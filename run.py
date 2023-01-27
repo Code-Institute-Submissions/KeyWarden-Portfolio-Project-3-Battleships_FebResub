@@ -50,8 +50,8 @@ LARGE_MAP_ROW_INPUT = [
     ]
 
 """declare variables for input verification"""
-map_col_input = []
-map_row_input = []
+player_map_input = []
+enemy_map_input = []
 all_hit_grids = []
 
 """global variables"""
