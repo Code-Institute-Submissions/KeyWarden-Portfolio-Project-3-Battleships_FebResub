@@ -52,7 +52,8 @@ LARGE_MAP_ROW_INPUT = [
 """declare variables for input verification"""
 player_map_input = []
 enemy_map_input = []
-all_hit_grids = []
+all_hit_grids_player = []
+all_hit_grids_enemy = []
 
 """global variables"""
 taken_player_grid_spaces = []
@@ -649,8 +650,230 @@ enemy_destroyer = Ship("destroyer")
 enemy_gunboat = Ship("gunboat")
 
 
-def invalid_specific_input(choice, mode, turn):
+def valid_specific_input(choice, mode, turn, ship, rotation, size):
     """function to check validity of input for placement or shots fired"""
+    is_valid = True
+    if mode == "place":
+        if turn == "player":
+            if ship == 1:
+                if rotation == "vertical":
+                    row = int(choice[1:])
+                    if size == "Small":
+                        if row >= 7:
+                            is_valid = False
+                    elif size == "Medium":
+                        if row >= 12:
+                            is_valid = False
+                    elif size == "Large":
+                        if row >= 17:
+                            is_valid = False
+                elif rotation == "horizontal":
+                    collumn = convert_letter(choice[:1])
+                    if size == "Small":
+                        if collumn >= 7:
+                            is_valid = False
+                    elif size == "Medium":
+                        if collumn >= 12:
+                            is_valid = False
+                    elif size == "Large":
+                        if collumn >= 17:
+                            is_valid = False
+                for i in range(len(player_map_input)):
+                    if choice == player_map_input[i]:
+                        is_valid = False
+            elif ship == 2:
+                if rotation == "vertical":
+                    row = int(choice[1:])
+                    if size == "Small":
+                        if row >= 8:
+                            is_valid = False
+                    elif size == "Medium":
+                        if row >= 13:
+                            is_valid = False
+                    elif size == "Large":
+                        if row >= 18:
+                            is_valid = False
+                elif rotation == "horizontal":
+                    collumn = convert_letter(choice[:1])
+                    if size == "Small":
+                        if collumn >= 8:
+                            is_valid = False
+                    elif size == "Medium":
+                        if collumn >= 13:
+                            is_valid = False
+                    elif size == "Large":
+                        if collumn >= 18:
+                            is_valid = False
+                for i in range(len(player_map_input)):
+                    if choice == player_map_input[i]:
+                        is_valid = False
+            elif ship == 3 or ship == 4:
+                if rotation == "vertical":
+                    row = int(choice[1:])
+                    if size == "Small":
+                        if row >= 9:
+                            is_valid = False
+                    elif size == "Medium":
+                        if row >= 14:
+                            is_valid = False
+                    elif size == "Large":
+                        if row >= 19:
+                            is_valid = False
+                elif rotation == "horizontal":
+                    collumn = convert_letter(choice[:1])
+                    if size == "Small":
+                        if collumn >= 9:
+                            is_valid = False
+                    elif size == "Medium":
+                        if collumn >= 14:
+                            is_valid = False
+                    elif size == "Large":
+                        if collumn >= 19:
+                            is_valid = False
+                for i in range(len(player_map_input)):
+                    if choice == player_map_input[i]:
+                        is_valid = False
+            elif ship == 5:
+                if rotation == "vertical":
+                    row = int(choice[1:])
+                    if size == "Small":
+                        if row >= 10:
+                            is_valid = False
+                    elif size == "Medium":
+                        if row >= 15:
+                            is_valid = False
+                    elif size == "Large":
+                        if row >= 20:
+                            is_valid = False
+                elif rotation == "horizontal":
+                    collumn = convert_letter(choice[:1])
+                    if size == "Small":
+                        if collumn >= 10:
+                            is_valid = False
+                    elif size == "Medium":
+                        if collumn >= 15:
+                            is_valid = False
+                    elif size == "Large":
+                        if collumn >= 20:
+                            is_valid = False
+                for i in range(len(player_map_input)):
+                    if choice == player_map_input[i]:
+                        is_valid = False
+        if turn == "enemy":
+            if ship == 1:
+                if rotation == "vertical":
+                    row = int(choice[1:])
+                    if size == "Small":
+                        if row >= 7:
+                            is_valid = False
+                    elif size == "Medium":
+                        if row >= 12:
+                            is_valid = False
+                    elif size == "Large":
+                        if row >= 17:
+                            is_valid = False
+                elif rotation == "horizontal":
+                    collumn = int(choice[:1])
+                    if size == "Small":
+                        if collumn >= 7:
+                            is_valid = False
+                    elif size == "Medium":
+                        if collumn >= 12:
+                            is_valid = False
+                    elif size == "Large":
+                        if collumn >= 17:
+                            is_valid = False
+                for i in range(len(enemy_map_input)):
+                    if choice == enemy_map_input[i]:
+                        is_valid = False
+            elif ship == 2:
+                if rotation == "vertical":
+                    row = int(choice[1:])
+                    if size == "Small":
+                        if row >= 8:
+                            is_valid = False
+                    elif size == "Medium":
+                        if row >= 13:
+                            is_valid = False
+                    elif size == "Large":
+                        if row >= 18:
+                            is_valid = False
+                elif rotation == "horizontal":
+                    collumn = int(choice[:1])
+                    if size == "Small":
+                        if collumn >= 8:
+                            is_valid = False
+                    elif size == "Medium":
+                        if collumn >= 13:
+                            is_valid = False
+                    elif size == "Large":
+                        if collumn >= 18:
+                            is_valid = False
+                for i in range(len(enemy_map_input)):
+                    if choice == enemy_map_input[i]:
+                        is_valid = False
+            elif ship == 3 or ship == 4:
+                if rotation == "vertical":
+                    row = int(choice[1:])
+                    if size == "Small":
+                        if row >= 9:
+                            is_valid = False
+                    elif size == "Medium":
+                        if row >= 14:
+                            is_valid = False
+                    elif size == "Large":
+                        if row >= 19:
+                            is_valid = False
+                elif rotation == "horizontal":
+                    collumn = int(choice[:1])
+                    if size == "Small":
+                        if collumn >= 9:
+                            is_valid = False
+                    elif size == "Medium":
+                        if collumn >= 14:
+                            is_valid = False
+                    elif size == "Large":
+                        if collumn >= 19:
+                            is_valid = False
+                for i in range(len(enemy_map_input)):
+                    if choice == enemy_map_input[i]:
+                        is_valid = False
+            elif ship == 5:
+                if rotation == "vertical":
+                    row = int(choice[1:])
+                    if size == "Small":
+                        if row >= 10:
+                            is_valid = False
+                    elif size == "Medium":
+                        if row >= 15:
+                            is_valid = False
+                    elif size == "Large":
+                        if row >= 20:
+                            is_valid = False
+                elif rotation == "horizontal":
+                    collumn = int(choice[:1])
+                    if size == "Small":
+                        if collumn >= 10:
+                            is_valid = False
+                    elif size == "Medium":
+                        if collumn >= 15:
+                            is_valid = False
+                    elif size == "Large":
+                        if collumn >= 20:
+                            is_valid = False
+                for i in range(len(enemy_map_input)):
+                    if choice == enemy_map_input[i]:
+                        is_valid = False
+    elif mode == "shoot":
+        if turn == "player":
+            for i in range(len(all_hit_grids_player)):
+                if choice == all_hit_grids_player[i]:
+                    is_valid = False
+        elif turn == "enemy":
+            for i in range(len(all_hit_grids_enemy)):
+                if choice == all_hit_grids_enemy[i]:
+                    is_valid = False
+    return is_valid
 
 
 def valid_general_input(choice, screen):
