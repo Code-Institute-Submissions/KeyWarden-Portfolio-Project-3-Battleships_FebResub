@@ -1,8 +1,8 @@
 """code needed to connect game to leaderboard in Google Sheets, as well as to
 produce random numbers"""
 import random
-import gspread
-from google.oauth2.service_account import Credentials
+#import gspread
+#from google.oauth2.service_account import Credentials
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -10,14 +10,14 @@ SCOPE = [
     "https://www.googleapis.com/auth/drive"
     ]
 
-CREDS = Credentials.from_service_account_file('creds.json')
-SCOPED_CREDS = CREDS.with_scopes(SCOPE)
-GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
-SHEET = GSPREAD_CLIENT.open('project3_leaderboard')
+#CREDS = Credentials.from_service_account_file('creds.json')
+#SCOPED_CREDS = CREDS.with_scopes(SCOPE)
+#GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
+#SHEET = GSPREAD_CLIENT.open('project3_leaderboard')
 
-leaderboard = SHEET.worksheet('board')
+#leaderboard = SHEET.worksheet('board')
 
-data = leaderboard.get_all_values()
+#data = leaderboard.get_all_values()
 
 """declare constants to be used for input verification"""
 MENU_INPUT = ["1", "s", "start", "2", "o", "options", "3", "l", "leaderboard"]
@@ -649,6 +649,10 @@ enemy_destroyer = Ship("destroyer")
 enemy_gunboat = Ship("gunboat")
 
 
+def invalid_specific_input(choice, mode, turn):
+    """function to check validity of input for placement or shots fired"""
+
+
 def valid_general_input(choice, screen):
     """function to check validity of general input on all screens"""
     is_valid = False
@@ -1062,22 +1066,8 @@ def menu_screen(difficulty, size):
     print("2. [O]ptions")
     print("3. [L]eaderboard")
     choice = input("Please enter your choice here: \n").lower()
-    validity = valid_menu_input(choice)
+    validity = valid_general_input(choice, "menu")
     menu_output(validity, choice, difficulty, size)
-
-
-def valid_options_input(choice):
-    """function to check validity of input on options screen"""
-
-    num = 0
-    is_valid = False
-    while num < 9:
-        if choice == OPTIONS_INPUT[num]:
-            is_valid = True
-            num = 9
-        else:
-            num += 1
-    return is_valid
 
 
 def options_output(validity, choice, difficulty, size):
@@ -1106,22 +1096,8 @@ def options_screen(difficulty, size):
     print("2. [M]ap")
     print("3. [B]ack")
     choice = input("Please enter your choice here: \n").lower()
-    validity = valid_options_input(choice)
+    validity = valid_general_input(choice, "options")
     options_output(validity, choice, difficulty, size)
-
-
-def valid_difficulty_input(choice):
-    """function to check validity of input on difficulty screen"""
-
-    num = 0
-    is_valid = False
-    while num < 12:
-        if choice == AI_INPUT[num]:
-            is_valid = True
-            num = 12
-        else:
-            num += 1
-    return is_valid
 
 
 def difficulty_output(validity, choice, difficulty, size):
@@ -1156,22 +1132,8 @@ def difficulty_screen(difficulty, size):
     print("3. [H]ard")
     print("4. [B]ack")
     choice = input("Please enter your choice here: \n").lower()
-    validity = valid_difficulty_input(choice)
+    validity = valid_general_input(choice, "difficulty")
     difficulty_output(validity, choice, difficulty, size)
-
-
-def valid_map_input(choice):
-    """function to check validity of input on map size screen"""
-
-    num = 0
-    is_valid = False
-    while num < 12:
-        if choice == MAP_SIZE_INPUT[num]:
-            is_valid = True
-            num = 12
-        else:
-            num += 1
-    return is_valid
 
 
 def map_output(validity, choice, difficulty, size):
@@ -1206,7 +1168,7 @@ def map_screen(difficulty, size):
     print("3. [L]arge (20x20)")
     print("4. [B]ack")
     choice = input("Please enter your choice here: \n").lower()
-    validity = valid_map_input(choice)
+    validity = valid_general_input(choice, "size")
     map_output(validity, choice, difficulty, size)
 
 
