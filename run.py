@@ -1039,39 +1039,27 @@ def update_small_places(row_choice, collumn_choice, number_placed):
 
 def place_current_ship(active_ship):
     """controls actual placing of ship on all maps"""
-    if number_placed == 1:
-        if player_carrier.direction == 0:
-            print(
-                f"The {player_carrier.type} cannot be closer than" +
-                f" {len(player_carrier.segments)} grid spaces to the" +
-                " right-hand edge of the map."
-                )
-            print(
-                "You will now choose the row and collumn of the" +
-                "left-most segment of the ship."
-                )
-        else:
-            print(
-                f"The {player_carrier.type} cannot be closer than" +
-                f" {len(player_carrier.segments)} grid spaces to the" +
-                " bottom edge of the map."
-                )
-            print(
-                "You will now choose the row and collumn of the" +
-                "top-most segment of the ship."
-                )
-        row_choice = input("Please enter the row number here: \n")
-        row_validity = player_map_small.validate_row_placement(
-            player_carrier.direction, 5, row_choice
+    out_of_bounds = (len(active_ship.segments) - 1)
+    print(
+        f"In order to place your {active_ship.type}," +
+        " you will need to enter the grid coordinates" +
+        " of its first segment in the style: ##, where" +
+        " the first # is the collumn letter, and the" +
+        " second # is the row number"
+        )
+    if active_ship.direction == 0:
+        print("The first segment is the left-most segment.")
+        print(
+            "You cannot select the grid-space within" +
+            f" {out_of_bounds} spaces of the right edge."
             )
-        if not row_validity:
-            place_current_ship_small_invalid_input(number_placed)
-        col_choice = input("Please enter the collumn letter here: \n").upper()
-        collumn_validity = player_map_small.validate_col_place(
-            player_carrier.direction, 5, col_choice
+    elif active_ship.direction == 1:
+        print("The first segment is the top-most segment.")
+        print(
+            "You cannot select the grid-space within" +
+            f" {out_of_bounds} spaces of the bottom edge."
             )
-        if not collumn_validity:
-            place_current_ship_small_invalid_input(number_placed)
+    choice = input("Please enter your choice here: \n")
 
 
 def placing_ship_output(validity, choice, current_ship, active_ship):
@@ -1107,7 +1095,7 @@ def placing_ship(current_ship):
     if active_ship.direction == 0:
         print(
             f"Current ship: {active_ship.type}" +
-            f"- {active_ship.segments}"
+            f" - {active_ship.segments}"
             )
         print("Current orientation: Horizontal (left to right)")
         print("1. [P]lace")
