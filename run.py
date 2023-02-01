@@ -1003,8 +1003,41 @@ def taken_spaces(number_placed, who):
                 taken_enemy_grid_spaces.append(taken_space)
 
 
-def place_current_ship_output(choice, active_ship, size, validity):
+def place_current_ship_output(
+  choice, active_ship, game_map, size, validity, extra_validity):
     """controls output of place_current_ship function"""
+    if not validity:
+        print("Invalid input.")
+        if game_map == "Small":
+            print(
+                "Please input one of the following in" +
+                f" the collumn slot: {SMALL_MAP_COL_INPUT}," +
+                " and one of the following in the row" +
+                f" slot: {SMALL_MAP_ROW_INPUT}. e.g. 'A5'"
+                )
+        elif game_map == "Medium":
+            print(
+                "Please input one of the following in" +
+                f" the collumn slot: {MED_MAP_COL_INPUT}," +
+                " and one of the following in the row" +
+                f" slot: {MED_MAP_ROW_INPUT}. e.g. 'A5'"
+                )
+        elif game_map == "Large":
+            print(
+                "Please input one of the following in" +
+                f" the collumn slot: {LARGE_MAP_COL_INPUT}," +
+                " and one of the following in the row" +
+                f" slot: {LARGE_MAP_ROW_INPUT}. e.g. 'A5'"
+                )
+        place_current_ship(active_ship, size)
+    if not extra_validity:
+        print("Invalid Grid Coordinates.")
+        print("The given coordinates are either:")
+        print("1. Too close to one of the map edges.")
+        print("2. Already taken by another ship.")
+        print("3. Too close to another ship.")
+        print("Please look over the Grid's current state, and try again")
+        place_current_ship(active_ship, size)
 
 
 def place_current_ship(active_ship, size):
@@ -1012,6 +1045,7 @@ def place_current_ship(active_ship, size):
     out_of_bounds = (len(active_ship.segments) - 1)
     game_map = map_size(size)
     validity = False
+    extra_validity = True
     rotation = ""
     print(
         f"In order to place your {active_ship.type}," +
@@ -1035,7 +1069,7 @@ def place_current_ship(active_ship, size):
                 choice.upper(), "place", "player",
                 active_ship.type, rotation, game_map
                 )
-            if col_validity and row_validity and extra_validity:
+            if col_validity and row_validity:
                 validity = True
         elif game_map == "Medium":
             col_validity = valid_general_input(choice[:1], "place-col-medium")
@@ -1044,7 +1078,7 @@ def place_current_ship(active_ship, size):
                 choice.upper(), "place", "player",
                 active_ship.type, rotation, game_map
                 )
-            if col_validity and row_validity and extra_validity:
+            if col_validity and row_validity:
                 validity = True
         elif game_map == "Large":
             col_validity = valid_general_input(choice[:1], "place-col-large")
@@ -1053,7 +1087,7 @@ def place_current_ship(active_ship, size):
                 choice.upper(), "place", "player",
                 active_ship.type, rotation, game_map
                 )
-            if col_validity and row_validity and extra_validity:
+            if col_validity and row_validity:
                 validity = True
     elif active_ship.direction == 1:
         rotation = "vertical"
@@ -1070,7 +1104,7 @@ def place_current_ship(active_ship, size):
                 choice.upper(), "place", "player",
                 active_ship.type, rotation, game_map
                 )
-            if col_validity and row_validity and extra_validity:
+            if col_validity and row_validity:
                 validity = True
         elif game_map == "Medium":
             col_validity = valid_general_input(choice[:1], "place-col-medium")
@@ -1079,7 +1113,7 @@ def place_current_ship(active_ship, size):
                 choice.upper(), "place", "player",
                 active_ship.type, rotation, game_map
                 )
-            if col_validity and row_validity and extra_validity:
+            if col_validity and row_validity:
                 validity = True
         elif game_map == "Large":
             col_validity = valid_general_input(choice[:1], "place-col-large")
@@ -1088,9 +1122,11 @@ def place_current_ship(active_ship, size):
                 choice.upper(), "place", "player",
                 active_ship.type, rotation, game_map
                 )
-            if col_validity and row_validity and extra_validity:
+            if col_validity and row_validity:
                 validity = True
-    place_current_ship_output(choice.upper(), active_ship, game_map, validity)
+    place_current_ship_output(
+        choice.upper(), active_ship, game_map, size, validity, extra_validity
+        )
 
 
 def placing_ship_output(validity, choice, current_ship, active_ship, size):
