@@ -655,7 +655,7 @@ def valid_specific_input(choice, mode, turn, ship, rotation, size):
     is_valid = True
     if mode == "place":
         if turn == "player":
-            if ship == 1:
+            if ship == "carrier":
                 if rotation == "vertical":
                     row = int(choice[1:])
                     if size == "Small":
@@ -681,7 +681,7 @@ def valid_specific_input(choice, mode, turn, ship, rotation, size):
                 for i in range(len(player_map_input)):
                     if choice == player_map_input[i]:
                         is_valid = False
-            elif ship == 2:
+            elif ship == "battleship":
                 if rotation == "vertical":
                     row = int(choice[1:])
                     if size == "Small":
@@ -707,7 +707,7 @@ def valid_specific_input(choice, mode, turn, ship, rotation, size):
                 for i in range(len(player_map_input)):
                     if choice == player_map_input[i]:
                         is_valid = False
-            elif ship == 3 or ship == 4:
+            elif ship == "destroyer" or ship == "submarine":
                 if rotation == "vertical":
                     row = int(choice[1:])
                     if size == "Small":
@@ -733,7 +733,7 @@ def valid_specific_input(choice, mode, turn, ship, rotation, size):
                 for i in range(len(player_map_input)):
                     if choice == player_map_input[i]:
                         is_valid = False
-            elif ship == 5:
+            elif ship == "gunboat":
                 if rotation == "vertical":
                     row = int(choice[1:])
                     if size == "Small":
@@ -760,7 +760,7 @@ def valid_specific_input(choice, mode, turn, ship, rotation, size):
                     if choice == player_map_input[i]:
                         is_valid = False
         if turn == "enemy":
-            if ship == 1:
+            if ship == "carrier":
                 if rotation == "vertical":
                     row = int(choice[1:])
                     if size == "Small":
@@ -786,7 +786,7 @@ def valid_specific_input(choice, mode, turn, ship, rotation, size):
                 for i in range(len(enemy_map_input)):
                     if choice == enemy_map_input[i]:
                         is_valid = False
-            elif ship == 2:
+            elif ship == "battleship":
                 if rotation == "vertical":
                     row = int(choice[1:])
                     if size == "Small":
@@ -812,7 +812,7 @@ def valid_specific_input(choice, mode, turn, ship, rotation, size):
                 for i in range(len(enemy_map_input)):
                     if choice == enemy_map_input[i]:
                         is_valid = False
-            elif ship == 3 or ship == 4:
+            elif ship == "destroyer" or ship == "submarine":
                 if rotation == "vertical":
                     row = int(choice[1:])
                     if size == "Small":
@@ -838,7 +838,7 @@ def valid_specific_input(choice, mode, turn, ship, rotation, size):
                 for i in range(len(enemy_map_input)):
                     if choice == enemy_map_input[i]:
                         is_valid = False
-            elif ship == 5:
+            elif ship == "gunboat":
                 if rotation == "vertical":
                     row = int(choice[1:])
                     if size == "Small":
@@ -1037,9 +1037,16 @@ def update_small_places(row_choice, collumn_choice, number_placed):
             print("placeholder")
 
 
-def place_current_ship(active_ship):
+def place_current_ship_output(choice, active_ship, size, validity):
+    """controls output of place_current_ship function"""
+
+
+def place_current_ship(active_ship, size):
     """controls actual placing of ship on all maps"""
     out_of_bounds = (len(active_ship.segments) - 1)
+    game_map = map_size(size)
+    validity = False
+    rotation = ""
     print(
         f"In order to place your {active_ship.type}," +
         " you will need to enter the grid coordinates" +
@@ -1048,39 +1055,97 @@ def place_current_ship(active_ship):
         " second # is the row number"
         )
     if active_ship.direction == 0:
+        rotation = "horizontal"
         print("The first segment is the left-most segment.")
         print(
             "You cannot select the grid-space within" +
             f" {out_of_bounds} spaces of the right edge."
             )
+        choice = input("Please enter your choice here: \n").lower()
+        if game_map == "Small":
+            col_validity = valid_general_input(choice[:1], "place-col-small")
+            row_validity = valid_general_input(choice[1:], "place-row-small")
+            extra_validity = valid_specific_input(
+                choice.upper(), "place", "player",
+                active_ship.type, rotation, game_map
+                )
+            if col_validity and row_validity and extra_validity:
+                validity = True
+        elif game_map == "Medium":
+            col_validity = valid_general_input(choice[:1], "place-col-medium")
+            row_validity = valid_general_input(choice[1:], "place-row-medium")
+            extra_validity = valid_specific_input(
+                choice.upper(), "place", "player",
+                active_ship.type, rotation, game_map
+                )
+            if col_validity and row_validity and extra_validity:
+                validity = True
+        elif game_map == "Large":
+            col_validity = valid_general_input(choice[:1], "place-col-large")
+            row_validity = valid_general_input(choice[1:], "place-row-large")
+            extra_validity = valid_specific_input(
+                choice.upper(), "place", "player",
+                active_ship.type, rotation, game_map
+                )
+            if col_validity and row_validity and extra_validity:
+                validity = True
     elif active_ship.direction == 1:
+        rotation = "vertical"
         print("The first segment is the top-most segment.")
         print(
             "You cannot select the grid-space within" +
             f" {out_of_bounds} spaces of the bottom edge."
             )
-    choice = input("Please enter your choice here: \n")
+        choice = input("Please enter your choice here: \n").lower()
+        if game_map == "Small":
+            col_validity = valid_general_input(choice[:1], "place-col-small")
+            row_validity = valid_general_input(choice[1:], "place-row-small")
+            extra_validity = valid_specific_input(
+                choice.upper(), "place", "player",
+                active_ship.type, rotation, game_map
+                )
+            if col_validity and row_validity and extra_validity:
+                validity = True
+        elif game_map == "Medium":
+            col_validity = valid_general_input(choice[:1], "place-col-medium")
+            row_validity = valid_general_input(choice[1:], "place-row-medium")
+            extra_validity = valid_specific_input(
+                choice.upper(), "place", "player",
+                active_ship.type, rotation, game_map
+                )
+            if col_validity and row_validity and extra_validity:
+                validity = True
+        elif game_map == "Large":
+            col_validity = valid_general_input(choice[:1], "place-col-large")
+            row_validity = valid_general_input(choice[1:], "place-row-large")
+            extra_validity = valid_specific_input(
+                choice.upper(), "place", "player",
+                active_ship.type, rotation, game_map
+                )
+            if col_validity and row_validity and extra_validity:
+                validity = True
+    place_current_ship_output(choice.upper(), active_ship, game_map, validity)
 
 
-def placing_ship_output(validity, choice, current_ship, active_ship):
+def placing_ship_output(validity, choice, current_ship, active_ship, size):
     """controls result of user input on ship placement for all maps"""
     if not validity:
         print(
             f"Invalid input, please input one of the following: {SHIP_INPUT}"
             )
-        placing_ship(current_ship)
+        placing_ship(current_ship, size)
 
     if choice == "1" or choice == "p" or choice == "place":
-        place_current_ship(active_ship)
+        place_current_ship(active_ship, size)
     elif choice == "2" or choice == "r" or choice == "rotate":
         if active_ship.direction == 0:
             active_ship.direction = 1
         else:
             active_ship.direction = 0
-        placing_ship(current_ship)
+        placing_ship(current_ship, size)
 
 
-def placing_ship(current_ship):
+def placing_ship(current_ship, size):
     """function controlling exact process for player placing ships"""
     if current_ship == 1:
         active_ship = player_carrier
@@ -1111,7 +1176,7 @@ def placing_ship(current_ship):
         print("2. [R]otate")
         choice = input("Please enter your choice here: \n")
     validity = valid_general_input(choice, "rotate")
-    placing_ship_output(validity, choice, current_ship, active_ship)
+    placing_ship_output(validity, choice, current_ship, active_ship, size)
 
 
 def place_ships(size):
@@ -1119,7 +1184,7 @@ def place_ships(size):
     print("Please place your ships.")
     current_ship = 1
     while current_ship < 5:
-        placing_ship(current_ship)
+        placing_ship(current_ship, size)
         current_ship += 1
 
 
