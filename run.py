@@ -954,19 +954,6 @@ def map_size(size):
     return result
 
 
-def valid_start_placing_input(choice):
-    """function validating first input related to ship placing"""
-    num = 0
-    is_valid = False
-    while num < 6:
-        if choice == SHIP_INPUT[num]:
-            is_valid = True
-            num = 9
-        else:
-            num += 1
-    return is_valid
-
-
 def taken_spaces(number_placed, who):
     """ensures already taken spaces are tracked"""
     if number_placed == 1:
@@ -1014,27 +1001,6 @@ def taken_spaces(number_placed, who):
             for i in len(enemy_gunboat.segments):
                 taken_space = enemy_gunboat.segments[i]
                 taken_enemy_grid_spaces.append(taken_space)
-
-
-def place_current_ship_small_invalid_input(number_placed):
-    """controls output in event of an invalid input"""
-    print(
-        "Invalid input, please enter a number between 1 and 10."
-        )
-    print(
-        "Also, please remember that your ship cannot go over" +
-        " the edge of the map"
-        )
-    place_current_ship_small(number_placed)
-
-
-def update_small_places(row_choice, collumn_choice, number_placed):
-    """updates small map and ship objects with ship placement info"""
-    row = int(row_choice)
-    collumn = int(collumn_choice)
-    if number_placed == 1:
-        if row == 1:
-            print("placeholder")
 
 
 def place_current_ship_output(choice, active_ship, size, validity):
