@@ -614,7 +614,7 @@ class Ship:
         elif self.type == "gunboat":
             self.segments = ["", ""]
 
-    def ship_placed(self, row, collumn):
+    def ship_placed(self, grid):
         """function for filling segments lists with co-ordinates"""
         print("placeholder")
 
@@ -1037,8 +1037,8 @@ def update_small_places(row_choice, collumn_choice, number_placed):
             print("placeholder")
 
 
-def place_current_ship_small(number_placed):
-    """controls actual placing of ship on small map"""
+def place_current_ship(active_ship):
+    """controls actual placing of ship on all maps"""
     if number_placed == 1:
         if player_carrier.direction == 0:
             print(
@@ -1074,178 +1074,65 @@ def place_current_ship_small(number_placed):
             place_current_ship_small_invalid_input(number_placed)
 
 
-def place_ships_small_output(validity, choice, number_placed):
-    """controls result of user input on ship placement for small maps"""
+def placing_ship_output(validity, choice, current_ship, active_ship):
+    """controls result of user input on ship placement for all maps"""
     if not validity:
         print(
             f"Invalid input, please input one of the following: {SHIP_INPUT}"
             )
-        placing_ship(number_placed)
+        placing_ship(current_ship)
 
     if choice == "1" or choice == "p" or choice == "place":
-        place_current_ship_small(number_placed)
+        place_current_ship(active_ship)
     elif choice == "2" or choice == "r" or choice == "rotate":
-        if number_placed == 1:
-            if player_carrier.direction == 0:
-                player_carrier.direction = 1
-            else:
-                player_carrier.direction = 0
-        elif number_placed == 2:
-            if player_battleship.direction == 0:
-                player_battleship.direction = 1
-            else:
-                player_battleship.direction = 0
-        elif number_placed == 3:
-            if player_submarine.direction == 0:
-                player_submarine.direction = 1
-            else:
-                player_submarine.direction = 0
-        elif number_placed == 4:
-            if player_destroyer.direction == 0:
-                player_destroyer.direction = 1
-            else:
-                player_destroyer.direction = 0
-        elif number_placed == 5:
-            if player_gunboat.direction == 0:
-                player_gunboat.direction = 1
-            else:
-                player_gunboat.direction = 0
-        placing_ship(number_placed)
+        if active_ship.direction == 0:
+            active_ship.direction = 1
+        else:
+            active_ship.direction = 0
+        placing_ship(current_ship)
 
 
-def placing_ship(number_placed):
-    """function controlling exact process for placing ships"""
-    if number_placed == 1:
-        if player_carrier.direction == 0:
-            print(
-                f"Current ship: {player_carrier.type}" +
-                f"- {player_carrier.segments}"
-                )
-            print("Current orientation: Horizontal (left to right)")
-            print("1. [P]lace")
-            print("2. [R]otate")
-            choice = input("Please enter your choice here: \n")
-            validity = valid_start_placing_input(choice)
-            place_ships_small_output(validity, choice, number_placed)
-        elif player_carrier.direction == 1:
-            print(
-                f"Current ship: {player_carrier.type}" +
-                f"- {player_carrier.segments}"
-                )
-            print("Current orientation: Vertical (top to bottom)")
-            print("1. [P]lace")
-            print("2. [R]otate")
-            choice = input("Please enter your choice here: \n")
-            validity = valid_start_placing_input(choice)
-            place_ships_small_output(validity, choice, number_placed)
-    elif number_placed == 2:
-        if player_battleship.direction == 0:
-            print(
-                f"Current ship: {player_battleship.type}" +
-                f"- {player_battleship.segments}"
-                )
-            print("Current orientation: Horizontal (left to right)")
-            print("1. [P]lace")
-            print("2. [R]otate")
-            choice = input("Please enter your choice here: \n")
-            validity = valid_start_placing_input(choice)
-            place_ships_small_output(validity, choice, number_placed)
-        elif player_battleship.direction == 1:
-            print(
-                f"Current ship: {player_battleship.type}" +
-                f"- {player_battleship.segments}"
-                )
-            print("Current orientation: Vertical (top to bottom)")
-            print("1. [P]lace")
-            print("2. [R]otate")
-            choice = input("Please enter your choice here: \n")
-            validity = valid_start_placing_input(choice)
-            place_ships_small_output(validity, choice, number_placed)
-    elif number_placed == 3:
-        if player_submarine.direction == 0:
-            print(
-                f"Current ship: {player_submarine.type}" +
-                f"- {player_submarine.segments}"
-                )
-            print("Current orientation: Horizontal (left to right)")
-            print("1. [P]lace")
-            print("2. [R]otate")
-            choice = input("Please enter your choice here: \n")
-            validity = valid_start_placing_input(choice)
-            place_ships_small_output(validity, choice, number_placed)
-        elif player_submarine.direction == 1:
-            print(
-                f"Current ship: {player_submarine.type}" +
-                f"- {player_submarine.segments}"
-                )
-            print("Current orientation: Vertical (top to bottom)")
-            print("1. [P]lace")
-            print("2. [R]otate")
-            choice = input("Please enter your choice here: \n")
-            validity = valid_start_placing_input(choice)
-            place_ships_small_output(validity, choice, number_placed)
-    elif number_placed == 4:
-        if player_destroyer.direction == 0:
-            print(
-                f"Current ship: {player_destroyer.type}" +
-                f"- {player_destroyer.segments}"
-                )
-            print("Current orientation: Horizontal (left to right)")
-            print("1. [P]lace")
-            print("2. [R]otate")
-            choice = input("Please enter your choice here: \n")
-            validity = valid_start_placing_input(choice)
-            place_ships_small_output(validity, choice, number_placed)
-        elif player_destroyer.direction == 1:
-            print(
-                f"Current ship: {player_destroyer.type}" +
-                f"- {player_destroyer.segments}"
-                )
-            print("Current orientation: Vertical (top to bottom)")
-            print("1. [P]lace")
-            print("2. [R]otate")
-            choice = input("Please enter your choice here: \n")
-            validity = valid_start_placing_input(choice)
-            place_ships_small_output(validity, choice, number_placed)
-    elif number_placed == 5:
-        if player_gunboat.direction == 0:
-            print(
-                f"Current ship: {player_gunboat.type}" +
-                f"- {player_gunboat.segments}"
-                )
-            print("Current orientation: Horizontal (left to right)")
-            print("1. [P]lace")
-            print("2. [R]otate")
-            choice = input("Please enter your choice here: \n")
-            validity = valid_start_placing_input(choice)
-            place_ships_small_output(validity, choice, number_placed)
-        elif player_gunboat.direction == 1:
-            print(
-                f"Current ship: {player_gunboat.type}" +
-                f"- {player_gunboat.segments}"
-                )
-            print("Current orientation: Vertical (top to bottom)")
-            print("1. [P]lace")
-            print("2. [R]otate")
-            choice = input("Please enter your choice here: \n")
-            validity = valid_start_placing_input(choice)
-            place_ships_small_output(validity, choice, number_placed)
+def placing_ship(current_ship):
+    """function controlling exact process for player placing ships"""
+    if current_ship == 1:
+        active_ship = player_carrier
+    elif current_ship == 2:
+        active_ship = player_battleship
+    elif current_ship == 3:
+        active_ship = player_destroyer
+    elif current_ship == 4:
+        active_ship = player_submarine
+    elif current_ship == 5:
+        active_ship = player_gunboat
+    if active_ship.direction == 0:
+        print(
+            f"Current ship: {active_ship.type}" +
+            f"- {active_ship.segments}"
+            )
+        print("Current orientation: Horizontal (left to right)")
+        print("1. [P]lace")
+        print("2. [R]otate")
+        choice = input("Please enter your choice here: \n")
+    elif active_ship.direction == 1:
+        print(
+            f"Current ship: {active_ship.type}" +
+            f"- {active_ship.segments}"
+            )
+        print("Current orientation: Vertical (top to bottom)")
+        print("1. [P]lace")
+        print("2. [R]otate")
+        choice = input("Please enter your choice here: \n")
+    validity = valid_general_input(choice, "rotate")
+    placing_ship_output(validity, choice, current_ship, active_ship)
 
 
-def place_ships_small():
-    """function controlling ship placing process for small maps"""
+def place_ships(size):
+    """function guiding ship placing process for all maps"""
     print("Please place your ships.")
-    number_placed = 1
-    while number_placed < 5:
-        placing_ship(number_placed)
-
-
-def place_ships_medium():
-    """function controlling ship placing process for medium maps"""
-
-
-def place_ships_large():
-    """function controlling ship placing process for large maps"""
+    current_ship = 1
+    while current_ship < 5:
+        placing_ship(current_ship)
+        current_ship += 1
 
 
 def start_game(difficulty, size):
@@ -1253,13 +1140,13 @@ def start_game(difficulty, size):
     print("YOUR GRID:")
     if size == 0:
         player_map_small.print_grid()
-        place_ships_small()
+        place_ships(size)
     elif size == 1:
         player_map_medium.print_grid()
-        place_ships_medium()
+        place_ships(size)
     elif size == 2:
         player_map_large.print_grid()
-        place_ships_large()
+        place_ships(size)
 
 
 def menu_output(validity, choice, difficulty, size):
