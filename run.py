@@ -51,7 +51,11 @@ LARGE_MAP_ROW_INPUT = [
 
 """declare variables for input verification"""
 player_map_input = []
+player_invalid_h = []
+player_invalid_v = []
 enemy_map_input = []
+enemy_invalid_h = []
+enemy_invalid_v = []
 all_hit_grids_player = []
 all_hit_grids_enemy = []
 
@@ -577,7 +581,7 @@ class MapGrid:
         """function to update the map grid after ship placement"""
         collumn1 = grid[:1]
         first_col = convert_letter(collumn1)
-        first_row = grid[1:]
+        first_row = int(grid[1:])
         if active_ship.direction == 0:
             second_col = (first_col + 1)
             third_col = (first_col + 2)
@@ -1387,15 +1391,15 @@ class Ship:
             elif self.type == "gunboat":
                 self.segments[1] = second_segment
         elif self.direction == 1:
-            row1 = grid[1:]
+            row1 = int(grid[1:])
             row2 = (row1 + 1)
-            second_segment = row2 + grid[:1]
+            second_segment = str(row2) + grid[:1]
             row3 = (row1 + 2)
-            third_segment = row3 + grid[:1]
+            third_segment = str(row3) + grid[:1]
             row4 = (row1 + 3)
-            fourth_segment = row4 + grid[:1]
+            fourth_segment = str(row4) + grid[:1]
             row5 = (row1 + 4)
-            fifth_segment = row5 + grid[:1]
+            fifth_segment = str(row5) + grid[:1]
             if self.type == "carrier":
                 self.segments[1] = second_segment
                 self.segments[2] = third_segment
@@ -1747,53 +1751,31 @@ def map_size(size):
     return result
 
 
-def taken_spaces(number_placed, who):
-    """ensures already taken spaces are tracked"""
-    if number_placed == 1:
-        if who == "player":
-            for i in len(player_carrier.segments):
-                taken_space = player_carrier.segments[i]
-                taken_player_grid_spaces.append(taken_space)
-        elif who == "enemy":
-            for i in len(enemy_carrier.segments):
-                taken_space = enemy_carrier.segments[i]
-                taken_enemy_grid_spaces.append(taken_space)
-    elif number_placed == 2:
-        if who == "player":
-            for i in len(player_battleship.segments):
-                taken_space = player_battleship.segments[i]
-                taken_player_grid_spaces.append(taken_space)
-        elif who == "enemy":
-            for i in len(enemy_battleship.segments):
-                taken_space = enemy_battleship.segments[i]
-                taken_enemy_grid_spaces.append(taken_space)
-    elif number_placed == 3:
-        if who == "player":
-            for i in len(player_submarine.segments):
-                taken_space = player_submarine.segments[i]
-                taken_player_grid_spaces.append(taken_space)
-        elif who == "enemy":
-            for i in len(enemy_submarine.segments):
-                taken_space = enemy_submarine.segments[i]
-                taken_enemy_grid_spaces.append(taken_space)
-    elif number_placed == 4:
-        if who == "player":
-            for i in len(player_destroyer.segments):
-                taken_space = player_destroyer.segments[i]
-                taken_player_grid_spaces.append(taken_space)
-        elif who == "enemy":
-            for i in len(enemy_destroyer.segments):
-                taken_space = enemy_destroyer.segments[i]
-                taken_enemy_grid_spaces.append(taken_space)
-    elif number_placed == 5:
-        if who == "player":
-            for i in len(player_gunboat.segments):
-                taken_space = player_gunboat.segments[i]
-                taken_player_grid_spaces.append(taken_space)
-        elif who == "enemy":
-            for i in len(enemy_gunboat.segments):
-                taken_space = enemy_gunboat.segments[i]
-                taken_enemy_grid_spaces.append(taken_space)
+def generate_grids(active_ship):
+    """generates grids representing invalid grid spaces"""
+    base_grid1 = ""
+    base_grid2 = ""
+    base_grid3 = ""
+    base_grid4 = ""
+    base_grid5 = ""
+    grid_list = []
+    if active_ship.type == "carrier":
+        base_grid1 = active_ship.segments[1]
+        base_grid2 = active_ship.segments[2]
+        base_grid3 = active_ship.segments[3]
+        base_grid4 = active_ship.segments[4]
+        base_grid5 = active_ship.segments[5]
+
+
+
+def player_spaces(active_ship):
+    """ensures invalid player grid spaces are tracked"""
+    if active_ship.type == "carrier":
+        for i in range(len(active_ship.segments)):
+            player_map_input.append(active_ship.segments[i])
+        
+    elif active_ship.type != "carrier":
+
 
 
 def place_current_ship_output(
@@ -1832,6 +1814,12 @@ def place_current_ship_output(
         print("Please look over the Grid's current state, and try again")
         place_current_ship(active_ship, size)
     active_ship.ship_placed(choice)
+    if game_map == "Small":
+        player_map_small.update_grid_place(choice, active_ship)
+    elif game_map == "Medium":
+        player_map_medium.update_grid_place(choice, active_ship)
+    elif game_map == "Large":
+        player_map_large.update_grid_place(choice, active_ship)
 
 
 def place_current_ship(active_ship, size):
@@ -1979,23 +1967,23 @@ def place_ships(size):
     """function guiding ship placing process for all maps"""
     print("Please place your ships.")
     current_ship = 1
-    while current_ship < 5:
+    while current_ship <= 5:
+        if size == 0:
+            print("YOUR GRID:")
+            player_map_small.print_grid()
+        elif size == 1:
+            print("YOUR GRID:")
+            player_map_medium.print_grid()
+        elif size == 2:
+            print("YOUR GRID:")
+            player_map_large.print_grid()
         placing_ship(current_ship, size)
         current_ship += 1
 
 
 def start_game(difficulty, size):
     """funtion that controls the game starting"""
-    print("YOUR GRID:")
-    if size == 0:
-        player_map_small.print_grid()
-        place_ships(size)
-    elif size == 1:
-        player_map_medium.print_grid()
-        place_ships(size)
-    elif size == 2:
-        player_map_large.print_grid()
-        place_ships(size)
+    place_ships(size)
 
 
 def menu_output(validity, choice, difficulty, size):
