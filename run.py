@@ -103,6 +103,15 @@ def convert_number(number):
         collumn = "S"
     elif number == 20:
         collumn = "T"
+    elif number == 21:
+        collumn = "T"
+    elif number == 22:
+        collumn = "T"
+    elif number == 23:
+        collumn = "T"
+    elif number == 24:
+        collumn = "T"
+    return collumn
 
 
 def convert_letter(letter):
@@ -661,9 +670,56 @@ class Ship:
 
     def ship_placed(self, grid):
         """function for filling segments lists with co-ordinates"""
-        first_segment = grid
+        self.segments[0] = grid
         if self.direction == 0:
             collumn1 = grid[:1]
+            col_num = convert_letter(collumn1)
+            collumn2 = convert_number((col_num + 1))
+            second_segment = collumn2 + grid[1:]
+            collumn3 = convert_number((col_num + 2))
+            third_segment = collumn3 + grid[1:]
+            collumn4 = convert_number((col_num + 3))
+            fourth_segment = collumn4 + grid[1:]
+            collumn5 = convert_number((col_num + 4))
+            fifth_segment = collumn5 + grid[1:]
+            if self.type == "carrier":
+                self.segments[1] = second_segment
+                self.segments[2] = third_segment
+                self.segments[3] = fourth_segment
+                self.segments[4] = fifth_segment
+            elif self.type == "battleship":
+                self.segments[1] = second_segment
+                self.segments[2] = third_segment
+                self.segments[3] = fourth_segment
+            elif self.type == "destroyer" or self.type == "submarine":
+                self.segments[1] = second_segment
+                self.segments[2] = third_segment
+            elif self.type == "gunboat":
+                self.segments[1] = second_segment
+        elif self.direction == 1:
+            row1 = grid[1:]
+            row2 = (row1 + 1)
+            second_segment = row2 + grid[:1]
+            row3 = (row1 + 2)
+            third_segment = row3 + grid[:1]
+            row4 = (row1 + 3)
+            fourth_segment = row4 + grid[:1]
+            row5 = (row1 + 4)
+            fifth_segment = row5 + grid[:1]
+            if self.type == "carrier":
+                self.segments[1] = second_segment
+                self.segments[2] = third_segment
+                self.segments[3] = fourth_segment
+                self.segments[4] = fifth_segment
+            elif self.type == "battleship":
+                self.segments[1] = second_segment
+                self.segments[2] = third_segment
+                self.segments[3] = fourth_segment
+            elif self.type == "destroyer" or self.type == "submarine":
+                self.segments[1] = second_segment
+                self.segments[2] = third_segment
+            elif self.type == "gunboat":
+                self.segments[1] = second_segment
 
 
 """declaring all possible class instances to be used within later functions"""
