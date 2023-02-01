@@ -60,6 +60,51 @@ taken_player_grid_spaces = []
 taken_enemy_grid_spaces = []
 
 
+def convert_number(number):
+    """converts collumn number into letter"""
+    collumn = ""
+    if number == 1:
+        collumn = "A"
+    elif number == 2:
+        collumn = "B"
+    elif number == 3:
+        collumn = "C"
+    elif number == 4:
+        collumn = "D"
+    elif number == 5:
+        collumn = "E"
+    elif number == 6:
+        collumn = "F"
+    elif number == 7:
+        collumn = "G"
+    elif number == 8:
+        collumn = "H"
+    elif number == 9:
+        collumn = "I"
+    elif number == 10:
+        collumn = "J"
+    elif number == 11:
+        collumn = "K"
+    elif number == 12:
+        collumn = "L"
+    elif number == 13:
+        collumn = "M"
+    elif number == 14:
+        collumn = "N"
+    elif number == 15:
+        collumn = "O"
+    elif number == 16:
+        collumn = "P"
+    elif number == 17:
+        collumn = "Q"
+    elif number == 18:
+        collumn = "R"
+    elif number == 19:
+        collumn = "S"
+    elif number == 20:
+        collumn = "T"
+
+
 def convert_letter(letter):
     """converts collumn letter into number"""
     check = letter.upper()
@@ -616,7 +661,9 @@ class Ship:
 
     def ship_placed(self, grid):
         """function for filling segments lists with co-ordinates"""
-        print("placeholder")
+        first_segment = grid
+        if self.direction == 0:
+            collumn1 = grid[:1]
 
 
 """declaring all possible class instances to be used within later functions"""
@@ -1038,6 +1085,7 @@ def place_current_ship_output(
         print("3. Too close to another ship.")
         print("Please look over the Grid's current state, and try again")
         place_current_ship(active_ship, size)
+    active_ship.ship_placed(choice)
 
 
 def place_current_ship(active_ship, size):
