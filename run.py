@@ -572,6 +572,385 @@ class MapGrid:
             print(dividing_row)
             print(twentieth_row)
             print(dividing_row)
+    
+    def update_grid_place(self, grid, active_ship):
+        """function to update the map grid after ship placement"""
+        collumn1 = grid[:1]
+        first_col = convert_letter(collumn1)
+        first_row = grid[1:]
+        if active_ship.direction == 0:
+            second_col = (first_col + 1)
+            third_col = (first_col + 2)
+            fourth_col = (first_col + 3)
+            fifth_col = (first_col + 4)
+            if active_ship.type == "carrier":
+                if first_row == 1:
+                    self.row1[first_col] = " @ |"
+                    self.row1[second_col] = " @ |"
+                    self.row1[third_col] = " @ |"
+                    self.row1[fourth_col] = " @ |"
+                    self.row1[fifth_col] = " @ |"
+                elif first_row == 2:
+                    self.row2[first_col] = " @ |"
+                    self.row2[second_col] = " @ |"
+                    self.row2[third_col] = " @ |"
+                    self.row2[fourth_col] = " @ |"
+                    self.row2[fifth_col] = " @ |"
+                elif first_row == 3:
+                    self.row3[first_col] = " @ |"
+                    self.row3[second_col] = " @ |"
+                    self.row3[third_col] = " @ |"
+                    self.row3[fourth_col] = " @ |"
+                    self.row3[fifth_col] = " @ |"
+                elif first_row == 4:
+                    self.row4[first_col] = " @ |"
+                    self.row4[second_col] = " @ |"
+                    self.row4[third_col] = " @ |"
+                    self.row4[fourth_col] = " @ |"
+                    self.row4[fifth_col] = " @ |"
+                elif first_row == 5:
+                    self.row5[first_col] = " @ |"
+                    self.row5[second_col] = " @ |"
+                    self.row5[third_col] = " @ |"
+                    self.row5[fourth_col] = " @ |"
+                    self.row5[fifth_col] = " @ |"
+                elif first_row == 6:
+                    self.row6[first_col] = " @ |"
+                    self.row6[second_col] = " @ |"
+                    self.row6[third_col] = " @ |"
+                    self.row6[fourth_col] = " @ |"
+                    self.row6[fifth_col] = " @ |"
+                elif first_row == 7:
+                    self.row7[first_col] = " @ |"
+                    self.row7[second_col] = " @ |"
+                    self.row7[third_col] = " @ |"
+                    self.row7[fourth_col] = " @ |"
+                    self.row7[fifth_col] = " @ |"
+                elif first_row == 8:
+                    self.row8[first_col] = " @ |"
+                    self.row8[second_col] = " @ |"
+                    self.row8[third_col] = " @ |"
+                    self.row8[fourth_col] = " @ |"
+                    self.row8[fifth_col] = " @ |"
+                elif first_row == 9:
+                    self.row9[first_col] = " @ |"
+                    self.row9[second_col] = " @ |"
+                    self.row9[third_col] = " @ |"
+                    self.row9[fourth_col] = " @ |"
+                    self.row9[fifth_col] = " @ |"
+                elif first_row == 10:
+                    self.row10[first_col] = " @ |"
+                    self.row10[second_col] = " @ |"
+                    self.row10[third_col] = " @ |"
+                    self.row10[fourth_col] = " @ |"
+                    self.row10[fifth_col] = " @ |"
+                elif first_row == 11:
+                    self.row11[first_col] = " @ |"
+                    self.row11[second_col] = " @ |"
+                    self.row11[third_col] = " @ |"
+                    self.row11[fourth_col] = " @ |"
+                    self.row11[fifth_col] = " @ |"
+                elif first_row == 12:
+                    self.row12[first_col] = " @ |"
+                    self.row12[second_col] = " @ |"
+                    self.row12[third_col] = " @ |"
+                    self.row12[fourth_col] = " @ |"
+                    self.row12[fifth_col] = " @ |"
+                elif first_row == 13:
+                    self.row13[first_col] = " @ |"
+                    self.row13[second_col] = " @ |"
+                    self.row13[third_col] = " @ |"
+                    self.row13[fourth_col] = " @ |"
+                    self.row13[fifth_col] = " @ |"
+                elif first_row == 14:
+                    self.row14[first_col] = " @ |"
+                    self.row14[second_col] = " @ |"
+                    self.row14[third_col] = " @ |"
+                    self.row14[fourth_col] = " @ |"
+                    self.row14[fifth_col] = " @ |"
+                elif first_row == 15:
+                    self.row15[first_col] = " @ |"
+                    self.row15[second_col] = " @ |"
+                    self.row15[third_col] = " @ |"
+                    self.row15[fourth_col] = " @ |"
+                    self.row15[fifth_col] = " @ |"
+                elif first_row == 16:
+                    self.row16[first_col] = " @ |"
+                    self.row16[second_col] = " @ |"
+                    self.row16[third_col] = " @ |"
+                    self.row16[fourth_col] = " @ |"
+                    self.row16[fifth_col] = " @ |"
+                elif first_row == 17:
+                    self.row17[first_col] = " @ |"
+                    self.row17[second_col] = " @ |"
+                    self.row17[third_col] = " @ |"
+                    self.row17[fourth_col] = " @ |"
+                    self.row17[fifth_col] = " @ |"
+                elif first_row == 18:
+                    self.row18[first_col] = " @ |"
+                    self.row18[second_col] = " @ |"
+                    self.row18[third_col] = " @ |"
+                    self.row18[fourth_col] = " @ |"
+                    self.row18[fifth_col] = " @ |"
+                elif first_row == 19:
+                    self.row19[first_col] = " @ |"
+                    self.row19[second_col] = " @ |"
+                    self.row19[third_col] = " @ |"
+                    self.row19[fourth_col] = " @ |"
+                    self.row19[fifth_col] = " @ |"
+                elif first_row == 20:
+                    self.row20[first_col] = " @ |"
+                    self.row20[second_col] = " @ |"
+                    self.row20[third_col] = " @ |"
+                    self.row20[fourth_col] = " @ |"
+                    self.row20[fifth_col] = " @ |"
+            elif active_ship.type == "battleship":
+                if first_row == 1:
+                    self.row1[first_col] = " @ |"
+                    self.row1[second_col] = " @ |"
+                    self.row1[third_col] = " @ |"
+                    self.row1[fourth_col] = " @ |"
+                elif first_row == 2:
+                    self.row2[first_col] = " @ |"
+                    self.row2[second_col] = " @ |"
+                    self.row2[third_col] = " @ |"
+                    self.row2[fourth_col] = " @ |"
+                elif first_row == 3:
+                    self.row3[first_col] = " @ |"
+                    self.row3[second_col] = " @ |"
+                    self.row3[third_col] = " @ |"
+                    self.row3[fourth_col] = " @ |"
+                elif first_row == 4:
+                    self.row4[first_col] = " @ |"
+                    self.row4[second_col] = " @ |"
+                    self.row4[third_col] = " @ |"
+                    self.row4[fourth_col] = " @ |"
+                elif first_row == 5:
+                    self.row5[first_col] = " @ |"
+                    self.row5[second_col] = " @ |"
+                    self.row5[third_col] = " @ |"
+                    self.row5[fourth_col] = " @ |"
+                elif first_row == 6:
+                    self.row6[first_col] = " @ |"
+                    self.row6[second_col] = " @ |"
+                    self.row6[third_col] = " @ |"
+                    self.row6[fourth_col] = " @ |"
+                elif first_row == 7:
+                    self.row7[first_col] = " @ |"
+                    self.row7[second_col] = " @ |"
+                    self.row7[third_col] = " @ |"
+                    self.row7[fourth_col] = " @ |"
+                elif first_row == 8:
+                    self.row8[first_col] = " @ |"
+                    self.row8[second_col] = " @ |"
+                    self.row8[third_col] = " @ |"
+                    self.row8[fourth_col] = " @ |"
+                elif first_row == 9:
+                    self.row9[first_col] = " @ |"
+                    self.row9[second_col] = " @ |"
+                    self.row9[third_col] = " @ |"
+                    self.row9[fourth_col] = " @ |"
+                elif first_row == 10:
+                    self.row10[first_col] = " @ |"
+                    self.row10[second_col] = " @ |"
+                    self.row10[third_col] = " @ |"
+                    self.row10[fourth_col] = " @ |"
+                elif first_row == 11:
+                    self.row11[first_col] = " @ |"
+                    self.row11[second_col] = " @ |"
+                    self.row11[third_col] = " @ |"
+                    self.row11[fourth_col] = " @ |"
+                elif first_row == 12:
+                    self.row12[first_col] = " @ |"
+                    self.row12[second_col] = " @ |"
+                    self.row12[third_col] = " @ |"
+                    self.row12[fourth_col] = " @ |"
+                elif first_row == 13:
+                    self.row13[first_col] = " @ |"
+                    self.row13[second_col] = " @ |"
+                    self.row13[third_col] = " @ |"
+                    self.row13[fourth_col] = " @ |"
+                elif first_row == 14:
+                    self.row14[first_col] = " @ |"
+                    self.row14[second_col] = " @ |"
+                    self.row14[third_col] = " @ |"
+                    self.row14[fourth_col] = " @ |"
+                elif first_row == 15:
+                    self.row15[first_col] = " @ |"
+                    self.row15[second_col] = " @ |"
+                    self.row15[third_col] = " @ |"
+                    self.row15[fourth_col] = " @ |"
+                elif first_row == 16:
+                    self.row16[first_col] = " @ |"
+                    self.row16[second_col] = " @ |"
+                    self.row16[third_col] = " @ |"
+                    self.row16[fourth_col] = " @ |"
+                elif first_row == 17:
+                    self.row17[first_col] = " @ |"
+                    self.row17[second_col] = " @ |"
+                    self.row17[third_col] = " @ |"
+                    self.row17[fourth_col] = " @ |"
+                elif first_row == 18:
+                    self.row18[first_col] = " @ |"
+                    self.row18[second_col] = " @ |"
+                    self.row18[third_col] = " @ |"
+                    self.row18[fourth_col] = " @ |"
+                elif first_row == 19:
+                    self.row19[first_col] = " @ |"
+                    self.row19[second_col] = " @ |"
+                    self.row19[third_col] = " @ |"
+                    self.row19[fourth_col] = " @ |"
+                elif first_row == 20:
+                    self.row20[first_col] = " @ |"
+                    self.row20[second_col] = " @ |"
+                    self.row20[third_col] = " @ |"
+                    self.row20[fourth_col] = " @ |"
+            elif active_ship.type in ("destroyer", "submarine"):
+                if first_row == 1:
+                    self.row1[first_col] = " @ |"
+                    self.row1[second_col] = " @ |"
+                    self.row1[third_col] = " @ |"
+                elif first_row == 2:
+                    self.row2[first_col] = " @ |"
+                    self.row2[second_col] = " @ |"
+                    self.row2[third_col] = " @ |"
+                elif first_row == 3:
+                    self.row3[first_col] = " @ |"
+                    self.row3[second_col] = " @ |"
+                    self.row3[third_col] = " @ |"
+                elif first_row == 4:
+                    self.row4[first_col] = " @ |"
+                    self.row4[second_col] = " @ |"
+                    self.row4[third_col] = " @ |"
+                elif first_row == 5:
+                    self.row5[first_col] = " @ |"
+                    self.row5[second_col] = " @ |"
+                    self.row5[third_col] = " @ |"
+                elif first_row == 6:
+                    self.row6[first_col] = " @ |"
+                    self.row6[second_col] = " @ |"
+                    self.row6[third_col] = " @ |"
+                elif first_row == 7:
+                    self.row7[first_col] = " @ |"
+                    self.row7[second_col] = " @ |"
+                    self.row7[third_col] = " @ |"
+                elif first_row == 8:
+                    self.row8[first_col] = " @ |"
+                    self.row8[second_col] = " @ |"
+                    self.row8[third_col] = " @ |"
+                elif first_row == 9:
+                    self.row9[first_col] = " @ |"
+                    self.row9[second_col] = " @ |"
+                    self.row9[third_col] = " @ |"
+                elif first_row == 10:
+                    self.row10[first_col] = " @ |"
+                    self.row10[second_col] = " @ |"
+                    self.row10[third_col] = " @ |"
+                elif first_row == 11:
+                    self.row11[first_col] = " @ |"
+                    self.row11[second_col] = " @ |"
+                    self.row11[third_col] = " @ |"
+                elif first_row == 12:
+                    self.row12[first_col] = " @ |"
+                    self.row12[second_col] = " @ |"
+                    self.row12[third_col] = " @ |"
+                elif first_row == 13:
+                    self.row13[first_col] = " @ |"
+                    self.row13[second_col] = " @ |"
+                    self.row13[third_col] = " @ |"
+                elif first_row == 14:
+                    self.row14[first_col] = " @ |"
+                    self.row14[second_col] = " @ |"
+                    self.row14[third_col] = " @ |"
+                elif first_row == 15:
+                    self.row15[first_col] = " @ |"
+                    self.row15[second_col] = " @ |"
+                    self.row15[third_col] = " @ |"
+                elif first_row == 16:
+                    self.row16[first_col] = " @ |"
+                    self.row16[second_col] = " @ |"
+                    self.row16[third_col] = " @ |"
+                elif first_row == 17:
+                    self.row17[first_col] = " @ |"
+                    self.row17[second_col] = " @ |"
+                    self.row17[third_col] = " @ |"
+                elif first_row == 18:
+                    self.row18[first_col] = " @ |"
+                    self.row18[second_col] = " @ |"
+                    self.row18[third_col] = " @ |"
+                elif first_row == 19:
+                    self.row19[first_col] = " @ |"
+                    self.row19[second_col] = " @ |"
+                    self.row19[third_col] = " @ |"
+                elif first_row == 20:
+                    self.row20[first_col] = " @ |"
+                    self.row20[second_col] = " @ |"
+                    self.row20[third_col] = " @ |"
+            elif active_ship.type == "gunboat":
+                if first_row == 1:
+                    self.row1[first_col] = " @ |"
+                    self.row1[second_col] = " @ |"
+                elif first_row == 2:
+                    self.row2[first_col] = " @ |"
+                    self.row2[second_col] = " @ |"
+                elif first_row == 3:
+                    self.row3[first_col] = " @ |"
+                    self.row3[second_col] = " @ |"
+                elif first_row == 4:
+                    self.row4[first_col] = " @ |"
+                    self.row4[second_col] = " @ |"
+                elif first_row == 5:
+                    self.row5[first_col] = " @ |"
+                    self.row5[second_col] = " @ |"
+                elif first_row == 6:
+                    self.row6[first_col] = " @ |"
+                    self.row6[second_col] = " @ |"
+                elif first_row == 7:
+                    self.row7[first_col] = " @ |"
+                    self.row7[second_col] = " @ |"
+                elif first_row == 8:
+                    self.row8[first_col] = " @ |"
+                    self.row8[second_col] = " @ |"
+                elif first_row == 9:
+                    self.row9[first_col] = " @ |"
+                    self.row9[second_col] = " @ |"
+                elif first_row == 10:
+                    self.row10[first_col] = " @ |"
+                    self.row10[second_col] = " @ |"
+                elif first_row == 11:
+                    self.row11[first_col] = " @ |"
+                    self.row11[second_col] = " @ |"
+                elif first_row == 12:
+                    self.row12[first_col] = " @ |"
+                    self.row12[second_col] = " @ |"
+                elif first_row == 13:
+                    self.row13[first_col] = " @ |"
+                    self.row13[second_col] = " @ |"
+                elif first_row == 14:
+                    self.row14[first_col] = " @ |"
+                    self.row14[second_col] = " @ |"
+                elif first_row == 15:
+                    self.row15[first_col] = " @ |"
+                    self.row15[second_col] = " @ |"
+                elif first_row == 16:
+                    self.row16[first_col] = " @ |"
+                    self.row16[second_col] = " @ |"
+                elif first_row == 17:
+                    self.row17[first_col] = " @ |"
+                    self.row17[second_col] = " @ |"
+                elif first_row == 18:
+                    self.row18[first_col] = " @ |"
+                    self.row18[second_col] = " @ |"
+                elif first_row == 19:
+                    self.row19[first_col] = " @ |"
+                    self.row19[second_col] = " @ |"
+                elif first_row == 20:
+                    self.row20[first_col] = " @ |"
+                    self.row20[second_col] = " @ |"
+        elif active_ship.direction == 1:
+            if active_ship.type == "carrier":
+                if first_row == 1:
+                    self.row1[first_col] = " @ |"
 
 
 class EnemyAI:
