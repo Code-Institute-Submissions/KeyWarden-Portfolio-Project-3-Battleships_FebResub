@@ -58,6 +58,11 @@ enemy_invalid_h = []
 enemy_invalid_v = []
 all_hit_grids_player = []
 all_hit_grids_enemy = []
+battleship_grid1 = ""
+battleship_grid2 = ""
+battleship_grid3 = ""
+battleship_grid4 = ""
+battleship_grid5 = ""
 
 """global variables"""
 taken_player_grid_spaces = []
@@ -1599,7 +1604,7 @@ def valid_specific_input(choice, mode, turn, ship, rotation, size):
                         if choice == enemy_invalid_v[i]:
                             is_valid = False
                 elif rotation == "horizontal":
-                    collumn = int(choice[:1])
+                    collumn = convert_letter(choice[:1])
                     if size == "Small":
                         if collumn >= 7:
                             is_valid = False
@@ -1631,7 +1636,7 @@ def valid_specific_input(choice, mode, turn, ship, rotation, size):
                         if choice == enemy_invalid_v[i]:
                             is_valid = False
                 elif rotation == "horizontal":
-                    collumn = int(choice[:1])
+                    collumn = convert_letter(choice[:1])
                     if size == "Small":
                         if collumn >= 8:
                             is_valid = False
@@ -1663,7 +1668,7 @@ def valid_specific_input(choice, mode, turn, ship, rotation, size):
                         if choice == enemy_invalid_v[i]:
                             is_valid = False
                 elif rotation == "horizontal":
-                    collumn = int(choice[:1])
+                    collumn = convert_letter(choice[:1])
                     if size == "Small":
                         if collumn >= 9:
                             is_valid = False
@@ -1695,7 +1700,7 @@ def valid_specific_input(choice, mode, turn, ship, rotation, size):
                         if choice == enemy_invalid_v[i]:
                             is_valid = False
                 elif rotation == "horizontal":
-                    collumn = int(choice[:1])
+                    collumn = convert_letter(choice[:1])
                     if size == "Small":
                         if collumn >= 10:
                             is_valid = False
@@ -1801,17 +1806,368 @@ def map_size(size):
     return result
 
 
+def enemy_spaces(active_ship):
+    """ensures invalid AI grid spaces are tracked"""
+    base_grid1 = ""
+    base_grid2 = ""
+    base_grid3 = ""
+    base_grid4 = ""
+    end_grids_v = []
+    end_grids_h = []
+    if active_ship.type == "carrier":
+        if active_ship.direction == 0:
+            for i in range(len(active_ship.segments)):
+                enemy_map_input.append(active_ship.segments[i])
+                grid = active_ship.segments[i]
+                collumn = grid[:1]
+                col_num = convert_letter(collumn)
+                row = int(grid[1:])
+                base_grid1 = collumn + str((row - 1))
+                base_grid2 = collumn + str((row - 2))
+                end_grids_v.append((collumn + str((row - 3))))
+                enemy_invalid_v.append(base_grid1)
+                enemy_invalid_v.append(base_grid2)
+            grid = active_ship.segments[0]
+            collumn = grid[:1]
+            col_num = convert_letter(collumn)
+            row = int(grid[1:])
+            base_grid3 = convert_number((col_num - 1)) + str(row)
+            base_grid4 = convert_number((col_num - 2)) + str(row)
+            end_grids_h.append((convert_number((col_num - 3)) + str(row)))
+            enemy_invalid_h.append(base_grid3)
+            enemy_invalid_h.append(base_grid4)
+        elif active_ship.direction == 1:
+            for i in range(len(active_ship.segments)):
+                enemy_map_input.append(active_ship.segments[i])
+                grid = active_ship.segments[i]
+                collumn = grid[:1]
+                col_num = convert_letter(collumn)
+                row = int(grid[1:])
+                base_grid1 = convert_number((col_num - 1)) + str(row)
+                base_grid2 = convert_number((col_num - 2)) + str(row)
+                end_grids_h.append((convert_number((col_num - 3)) + str(row)))
+                enemy_invalid_h.append(base_grid1)
+                enemy_invalid_h.append(base_grid2)
+            grid = active_ship.segments[0]
+            collumn = grid[:1]
+            col_num = convert_letter(collumn)
+            row = int(grid[1:])
+            base_grid3 = collumn + str((row - 1))
+            base_grid4 = collumn + str((row - 2))
+            end_grids_v.append((collumn + str((row - 3))))
+            enemy_invalid_v.append(base_grid3)
+            enemy_invalid_v.append(base_grid4)
+        enemy_invalid_h.extend(end_grids_h)
+        enemy_invalid_v.extend(end_grids_v)
+    elif active_ship.type == "battleship":
+        if enemy_carrier.direction == 0:
+            enemy_invalid_h.pop()
+            enemy_invalid_v.pop()
+            enemy_invalid_v.pop()
+            enemy_invalid_v.pop()
+            enemy_invalid_v.pop()
+            enemy_invalid_v.pop()
+        elif enemy_carrier.direction == 1:
+            enemy_invalid_h.pop()
+            enemy_invalid_h.pop()
+            enemy_invalid_h.pop()
+            enemy_invalid_h.pop()
+            enemy_invalid_h.pop()
+            enemy_invalid_v.pop()
+        if active_ship.direction == 0:
+            for i in range(len(active_ship.segments)):
+                enemy_map_input.append(active_ship.segments[i])
+                grid = active_ship.segments[i]
+                collumn = grid[:1]
+                col_num = convert_letter(collumn)
+                row = int(grid[1:])
+                base_grid1 = collumn + str((row - 1))
+                end_grids_v.append((collumn + str((row - 2))))
+                enemy_invalid_v.append(base_grid1)
+            grid = active_ship.segments[0]
+            collumn = grid[:1]
+            col_num = convert_letter(collumn)
+            row = int(grid[1:])
+            base_grid3 = convert_number((col_num - 1)) + str(row)
+            end_grids_h.append((convert_number((col_num - 2)) + str(row)))
+            enemy_invalid_h.append(base_grid3)
+        elif active_ship.direction == 1:
+            for i in range(len(active_ship.segments)):
+                enemy_map_input.append(active_ship.segments[i])
+                grid = active_ship.segments[i]
+                collumn = grid[:1]
+                col_num = convert_letter(collumn)
+                row = int(grid[1:])
+                base_grid1 = convert_number((col_num - 1)) + str(row)
+                end_grids_h.append((convert_number((col_num - 2)) + str(row)))
+                enemy_invalid_h.append(base_grid1)
+            grid = active_ship.segments[0]
+            collumn = grid[:1]
+            col_num = convert_letter(collumn)
+            row = int(grid[1:])
+            base_grid3 = collumn + str((row - 1))
+            end_grids_v.append((collumn + str((row - 2))))
+            enemy_invalid_v.append(base_grid3)
+        enemy_invalid_h.extend(end_grids_h)
+        enemy_invalid_v.extend(end_grids_v)
+    elif active_ship.type == "destroyer":
+        if enemy_battleship.direction == 0:
+            battleship_grid1 = enemy_invalid_h[-1]
+            battleship_grid2 = enemy_invalid_v[-1]
+            battleship_grid3 = enemy_invalid_v[-2]
+            battleship_grid4 = enemy_invalid_v[-3]
+            battleship_grid5 = enemy_invalid_v[-4]
+        elif enemy_battleship.direction == 1:
+            battleship_grid1 = enemy_invalid_v[-1]
+            battleship_grid2 = enemy_invalid_h[-1]
+            battleship_grid3 = enemy_invalid_h[-2]
+            battleship_grid4 = enemy_invalid_h[-3]
+            battleship_grid5 = enemy_invalid_h[-4]
+        if active_ship.direction == 0:
+            for i in range(len(active_ship.segments)):
+                enemy_map_input.append(active_ship.segments[i])
+                grid = active_ship.segments[i]
+                collumn = grid[:1]
+                col_num = convert_letter(collumn)
+                row = int(grid[1:])
+                base_grid1 = collumn + str((row - 1))
+                end_grids_v.append((collumn + str((row - 2))))
+                enemy_invalid_v.append(base_grid1)
+            grid = active_ship.segments[0]
+            collumn = grid[:1]
+            col_num = convert_letter(collumn)
+            row = int(grid[1:])
+            base_grid3 = convert_number((col_num - 1)) + str(row)
+            end_grids_h.append((convert_number((col_num - 2)) + str(row)))
+            enemy_invalid_h.append(base_grid3)
+        elif active_ship.direction == 1:
+            for i in range(len(active_ship.segments)):
+                enemy_map_input.append(active_ship.segments[i])
+                grid = active_ship.segments[i]
+                collumn = grid[:1]
+                col_num = convert_letter(collumn)
+                row = int(grid[1:])
+                base_grid1 = convert_number((col_num - 1)) + str(row)
+                end_grids_h.append((convert_number((col_num - 2)) + str(row)))
+                enemy_invalid_h.append(base_grid1)
+            grid = active_ship.segments[0]
+            collumn = grid[:1]
+            col_num = convert_letter(collumn)
+            row = int(grid[1:])
+            base_grid3 = collumn + str((row - 1))
+            end_grids_v.append((collumn + str((row - 2))))
+            enemy_invalid_v.append(base_grid3)
+        enemy_invalid_h.extend(end_grids_h)
+        enemy_invalid_v.extend(end_grids_v)
+    elif active_ship.type == "submarine":
+        if player_destroyer.direction == 0:
+            enemy_invalid_h.pop()
+            enemy_invalid_v.pop()
+            enemy_invalid_v.pop()
+            enemy_invalid_v.pop()
+        elif player_destroyer.direction == 1:
+            enemy_invalid_h.pop()
+            enemy_invalid_h.pop()
+            enemy_invalid_h.pop()
+            enemy_invalid_v.pop()
+        if player_battleship.direction == 0:
+            enemy_invalid_h.remove(battleship_grid1)
+            enemy_invalid_v.remove(battleship_grid2)
+            enemy_invalid_v.remove(battleship_grid3)
+            enemy_invalid_v.remove(battleship_grid4)
+            enemy_invalid_v.remove(battleship_grid5)
+        elif player_battleship.direction == 1:
+            enemy_invalid_v.remove(battleship_grid1)
+            enemy_invalid_h.remove(battleship_grid2)
+            enemy_invalid_h.remove(battleship_grid3)
+            enemy_invalid_h.remove(battleship_grid4)
+            enemy_invalid_h.remove(battleship_grid5)
+        if active_ship.direction == 0:
+            for i in range(len(active_ship.segments)):
+                enemy_map_input.append(active_ship.segments[i])
+                grid = active_ship.segments[i]
+                collumn = grid[:1]
+                col_num = convert_letter(collumn)
+                row = int(grid[1:])
+                base_grid1 = collumn + str((row - 1))
+                enemy_invalid_v.append(base_grid1)
+            grid = active_ship.segments[0]
+            collumn = grid[:1]
+            col_num = convert_letter(collumn)
+            row = int(grid[1:])
+            base_grid3 = convert_number((col_num - 1)) + str(row)
+            enemy_invalid_h.append(base_grid3)
+        elif active_ship.direction == 1:
+            for i in range(len(active_ship.segments)):
+                enemy_map_input.append(active_ship.segments[i])
+                grid = active_ship.segments[i]
+                collumn = grid[:1]
+                col_num = convert_letter(collumn)
+                row = int(grid[1:])
+                base_grid1 = convert_number((col_num - 1)) + str(row)
+                enemy_invalid_h.append(base_grid1)
+            grid = active_ship.segments[0]
+            collumn = grid[:1]
+            col_num = convert_letter(collumn)
+            row = int(grid[1:])
+            base_grid3 = collumn + str((row - 1))
+            enemy_invalid_v.append(base_grid3)
+
+
+def enemy_place_current_ship_output(
+  choice, active_ship, game_map, size, validity, extra_validity):
+    """controls output of enemy_place_current_ship function"""
+    if not validity:
+        enemy_place_current_ship(active_ship, size)
+    if not extra_validity:
+        enemy_place_current_ship(active_ship, size)
+    if validity and extra_validity:
+        active_ship.ship_placed(choice)
+        if game_map == "Small":
+            enemy_map_small.update_grid_place(choice, active_ship)
+        elif game_map == "Medium":
+            enemy_map_medium.update_grid_place(choice, active_ship)
+        elif game_map == "Large":
+            enemy_map_large.update_grid_place(choice, active_ship)
+        enemy_spaces(active_ship)
+
+
+def enemy_place_current_ship(active_ship, size):
+    """controls actual placing of AI ship on all maps"""
+    game_map = map_size(size)
+    validity = False
+    extra_validity = True
+    rotation = ""
+    if active_ship.direction == 0:
+        rotation = "horizontal"
+        if game_map == "Small":
+            col_num = random.randrange(1, 11)
+            collumn = convert_number(col_num)
+            row = str(random.randrange(1, 11))
+            choice = collumn + row
+            col_validity = valid_general_input(collumn, "place-col-small")
+            row_validity = valid_general_input(row, "place-row-small")
+            extra_validity = valid_specific_input(
+                choice.upper(), "place", "enemy",
+                active_ship.type, rotation, game_map
+                )
+            if col_validity and row_validity:
+                validity = True
+        elif game_map == "Medium":
+            col_num = random.randrange(1, 16)
+            collumn = convert_number(col_num)
+            row = str(random.randrange(1, 16))
+            choice = collumn + row
+            col_validity = valid_general_input(collumn, "place-col-medium")
+            row_validity = valid_general_input(row, "place-row-medium")
+            extra_validity = valid_specific_input(
+                choice.upper(), "place", "enemy",
+                active_ship.type, rotation, game_map
+                )
+            if col_validity and row_validity:
+                validity = True
+        elif game_map == "Large":
+            col_num = random.randrange(1, 21)
+            collumn = convert_number(col_num)
+            row = str(random.randrange(1, 21))
+            choice = collumn + row
+            col_validity = valid_general_input(collumn, "place-col-large")
+            row_validity = valid_general_input(row, "place-row-large")
+            extra_validity = valid_specific_input(
+                choice.upper(), "place", "enemy",
+                active_ship.type, rotation, game_map
+                )
+            if col_validity and row_validity:
+                validity = True
+    elif active_ship.direction == 1:
+        rotation = "vertical"
+        if game_map == "Small":
+            col_num = random.randrange(1, 11)
+            collumn = convert_number(col_num)
+            row = str(random.randrange(1, 11))
+            choice = collumn + row
+            col_validity = valid_general_input(collumn, "place-col-small")
+            row_validity = valid_general_input(row, "place-row-small")
+            extra_validity = valid_specific_input(
+                choice.upper(), "place", "enemy",
+                active_ship.type, rotation, game_map
+                )
+            if col_validity and row_validity:
+                validity = True
+        elif game_map == "Medium":
+            col_num = random.randrange(1, 16)
+            collumn = convert_number(col_num)
+            row = str(random.randrange(1, 16))
+            choice = collumn + row
+            col_validity = valid_general_input(collumn, "place-col-medium")
+            row_validity = valid_general_input(row, "place-row-medium")
+            extra_validity = valid_specific_input(
+                choice.upper(), "place", "enemy",
+                active_ship.type, rotation, game_map
+                )
+            if col_validity and row_validity:
+                validity = True
+        elif game_map == "Large":
+            col_num = random.randrange(1, 21)
+            collumn = convert_number(col_num)
+            row = str(random.randrange(1, 21))
+            choice = collumn + row
+            col_validity = valid_general_input(collumn, "place-col-large")
+            row_validity = valid_general_input(row, "place-row-large")
+            extra_validity = valid_specific_input(
+                choice.upper(), "place", "enemy",
+                active_ship.type, rotation, game_map
+                )
+            if col_validity and row_validity:
+                validity = True
+    enemy_place_current_ship_output(
+        choice.upper(), active_ship, game_map, size, validity, extra_validity
+        )
+
+
+def enemy_placing_ship_output(
+  validity, choice, current_ship, active_ship, size):
+    """controls result of AI input on ship placement for all maps"""
+    if not validity:
+        enemy_placing_ship(current_ship, size)
+
+    if choice == "1" or choice == "p" or choice == "place":
+        enemy_place_current_ship(active_ship, size)
+    elif choice == "2" or choice == "r" or choice == "rotate":
+        if active_ship.direction == 0:
+            active_ship.direction = 1
+        else:
+            active_ship.direction = 0
+        enemy_placing_ship(current_ship, size)
+
+
+def enemy_placing_ship(current_ship, size):
+    """function controlling exact process for AI placing ships"""
+    if current_ship == 1:
+        active_ship = enemy_carrier
+    elif current_ship == 2:
+        active_ship = enemy_battleship
+    elif current_ship == 3:
+        active_ship = enemy_destroyer
+    elif current_ship == 4:
+        active_ship = enemy_submarine
+    elif current_ship == 5:
+        active_ship = enemy_gunboat
+    if active_ship.direction == 0:
+        choice = str(random.randrange(1, 3))
+    elif active_ship.direction == 1:
+        choice = str(random.randrange(1, 3))
+    validity = valid_general_input(choice, "rotate")
+    enemy_placing_ship_output(
+        validity, choice, current_ship, active_ship, size)
+
+
 def player_spaces(active_ship):
     """ensures invalid player grid spaces are tracked"""
     base_grid1 = ""
     base_grid2 = ""
     base_grid3 = ""
     base_grid4 = ""
-    battleship_grid1 = ""
-    battleship_grid2 = ""
-    battleship_grid3 = ""
-    battleship_grid4 = ""
-    battleship_grid5 = ""
     end_grids_v = []
     end_grids_h = []
     if active_ship.type == "carrier":
@@ -2216,7 +2572,10 @@ def place_ships(size):
             print("YOUR GRID:")
             player_map_large.print_grid()
         placing_ship(current_ship, size)
+        enemy_placing_ship(current_ship, size)
         current_ship += 1
+    player_map_small.print_grid()
+    enemy_map_small.print_grid()
 
 
 def start_game(difficulty, size):
