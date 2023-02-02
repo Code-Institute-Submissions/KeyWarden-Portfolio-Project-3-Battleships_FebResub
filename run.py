@@ -1276,86 +1276,6 @@ class MapGrid:
                     self.row20[first_col] = " @ |"
 
 
-class EnemyAI:
-    """defining a class to manage the AI"""
-    def __init__(self, difficulty, size):
-        self.difficulty = difficulty
-        if size == 0:
-            self.map_size = 10
-        elif size == 1:
-            self.map_size = 15
-        elif size == 2:
-            self.map_size = 20
-        self.turn_row = 0
-        self.turn_collumn = 0
-
-    def turn(self, hit_last, sunk_last, unsunk_ship, row, collumn):
-        if self.difficulty == 0:
-            self.turn_row = random.randint(1, self.map_size)
-            self.turn_collumn = random.randint(1, self.map_size)
-        elif self.difficulty == 1:
-            if sunk_last:
-                self.turn_row = random.randint(1, self.map_size)
-                self.turn_collumn = random.randint(1, self.map_size)
-            elif not hit_last:
-                self.turn_row = random.randint(1, self.map_size)
-                self.turn_collumn = random.randint(1, self.map_size)
-            elif hit_last:
-                direction = random.randint(0, 1)
-                if direction == 0:
-                    if self.turn_row == self.map_size:
-                        self.turn_row -= 1
-                    elif self.turn_row == 1:
-                        self.turn_row += 1
-                    else:
-                        increase_decrease = random.randint(0, 1)
-                        if increase_decrease == 0:
-                            self.turn_row -= 1
-                        elif increase_decrease == 1:
-                            self.turn_row += 1
-                elif direction == 1:
-                    if self.turn_collumn == self.map_size:
-                        self.turn_collumn -= 1
-                    elif self.turn_collumn == 1:
-                        self.turn_collumn += 1
-                    else:
-                        increase_decrease = random.randint(0, 1)
-                        if increase_decrease == 0:
-                            self.turn_collumn -= 1
-                        elif increase_decrease == 1:
-                            self.turn_collumn += 1
-        elif self.difficulty == 2:
-            if not unsunk_ship:
-                self.turn_row = random.randint(1, self.map_size)
-                self.turn_collumn = random.randint(1, self.map_size)
-            elif unsunk_ship:
-                self.turn_row = row
-                self.turn_collumn = collumn
-                direction = random.randint(0, 1)
-                if direction == 0:
-                    if self.turn_row == self.map_size:
-                        self.turn_row -= 1
-                    elif self.turn_row == 1:
-                        self.turn_row += 1
-                    else:
-                        increase_decrease = random.randint(0, 1)
-                        if increase_decrease == 0:
-                            self.turn_row -= 1
-                        elif increase_decrease == 1:
-                            self.turn_row += 1
-                if direction == 1:
-                    if self.turn_collumn == self.map_size:
-                        self.turn_collumn -= 1
-                    elif self.turn_collumn == 1:
-                        self.turn_collumn += 1
-                    else:
-                        increase_decrease = random.randint(0, 1)
-                        if increase_decrease == 0:
-                            self.turn_collumn -= 1
-                        elif increase_decrease == 1:
-                            self.turn_collumn += 1
-
-
 class Ship:
     """class for all ships used"""
     def __init__(self, type, direction=0):
@@ -1427,7 +1347,7 @@ class Ship:
     
     def ship_sunk(self):
         if self.hits == len(self.segments):
-            self.sunk == True
+            self.sunk = True
 
 
 """declaring all possible class instances to be used within later functions"""
@@ -1440,15 +1360,6 @@ hidden_map_large = MapGrid(2)
 enemy_map_small = MapGrid(0)
 enemy_map_medium = MapGrid(1)
 enemy_map_large = MapGrid(2)
-enemy_easy_small = EnemyAI(0, 0)
-enemy_easy_medium = EnemyAI(0, 1)
-enemy_easy_large = EnemyAI(0, 2)
-enemy_normal_small = EnemyAI(1, 0)
-enemy_normal_medium = EnemyAI(1, 1)
-enemy_normal_large = EnemyAI(1, 2)
-enemy_hard_small = EnemyAI(2, 0)
-enemy_hard_medium = EnemyAI(2, 1)
-enemy_hard_large = EnemyAI(2, 2)
 player_carrier = Ship("carrier")
 player_battleship = Ship("battleship")
 player_submarine = Ship("submarine")
@@ -2585,6 +2496,14 @@ def place_ships(size):
 
 def player_turn(size):
     """function that guides the player's turn"""
+    print("Select a grid space to fire a shot.")
+    print(
+        "Please do so in the following style: ##," +
+        " where the first # represents the collumn " +
+        "letter, and the second the row number."
+        )
+    choice = input("Please enter your choice here: \n").lower
+    validity = 
 
 
 def enemy_turn(difficulty, size):
@@ -2601,8 +2520,17 @@ def start_game(difficulty, size):
         current_turn = "enemy"
     while game_finished == False:
         if current_turn == "player":
+            print("YOUR TURN")
+            print("ENEMY GRID:")
+            if size == 0:
+                hidden_map_small.print_grid()
+            elif size == 1:
+                hidden_map_medium.print_grid()
+            elif size == 1:
+                hidden_map_large.print_grid()
             player_turn(size)
         elif current_turn == "enemy":
+            print("AI TURN")
             enemy_turn(difficulty, size)
 
 
