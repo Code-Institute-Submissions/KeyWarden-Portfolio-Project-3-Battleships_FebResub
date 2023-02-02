@@ -58,16 +58,25 @@ enemy_invalid_h = []
 enemy_invalid_v = []
 all_hit_grids_player = []
 all_hit_grids_enemy = []
-battleship_grid1 = ""
-battleship_grid2 = ""
-battleship_grid3 = ""
-battleship_grid4 = ""
-battleship_grid5 = ""
+battleship_pgrid1 = ""
+battleship_pgrid2 = ""
+battleship_pgrid3 = ""
+battleship_pgrid4 = ""
+battleship_pgrid5 = ""
+battleship_egrid1 = ""
+battleship_egrid2 = ""
+battleship_egrid3 = ""
+battleship_egrid4 = ""
+battleship_egrid5 = ""
 
 """global variables"""
 game_finished = False
 current_turn = ""
 score = 0
+player_ships_sunk = 0
+enemy_ships_sunk = 0
+last_hit = ""
+focus_direction = ""
 
 
 def convert_number(number):
@@ -584,7 +593,58 @@ class MapGrid:
             print(dividing_row)
             print(twentieth_row)
             print(dividing_row)
-    
+
+    def update_grid_shot(self, grid, has_hit):
+        """function to update the map grid after a shot"""
+        hit_result = ""
+        if has_hit:
+            hit_result = " # |"
+        elif not has_hit:
+            hit_result = " ~ |"
+        collumn = grid[:1]
+        col_num = convert_letter(collumn)
+        row = int(grid[1:])
+        if row == 1:
+            self.row1[col_num] = hit_result
+        elif row == 2:
+            self.row2[col_num] = hit_result
+        elif row == 3:
+            self.row3[col_num] = hit_result
+        elif row == 4:
+            self.row4[col_num] = hit_result
+        elif row == 5:
+            self.row5[col_num] = hit_result
+        elif row == 6:
+            self.row6[col_num] = hit_result
+        elif row == 7:
+            self.row7[col_num] = hit_result
+        elif row == 8:
+            self.row8[col_num] = hit_result
+        elif row == 9:
+            self.row9[col_num] = hit_result
+        elif row == 10:
+            self.row10[col_num] = hit_result
+        elif row == 11:
+            self.row11[col_num] = hit_result
+        elif row == 12:
+            self.row12[col_num] = hit_result
+        elif row == 13:
+            self.row13[col_num] = hit_result
+        elif row == 14:
+            self.row14[col_num] = hit_result
+        elif row == 15:
+            self.row15[col_num] = hit_result
+        elif row == 16:
+            self.row16[col_num] = hit_result
+        elif row == 17:
+            self.row17[col_num] = hit_result
+        elif row == 18:
+            self.row18[col_num] = hit_result
+        elif row == 19:
+            self.row19[col_num] = hit_result
+        elif row == 20:
+            self.row20[col_num] = hit_result
+
     def update_grid_place(self, grid, active_ship):
         """function to update the map grid after ship placement"""
         collumn1 = grid[:1]
@@ -1344,7 +1404,7 @@ class Ship:
                 self.segments[2] = third_segment
             elif self.type == "gunboat":
                 self.segments[1] = second_segment
-    
+
     def ship_sunk(self):
         if self.hits == len(self.segments):
             self.sunk = True
@@ -1732,6 +1792,8 @@ def enemy_spaces(active_ship):
     base_grid4 = ""
     end_grids_v = []
     end_grids_h = []
+    global battleship_egrid1, battleship_egrid2, battleship_egrid3
+    global battleship_egrid4, battleship_egrid5
     if active_ship.type == "carrier":
         if active_ship.direction == 0:
             for i in range(len(active_ship.segments)):
@@ -1830,17 +1892,17 @@ def enemy_spaces(active_ship):
         enemy_invalid_v.extend(end_grids_v)
     elif active_ship.type == "destroyer":
         if enemy_battleship.direction == 0:
-            battleship_grid1 = enemy_invalid_h[-1]
-            battleship_grid2 = enemy_invalid_v[-1]
-            battleship_grid3 = enemy_invalid_v[-2]
-            battleship_grid4 = enemy_invalid_v[-3]
-            battleship_grid5 = enemy_invalid_v[-4]
+            battleship_egrid1 = enemy_invalid_h[-1]
+            battleship_egrid2 = enemy_invalid_v[-1]
+            battleship_egrid3 = enemy_invalid_v[-2]
+            battleship_egrid4 = enemy_invalid_v[-3]
+            battleship_egrid5 = enemy_invalid_v[-4]
         elif enemy_battleship.direction == 1:
-            battleship_grid1 = enemy_invalid_v[-1]
-            battleship_grid2 = enemy_invalid_h[-1]
-            battleship_grid3 = enemy_invalid_h[-2]
-            battleship_grid4 = enemy_invalid_h[-3]
-            battleship_grid5 = enemy_invalid_h[-4]
+            battleship_egrid1 = enemy_invalid_v[-1]
+            battleship_egrid2 = enemy_invalid_h[-1]
+            battleship_egrid3 = enemy_invalid_h[-2]
+            battleship_egrid4 = enemy_invalid_h[-3]
+            battleship_egrid5 = enemy_invalid_h[-4]
         if active_ship.direction == 0:
             for i in range(len(active_ship.segments)):
                 enemy_map_input.append(active_ship.segments[i])
@@ -1889,17 +1951,17 @@ def enemy_spaces(active_ship):
             enemy_invalid_h.pop()
             enemy_invalid_v.pop()
         if player_battleship.direction == 0:
-            enemy_invalid_h.remove(battleship_grid1)
-            enemy_invalid_v.remove(battleship_grid2)
-            enemy_invalid_v.remove(battleship_grid3)
-            enemy_invalid_v.remove(battleship_grid4)
-            enemy_invalid_v.remove(battleship_grid5)
+            enemy_invalid_h.remove(battleship_egrid1)
+            enemy_invalid_v.remove(battleship_egrid2)
+            enemy_invalid_v.remove(battleship_egrid3)
+            enemy_invalid_v.remove(battleship_egrid4)
+            enemy_invalid_v.remove(battleship_egrid5)
         elif player_battleship.direction == 1:
-            enemy_invalid_v.remove(battleship_grid1)
-            enemy_invalid_h.remove(battleship_grid2)
-            enemy_invalid_h.remove(battleship_grid3)
-            enemy_invalid_h.remove(battleship_grid4)
-            enemy_invalid_h.remove(battleship_grid5)
+            enemy_invalid_v.remove(battleship_egrid1)
+            enemy_invalid_h.remove(battleship_egrid2)
+            enemy_invalid_h.remove(battleship_egrid3)
+            enemy_invalid_h.remove(battleship_egrid4)
+            enemy_invalid_h.remove(battleship_egrid5)
         if active_ship.direction == 0:
             for i in range(len(active_ship.segments)):
                 enemy_map_input.append(active_ship.segments[i])
@@ -2088,6 +2150,8 @@ def player_spaces(active_ship):
     base_grid4 = ""
     end_grids_v = []
     end_grids_h = []
+    global battleship_pgrid1, battleship_pgrid2, battleship_pgrid3
+    global battleship_pgrid4, battleship_pgrid5
     if active_ship.type == "carrier":
         if active_ship.direction == 0:
             for i in range(len(active_ship.segments)):
@@ -2186,17 +2250,17 @@ def player_spaces(active_ship):
         player_invalid_v.extend(end_grids_v)
     elif active_ship.type == "destroyer":
         if player_battleship.direction == 0:
-            battleship_grid1 = player_invalid_h[-1]
-            battleship_grid2 = player_invalid_v[-1]
-            battleship_grid3 = player_invalid_v[-2]
-            battleship_grid4 = player_invalid_v[-3]
-            battleship_grid5 = player_invalid_v[-4]
+            battleship_pgrid1 = player_invalid_h[-1]
+            battleship_pgrid2 = player_invalid_v[-1]
+            battleship_pgrid3 = player_invalid_v[-2]
+            battleship_pgrid4 = player_invalid_v[-3]
+            battleship_pgrid5 = player_invalid_v[-4]
         elif player_battleship.direction == 1:
-            battleship_grid1 = player_invalid_v[-1]
-            battleship_grid2 = player_invalid_h[-1]
-            battleship_grid3 = player_invalid_h[-2]
-            battleship_grid4 = player_invalid_h[-3]
-            battleship_grid5 = player_invalid_h[-4]
+            battleship_pgrid1 = player_invalid_v[-1]
+            battleship_pgrid2 = player_invalid_h[-1]
+            battleship_pgrid3 = player_invalid_h[-2]
+            battleship_pgrid4 = player_invalid_h[-3]
+            battleship_pgrid5 = player_invalid_h[-4]
         if active_ship.direction == 0:
             for i in range(len(active_ship.segments)):
                 player_map_input.append(active_ship.segments[i])
@@ -2245,17 +2309,19 @@ def player_spaces(active_ship):
             player_invalid_h.pop()
             player_invalid_v.pop()
         if player_battleship.direction == 0:
-            player_invalid_h.remove(battleship_grid1)
-            player_invalid_v.remove(battleship_grid2)
-            player_invalid_v.remove(battleship_grid3)
-            player_invalid_v.remove(battleship_grid4)
-            player_invalid_v.remove(battleship_grid5)
+            print(f"battleship_pgrid1:{battleship_pgrid1}")
+            print(f"player_invalid_h:{player_invalid_h}")
+            player_invalid_h.remove(battleship_pgrid1)
+            player_invalid_v.remove(battleship_pgrid2)
+            player_invalid_v.remove(battleship_pgrid3)
+            player_invalid_v.remove(battleship_pgrid4)
+            player_invalid_v.remove(battleship_pgrid5)
         elif player_battleship.direction == 1:
-            player_invalid_v.remove(battleship_grid1)
-            player_invalid_h.remove(battleship_grid2)
-            player_invalid_h.remove(battleship_grid3)
-            player_invalid_h.remove(battleship_grid4)
-            player_invalid_h.remove(battleship_grid5)
+            player_invalid_v.remove(battleship_pgrid1)
+            player_invalid_h.remove(battleship_pgrid2)
+            player_invalid_h.remove(battleship_pgrid3)
+            player_invalid_h.remove(battleship_pgrid4)
+            player_invalid_h.remove(battleship_pgrid5)
         if active_ship.direction == 0:
             for i in range(len(active_ship.segments)):
                 player_map_input.append(active_ship.segments[i])
@@ -2494,8 +2560,128 @@ def place_ships(size):
         current_ship += 1
 
 
+def ship_hit(choice, turn):
+    """function for finding ship hit, and registering the hit"""
+    result
+    if turn == "player":
+        for i in range(len(enemy_carrier.segments)):
+            if choice == enemy_carrier.segments[i]:
+                enemy_carrier.hits += 1
+                enemy_carrier.ship_sunk()
+                result = enemy_carrier
+        for i in range(len(enemy_battleship.segments)):
+            if choice == enemy_battleship.segments[i]:
+                enemy_battleship.hits += 1
+                enemy_battleship.ship_sunk()
+                result = enemy_battleship
+        for i in range(len(enemy_destroyer.segments)):
+            if choice == enemy_destroyer.segments[i]:
+                enemy_destroyer.hits += 1
+                enemy_destroyer.ship_sunk()
+                result = enemy_destroyer
+        for i in range(len(enemy_submarine.segments)):
+            if choice == enemy_submarine.segments[i]:
+                enemy_submarine.hits += 1
+                enemy_submarine.ship_sunk()
+                result = enemy_submarine
+        for i in range(len(enemy_gunboat.segments)):
+            if choice == enemy_gunboat.segments[i]:
+                enemy_gunboat.hits += 1
+                enemy_gunboat.ship_sunk()
+                result = enemy_gunboat
+    elif turn == "enemy":
+        for i in range(len(player_carrier.segments)):
+            if choice == player_carrier.segments[i]:
+                player_carrier.hits += 1
+                player_carrier.ship_sunk()
+                result = player_carrier
+        for i in range(len(player_battleship.segments)):
+            if choice == player_battleship.segments[i]:
+                player_battleship.hits += 1
+                player_battleship.ship_sunk()
+                result = player_battleship
+        for i in range(len(player_destroyer.segments)):
+            if choice == player_destroyer.segments[i]:
+                player_destroyer.hits += 1
+                player_destroyer.ship_sunk()
+                result = player_destroyer
+        for i in range(len(player_submarine.segments)):
+            if choice == player_submarine.segments[i]:
+                player_submarine.hits += 1
+                player_submarine.ship_sunk()
+                result = player_submarine
+        for i in range(len(player_gunboat.segments)):
+            if choice == player_gunboat.segments[i]:
+                player_gunboat.hits += 1
+                player_gunboat.ship_sunk()
+                result = player_gunboat
+    return result
+
+
+def player_turn_output(choice, game_map, size, validity, extra_validity):
+    """function that controls output of the player's turn"""
+    global game_finished, current_turn, score, enemy_ships_sunk
+    has_hit = False
+    if not validity:
+        print("Invalid Input.")
+        if game_map == "Small":
+            print(
+                "Please input one of the following in" +
+                f" the collumn slot: {SMALL_MAP_COL_INPUT}," +
+                " and one of the following in the row" +
+                f" slot: {SMALL_MAP_ROW_INPUT}. e.g. 'A5'"
+                )
+        elif game_map == "Medium":
+            print(
+                "Please input one of the following in" +
+                f" the collumn slot: {MED_MAP_COL_INPUT}," +
+                " and one of the following in the row" +
+                f" slot: {MED_MAP_ROW_INPUT}. e.g. 'A5'"
+                )
+        elif game_map == "Large":
+            print(
+                "Please input one of the following in" +
+                f" the collumn slot: {LARGE_MAP_COL_INPUT}," +
+                " and one of the following in the row" +
+                f" slot: {LARGE_MAP_ROW_INPUT}. e.g. 'A5'"
+                )
+        player_turn(size)
+    if not extra_validity:
+        print("Invalid Grid Coordinates.")
+        print("You have already hit that grid space.")
+        print("Please look over the Grid's current state, and try again")
+        player_turn(size)
+    if validity and extra_validity:
+        all_hit_grids_player.append(choice)
+        for i in range(len(enemy_map_input)):
+            if choice == enemy_map_input[i]:
+                has_hit = True
+                score += 10
+                print("HIT!")
+        if has_hit:
+            shot_result = ship_hit(choice, "player")
+            if shot_result.sunk:
+                print(f"You've sunk the enemy {shot_result.type}!")
+                score += 100
+                enemy_ships_sunk += 1
+        elif not has_hit:
+            print("MISS!")
+            score -= 3
+        if game_map == "Small":
+            hidden_map_small.update_grid_shot(choice, has_hit)
+        elif game_map == "Medium":
+            hidden_map_medium.update_grid_shot(choice, has_hit)
+        elif game_map == "Large":
+            hidden_map_large.update_grid_shot(choice, has_hit)
+        if enemy_ships_sunk == 5:
+            game_finished = True
+        if not game_finished:
+            current_turn = "enemy"
+
+
 def player_turn(size):
     """function that guides the player's turn"""
+    game_map = map_size(size)
     print("Select a grid space to fire a shot.")
     print(
         "Please do so in the following style: ##," +
@@ -2503,7 +2689,29 @@ def player_turn(size):
         "letter, and the second the row number."
         )
     choice = input("Please enter your choice here: \n").lower
-    validity = 
+    collumn = choice[:1]
+    row = choice[1:]
+    validity = False
+    extra_validity = True
+    if game_map == "Small":
+        col_validity = valid_general_input(collumn, "place-col-small")
+        row_validity = valid_general_input(row, "place-row-small")
+        if col_validity and row_validity:
+            validity = True
+    elif game_map == "Medium":
+        col_validity = valid_general_input(collumn, "place-col-medium")
+        row_validity = valid_general_input(row, "place-row-medium")
+        if col_validity and row_validity:
+            validity = True
+    elif game_map == "Large":
+        col_validity = valid_general_input(collumn, "place-col-large")
+        row_validity = valid_general_input(row, "place-row-large")
+        if col_validity and row_validity:
+            validity = True
+    extra_validity = valid_specific_input(
+        choice.upper(), "shoot", "player", "", "", game_map)
+    player_turn_output(
+        choice.upper(), game_map, size, validity, extra_validity)
 
 
 def enemy_turn(difficulty, size):
@@ -2512,13 +2720,14 @@ def enemy_turn(difficulty, size):
 
 def start_game(difficulty, size):
     """funtion that controls the game starting"""
+    global current_turn
     place_ships(size)
     first_turn = random.randrange(1, 3)
     if first_turn == 1:
         current_turn = "player"
     elif first_turn == 2:
         current_turn = "enemy"
-    while game_finished == False:
+    while not game_finished:
         if current_turn == "player":
             print("YOUR TURN")
             print("ENEMY GRID:")
