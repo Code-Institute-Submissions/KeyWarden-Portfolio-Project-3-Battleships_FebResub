@@ -65,8 +65,9 @@ battleship_grid4 = ""
 battleship_grid5 = ""
 
 """global variables"""
-taken_player_grid_spaces = []
-taken_enemy_grid_spaces = []
+game_finished = False
+current_turn = ""
+score = 0
 
 
 def convert_number(number):
@@ -1360,6 +1361,8 @@ class Ship:
     def __init__(self, type, direction=0):
         self.type = type
         self.direction = direction
+        self.hits = 0
+        self.sunk = False
         if self.type == "carrier":
             self.segments = ["", "", "", "", ""]
         elif self.type == "battleship":
@@ -1421,6 +1424,10 @@ class Ship:
                 self.segments[2] = third_segment
             elif self.type == "gunboat":
                 self.segments[1] = second_segment
+    
+    def ship_sunk(self):
+        if self.hits == len(self.segments):
+            self.sunk == True
 
 
 """declaring all possible class instances to be used within later functions"""
@@ -2574,13 +2581,29 @@ def place_ships(size):
         placing_ship(current_ship, size)
         enemy_placing_ship(current_ship, size)
         current_ship += 1
-    player_map_small.print_grid()
-    enemy_map_small.print_grid()
+
+
+def player_turn(size):
+    """function that guides the player's turn"""
+
+
+def enemy_turn(difficulty, size):
+    """function that guides the AI's turn"""
 
 
 def start_game(difficulty, size):
     """funtion that controls the game starting"""
     place_ships(size)
+    first_turn = random.randrange(1, 3)
+    if first_turn == 1:
+        current_turn = "player"
+    elif first_turn == 2:
+        current_turn = "enemy"
+    while game_finished == False:
+        if current_turn == "player":
+            player_turn(size)
+        elif current_turn == "enemy":
+            enemy_turn(difficulty, size)
 
 
 def menu_output(validity, choice, difficulty, size):
