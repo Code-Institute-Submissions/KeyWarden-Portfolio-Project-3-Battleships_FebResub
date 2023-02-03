@@ -48,6 +48,7 @@ LARGE_MAP_ROW_INPUT = [
     "1", "2", "3", "4", "5", "6", "7", "8", "9", "10",
     "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"
     ]
+ENDING_SCREEN = ["1", "s", "start", "2", "r", "return", "3", "l", "leaderboard"]
 
 """declare variables for input verification"""
 player_map_input = []
@@ -78,6 +79,7 @@ enemy_ships_sunk = 0
 last_hit = ""
 focus_direction = "right"
 core_hit = ""
+victory = False
 
 
 def convert_number(number):
@@ -1758,6 +1760,10 @@ def valid_general_input(choice, screen):
         for i in range(len(LARGE_MAP_ROW_INPUT)):
             if choice.lower() == LARGE_MAP_ROW_INPUT[i]:
                 is_valid = True
+    elif screen == "ending":
+        for i in range(len(ENDING_SCREEN)):
+            if choice.lower() == ENDING_SCREEN[i]:
+                is_valid = True
     return is_valid
 
 
@@ -2676,10 +2682,13 @@ def player_turn_output(choice, game_map, size, validity, extra_validity):
             score -= 1
         if game_map == "Small":
             hidden_map_small.update_grid_shot(choice, has_hit)
+            enemy_map_small.update_grid_shot(choice, has_hit)
         elif game_map == "Medium":
             hidden_map_medium.update_grid_shot(choice, has_hit)
+            enemy_map_medium.update_grid_shot(choice, has_hit)
         elif game_map == "Large":
             hidden_map_large.update_grid_shot(choice, has_hit)
+            enemy_map_large.update_grid_shot(choice, has_hit)
         if enemy_ships_sunk >= 5:
             game_finished = True
         if not game_finished:
@@ -2737,11 +2746,15 @@ def enemy_turn_output(choice, validity, extra_validity, difficulty, size):
                 if choice == player_map_input[i]:
                     has_hit = True
                     score -= 5
+                    print("HIT!")
             if has_hit:
                 shot_result = ship_hit(choice, "enemy")
                 if shot_result.sunk:
                     score -= 50
                     player_ships_sunk += 1
+                    print(f"The enemy has sunk your {shot_result.type}!")
+            elif not has_hit:
+                print("MISS!")
             if game_map == "Small":
                 player_map_small.update_grid_shot(choice, has_hit)
             elif game_map == "Medium":
@@ -2763,13 +2776,16 @@ def enemy_turn_output(choice, validity, extra_validity, difficulty, size):
                     has_hit = True
                     score -= 5
                     hit_last = choice
+                    print("HIT!")
             if has_hit:
                 shot_result = ship_hit(choice, "enemy")
                 if shot_result.sunk:
                     score -= 50
                     player_ships_sunk += 1
                     hit_last = ""
+                    print(f"The enemy has sunk your {shot_result.type}!")
             elif not has_hit:
+                print("MISS!")
                 hit_last = ""
             if game_map == "Small":
                 player_map_small.update_grid_shot(choice, has_hit)
@@ -2793,6 +2809,7 @@ def enemy_turn_output(choice, validity, extra_validity, difficulty, size):
                         score -= 5
                         hit_last = choice
                         core_hit = choice
+                        print("HIT!")
                 if has_hit:
                     shot_result = ship_hit(choice, "enemy")
                     if shot_result.sunk:
@@ -2800,7 +2817,9 @@ def enemy_turn_output(choice, validity, extra_validity, difficulty, size):
                         player_ships_sunk += 1
                         core_hit = ""
                         hit_last = ""
+                        print(f"The enemy has sunk your {shot_result.type}!")
                 elif not has_hit:
+                    print("MISS!")
                     hit_last = ""
                     core_hit = ""
                 if game_map == "Small":
@@ -2835,6 +2854,7 @@ def enemy_turn_output(choice, validity, extra_validity, difficulty, size):
                         has_hit = True
                         score -= 5
                         hit_last = choice
+                        print("HIT!")
                 if has_hit:
                     shot_result = ship_hit(choice, "enemy")
                     if shot_result.sunk:
@@ -2842,7 +2862,9 @@ def enemy_turn_output(choice, validity, extra_validity, difficulty, size):
                         player_ships_sunk += 1
                         core_hit = ""
                         hit_last = ""
+                        print(f"The enemy has sunk your {shot_result.type}!")
                 elif not has_hit:
+                    print("MISS!")
                     if focus_direction == "right":
                         focus_direction = "down"
                     elif focus_direction == "down":
@@ -3235,9 +3257,101 @@ def enemy_turn(difficulty, size):
     enemy_turn_output(choice, validity, extra_validity, difficulty, size)
 
 
+def finish_game_output(difficulty, size, choice, validity):
+    """function that controls output of finish_game"""
+    global game_finished, current_turn, score, player_ships_sunk
+    global enemy_ships_sunk, last_hit, focus_direction, core_hit
+    global victory, player_map_input, player_invalid_h
+    global player_invalid_v, enemy_map_input, enemy_invalid_h
+    global enemy_invalid_v, all_hit_grids_player
+    global all_hit_grids_enemy, battleship_pgrid1, battleship_pgrid2
+    global battleship_pgrid3, battleship_pgrid4, battleship_pgrid5
+    global battleship_egrid1, battleship_egrid2, battleship_egrid3
+    global battleship_egrid4, battleship_egrid5
+    if not validity:
+        print("Invalid Input")
+        print(f"Please enter one of the following: {ENDING_SCREEN}")
+        finish_game(difficulty, size)
+    elif validity:
+        game_finished = False
+        current_turn = ""
+        score = 0
+        player_ships_sunk = 0
+        enemy_ships_sunk = 0
+        last_hit = ""
+        focus_direction = "right"
+        core_hit = ""
+        victory = False
+        player_map_input = []
+        player_invalid_h = []
+        player_invalid_v = []
+        enemy_map_input = []
+        enemy_invalid_h = []
+        enemy_invalid_v = []
+        all_hit_grids_player = []
+        all_hit_grids_enemy = []
+        battleship_pgrid1 = ""
+        battleship_pgrid2 = ""
+        battleship_pgrid3 = ""
+        battleship_pgrid4 = ""
+        battleship_pgrid5 = ""
+        battleship_egrid1 = ""
+        battleship_egrid2 = ""
+        battleship_egrid3 = ""
+        battleship_egrid4 = ""
+        battleship_egrid5 = ""
+        if choice == "1" or choice == "s" or choice == "start":
+            start_game(difficulty, size)
+        elif choice == "2" or choice == "r" or choice == "return":
+            menu_screen(0, 0)
+        elif choice == "3" or choice == "l" or choice == "leaderboard":
+            leaderboard_screen(difficulty, size)
+
+
+def finish_game(difficulty, size):
+    """function that controls the finishing of the game"""
+    a_i = ai_difficulty(difficulty)
+    game_map(size)
+    if game_map == "Small":
+        print("Your Final Grid:")
+        player_map_small.print_grid()
+        print("The Enemy's Final Grid:")
+        enemy_map_small.print_grid()
+    elif game_map == "Medium":
+        print("Your Final Grid:")
+        player_map_medium.print_grid()
+        print("The Enemy's Final Grid:")
+        enemy_map_medium.print_grid()
+    elif game_map == "Large":
+        print("Your Final Grid:")
+        player_map_large.print_grid()
+        print("The Enemy's Final Grid:")
+        enemy_map_large.print_grid()
+    if victory:
+        print("VICTORY!")
+        print("Congratulations! You have sunk the enemy fleet.")
+        print(f"Your final score was: {score}")
+        print("Would you like to save your score?")
+        print("1. [Y]es")
+        print("2. [N]o")
+        choice1 = input("Please enter your choice here: \n").lower()
+        save_score(choice1)
+    elif not victory:
+        print("DEFEATED!")
+        print("Your fleet has been sunk. Better luck next time.")
+        print(f"Your final score was: {score}")
+    print("What would like to do now?")
+    print("1. [S]tart again")
+    print("2. [R]eturn to main menu")
+    print("3. [L]eaderboard")
+    choice2 = input("Please enter your choice here: \n").lower()
+    validity = valid_general_input(choice2, "ending")
+    finish_game_output(difficulty, size, choice2, validity)
+
+
 def start_game(difficulty, size):
     """funtion that controls the game starting"""
-    global current_turn
+    global current_turn, victory
     place_ships(size)
     first_turn = random.randrange(1, 3)
     if first_turn == 1:
@@ -3264,7 +3378,8 @@ def start_game(difficulty, size):
                 player_map_medium.print_grid()
             elif size == 1:
                 player_map_large.print_grid()
-
+    if game_finished:
+        finish_game(difficulty)
 
 
 def menu_output(validity, choice, difficulty, size):
