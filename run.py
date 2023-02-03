@@ -48,7 +48,10 @@ LARGE_MAP_ROW_INPUT = [
     "1", "2", "3", "4", "5", "6", "7", "8", "9", "10",
     "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"
     ]
-ENDING_SCREEN = ["1", "s", "start", "2", "r", "return", "3", "l", "leaderboard"]
+ENDING_SCREEN = [
+    "1", "s", "start", "2", "r", "return", "3", "l", "leaderboard"
+    ]
+SAVING_SCREEN = ["1", "y", "yes", "2", "n", "no"]
 
 """declare variables for input verification"""
 player_map_input = []
@@ -2319,8 +2322,6 @@ def player_spaces(active_ship):
             player_invalid_h.pop()
             player_invalid_v.pop()
         if player_battleship.direction == 0:
-            print(f"battleship_pgrid1:{battleship_pgrid1}")
-            print(f"player_invalid_h:{player_invalid_h}")
             player_invalid_h.remove(battleship_pgrid1)
             player_invalid_v.remove(battleship_pgrid2)
             player_invalid_v.remove(battleship_pgrid3)
@@ -2570,7 +2571,6 @@ def place_ships(size):
             player_map_large.print_grid()
         placing_ship(current_ship, size)
         enemy_placing_ship(current_ship, size)
-        enemy_map_small.print_grid()
         current_ship += 1
 
 
@@ -3257,6 +3257,11 @@ def enemy_turn(difficulty, size):
     enemy_turn_output(choice, validity, extra_validity, difficulty, size)
 
 
+def save_score(choice, difficulty):
+    """function that controls saving the score"""
+    print("placeholder")
+
+
 def finish_game_output(difficulty, size, choice, validity):
     """function that controls output of finish_game"""
     global game_finished, current_turn, score, player_ships_sunk
@@ -3310,8 +3315,7 @@ def finish_game_output(difficulty, size, choice, validity):
 
 def finish_game(difficulty, size):
     """function that controls the finishing of the game"""
-    a_i = ai_difficulty(difficulty)
-    game_map(size)
+    game_map = map_size(size)
     if game_map == "Small":
         print("Your Final Grid:")
         player_map_small.print_grid()
@@ -3335,7 +3339,7 @@ def finish_game(difficulty, size):
         print("1. [Y]es")
         print("2. [N]o")
         choice1 = input("Please enter your choice here: \n").lower()
-        save_score(choice1)
+        save_score(choice1, difficulty)
     elif not victory:
         print("DEFEATED!")
         print("Your fleet has been sunk. Better luck next time.")
@@ -3379,7 +3383,7 @@ def start_game(difficulty, size):
             elif size == 1:
                 player_map_large.print_grid()
     if game_finished:
-        finish_game(difficulty)
+        finish_game(difficulty, size)
 
 
 def menu_output(validity, choice, difficulty, size):
@@ -3521,4 +3525,5 @@ def leaderboard_screen(difficulty, size):
 
 
 # menu_screen(0, 0)
-print(data)
+victory = True
+finish_game(0, 0)
