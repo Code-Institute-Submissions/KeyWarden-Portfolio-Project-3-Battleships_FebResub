@@ -76,7 +76,8 @@ score = 0
 player_ships_sunk = 0
 enemy_ships_sunk = 0
 last_hit = ""
-focus_direction = ""
+focus_direction = "right"
+core_hit = ""
 
 
 def convert_number(number):
@@ -2716,6 +2717,373 @@ def player_turn(size):
 
 def enemy_turn(difficulty, size):
     """function that guides the AI's turn"""
+    game_map = map_size(size)
+    a_i = ai_difficulty(difficulty)
+    validity = False
+    extra_validity = True
+    choice = ""
+    global hit_last, core_hit, focus_direction
+    if a_i == "Easy":
+        if game_map == "Small":
+            col_num = random.randrange(1, 11)
+            collumn = convert_number(col_num)
+            row_num = random.randrange(1, 11)
+            row = str(row_num)
+            choice = collumn + row
+            col_validity = valid_general_input(collumn, "place-col-small")
+            row_validity = valid_general_input(row, "place-row-small")
+            if col_validity and row_validity:
+                validity = True
+            extra_validity = valid_specific_input(
+                choice, "shoot", "enemy", "", "", "")
+        elif game_map == "Medium":
+            col_num = random.randrange(1, 16)
+            collumn = convert_number(col_num)
+            row_num = random.randrange(1, 16)
+            row = str(row_num)
+            choice = collumn + row
+            col_validity = valid_general_input(collumn, "place-col-medium")
+            row_validity = valid_general_input(row, "place-row-medium")
+            if col_validity and row_validity:
+                validity = True
+            extra_validity = valid_specific_input(
+                choice, "shoot", "enemy", "", "", "")
+        elif game_map == "Large":
+            col_num = random.randrange(1, 16)
+            collumn = convert_number(col_num)
+            row_num = random.randrange(1, 16)
+            row = str(row_num)
+            choice = collumn + row
+            col_validity = valid_general_input(collumn, "place-col-large")
+            row_validity = valid_general_input(row, "place-row-large")
+            if col_validity and row_validity:
+                validity = True
+            extra_validity = valid_specific_input(
+                choice, "shoot", "enemy", "", "", "")
+    elif a_i == "Normal":
+        if hit_last == "":
+            if game_map == "Small":
+                col_num = random.randrange(1, 11)
+                collumn = convert_number(col_num)
+                row_num = random.randrange(1, 11)
+                row = str(row_num)
+                choice = collumn + row
+                col_validity = valid_general_input(collumn, "place-col-small")
+                row_validity = valid_general_input(row, "place-row-small")
+                if col_validity and row_validity:
+                    validity = True
+                extra_validity = valid_specific_input(
+                    choice, "shoot", "enemy", "", "", "")
+            elif game_map == "Medium":
+                col_num = random.randrange(1, 16)
+                collumn = convert_number(col_num)
+                row_num = random.randrange(1, 16)
+                row = str(row_num)
+                choice = collumn + row
+                col_validity = valid_general_input(collumn, "place-col-medium")
+                row_validity = valid_general_input(row, "place-row-medium")
+                if col_validity and row_validity:
+                    validity = True
+                extra_validity = valid_specific_input(
+                    choice, "shoot", "enemy", "", "", "")
+            elif game_map == "Large":
+                col_num = random.randrange(1, 16)
+                collumn = convert_number(col_num)
+                row_num = random.randrange(1, 16)
+                row = str(row_num)
+                choice = collumn + row
+                col_validity = valid_general_input(collumn, "place-col-large")
+                row_validity = valid_general_input(row, "place-row-large")
+                if col_validity and row_validity:
+                    validity = True
+                extra_validity = valid_specific_input(
+                    choice, "shoot", "enemy", "", "", "")
+        else:
+            direction = random.randrange(1, 5)
+            collumn = hit_last[:1]
+            col_num = convert_letter(collumn)
+            row = hit_last[1:]
+            row_num = int(row)
+            if direction == 1:
+                new_col_num = col_num + 1
+                new_collumn = convert_number(new_col_num)
+                choice = new_collumn + row
+                if game_map == "Small":
+                    col_validity = valid_general_input(
+                        new_collumn, "place-col-small")
+                    row_validity = valid_general_input(row, "place-row-small")
+                    if col_validity and row_validity:
+                        validity = True
+                    extra_validity = valid_specific_input(
+                        choice, "shoot", "enemy", "", "", "")
+                elif game_map == "Medium":
+                    col_validity = valid_general_input(
+                        new_collumn, "place-col-medium")
+                    row_validity = valid_general_input(row, "place-row-medium")
+                    if col_validity and row_validity:
+                        validity = True
+                    extra_validity = valid_specific_input(
+                        choice, "shoot", "enemy", "", "", "")
+                elif game_map == "Large":
+                    col_validity = valid_general_input(
+                        new_collumn, "place-col-large")
+                    row_validity = valid_general_input(row, "place-row-large")
+                    if col_validity and row_validity:
+                        validity = True
+                    extra_validity = valid_specific_input(
+                        choice, "shoot", "enemy", "", "", "")
+            elif direction == 2:
+                new_row_num = row_num + 1
+                new_row = str(new_row_num)
+                choice = collumn + new_row
+                if game_map == "Small":
+                    col_validity = valid_general_input(
+                        collumn, "place-col-small")
+                    row_validity = valid_general_input(
+                        new_row, "place-row-small")
+                    if col_validity and row_validity:
+                        validity = True
+                    extra_validity = valid_specific_input(
+                        choice, "shoot", "enemy", "", "", "")
+                elif game_map == "Medium":
+                    col_validity = valid_general_input(
+                        collumn, "place-col-medium")
+                    row_validity = valid_general_input(
+                        new_row, "place-row-medium")
+                    if col_validity and row_validity:
+                        validity = True
+                    extra_validity = valid_specific_input(
+                        choice, "shoot", "enemy", "", "", "")
+                elif game_map == "Large":
+                    col_validity = valid_general_input(
+                        collumn, "place-col-large")
+                    row_validity = valid_general_input(
+                        new_row, "place-row-large")
+                    if col_validity and row_validity:
+                        validity = True
+                    extra_validity = valid_specific_input(
+                        choice, "shoot", "enemy", "", "", "")
+            elif direction == 3:
+                new_col_num = col_num - 1
+                new_collumn = convert_number(new_col_num)
+                choice = new_collumn + row
+                if game_map == "Small":
+                    col_validity = valid_general_input(
+                        new_collumn, "place-col-small")
+                    row_validity = valid_general_input(row, "place-row-small")
+                    if col_validity and row_validity:
+                        validity = True
+                    extra_validity = valid_specific_input(
+                        choice, "shoot", "enemy", "", "", "")
+                elif game_map == "Medium":
+                    col_validity = valid_general_input(
+                        new_collumn, "place-col-medium")
+                    row_validity = valid_general_input(row, "place-row-medium")
+                    if col_validity and row_validity:
+                        validity = True
+                    extra_validity = valid_specific_input(
+                        choice, "shoot", "enemy", "", "", "")
+                elif game_map == "Large":
+                    col_validity = valid_general_input(
+                        new_collumn, "place-col-large")
+                    row_validity = valid_general_input(row, "place-row-large")
+                    if col_validity and row_validity:
+                        validity = True
+                    extra_validity = valid_specific_input(
+                        choice, "shoot", "enemy", "", "", "")
+            elif direction == 4:
+                new_row_num = row_num - 1
+                new_row = str(new_row_num)
+                choice = collumn + new_row
+                if game_map == "Small":
+                    col_validity = valid_general_input(
+                        collumn, "place-col-small")
+                    row_validity = valid_general_input(
+                        new_row, "place-row-small")
+                    if col_validity and row_validity:
+                        validity = True
+                    extra_validity = valid_specific_input(
+                        choice, "shoot", "enemy", "", "", "")
+                elif game_map == "Medium":
+                    col_validity = valid_general_input(
+                        collumn, "place-col-medium")
+                    row_validity = valid_general_input(
+                        new_row, "place-row-medium")
+                    if col_validity and row_validity:
+                        validity = True
+                    extra_validity = valid_specific_input(
+                        choice, "shoot", "enemy", "", "", "")
+                elif game_map == "Large":
+                    col_validity = valid_general_input(
+                        collumn, "place-col-large")
+                    row_validity = valid_general_input(
+                        new_row, "place-row-large")
+                    if col_validity and row_validity:
+                        validity = True
+                    extra_validity = valid_specific_input(
+                        choice, "shoot", "enemy", "", "", "")
+    elif a_i == "Hard":
+        if core_hit == "":
+            if game_map == "Small":
+                col_num = random.randrange(1, 11)
+                collumn = convert_number(col_num)
+                row_num = random.randrange(1, 11)
+                row = str(row_num)
+                choice = collumn + row
+                col_validity = valid_general_input(collumn, "place-col-small")
+                row_validity = valid_general_input(row, "place-row-small")
+                if col_validity and row_validity:
+                    validity = True
+                extra_validity = valid_specific_input(
+                    choice, "shoot", "enemy", "", "", "")
+            elif game_map == "Medium":
+                col_num = random.randrange(1, 16)
+                collumn = convert_number(col_num)
+                row_num = random.randrange(1, 16)
+                row = str(row_num)
+                choice = collumn + row
+                col_validity = valid_general_input(collumn, "place-col-medium")
+                row_validity = valid_general_input(row, "place-row-medium")
+                if col_validity and row_validity:
+                    validity = True
+                extra_validity = valid_specific_input(
+                    choice, "shoot", "enemy", "", "", "")
+            elif game_map == "Large":
+                col_num = random.randrange(1, 16)
+                collumn = convert_number(col_num)
+                row_num = random.randrange(1, 16)
+                row = str(row_num)
+                choice = collumn + row
+                col_validity = valid_general_input(collumn, "place-col-large")
+                row_validity = valid_general_input(row, "place-row-large")
+                if col_validity and row_validity:
+                    validity = True
+                extra_validity = valid_specific_input(
+                    choice, "shoot", "enemy", "", "", "")
+        else:
+            collumn = hit_last[:1]
+            col_num = convert_letter(collumn)
+            row = hit_last[1:]
+            row_num = int(row)
+            if focus_direction == "right":
+                new_col_num = col_num + 1
+                new_collumn = convert_number(new_col_num)
+                choice = new_collumn + row
+                if game_map == "Small":
+                    col_validity = valid_general_input(
+                        new_collumn, "place-col-small")
+                    row_validity = valid_general_input(row, "place-row-small")
+                    if col_validity and row_validity:
+                        validity = True
+                    extra_validity = valid_specific_input(
+                        choice, "shoot", "enemy", "", "", "")
+                elif game_map == "Medium":
+                    col_validity = valid_general_input(
+                        new_collumn, "place-col-medium")
+                    row_validity = valid_general_input(row, "place-row-medium")
+                    if col_validity and row_validity:
+                        validity = True
+                    extra_validity = valid_specific_input(
+                        choice, "shoot", "enemy", "", "", "")
+                elif game_map == "Large":
+                    col_validity = valid_general_input(
+                        new_collumn, "place-col-large")
+                    row_validity = valid_general_input(row, "place-row-large")
+                    if col_validity and row_validity:
+                        validity = True
+                    extra_validity = valid_specific_input(
+                        choice, "shoot", "enemy", "", "", "")
+            elif focus_direction == "down":
+                new_row_num = row_num + 1
+                new_row = str(new_row_num)
+                choice = collumn + new_row
+                if game_map == "Small":
+                    col_validity = valid_general_input(
+                        collumn, "place-col-small")
+                    row_validity = valid_general_input(
+                        new_row, "place-row-small")
+                    if col_validity and row_validity:
+                        validity = True
+                    extra_validity = valid_specific_input(
+                        choice, "shoot", "enemy", "", "", "")
+                elif game_map == "Medium":
+                    col_validity = valid_general_input(
+                        collumn, "place-col-medium")
+                    row_validity = valid_general_input(
+                        new_row, "place-row-medium")
+                    if col_validity and row_validity:
+                        validity = True
+                    extra_validity = valid_specific_input(
+                        choice, "shoot", "enemy", "", "", "")
+                elif game_map == "Large":
+                    col_validity = valid_general_input(
+                        collumn, "place-col-large")
+                    row_validity = valid_general_input(
+                        new_row, "place-row-large")
+                    if col_validity and row_validity:
+                        validity = True
+                    extra_validity = valid_specific_input(
+                        choice, "shoot", "enemy", "", "", "")
+            elif focus_direction == "left":
+                new_col_num = col_num - 1
+                new_collumn = convert_number(new_col_num)
+                choice = new_collumn + row
+                if game_map == "Small":
+                    col_validity = valid_general_input(
+                        new_collumn, "place-col-small")
+                    row_validity = valid_general_input(row, "place-row-small")
+                    if col_validity and row_validity:
+                        validity = True
+                    extra_validity = valid_specific_input(
+                        choice, "shoot", "enemy", "", "", "")
+                elif game_map == "Medium":
+                    col_validity = valid_general_input(
+                        new_collumn, "place-col-medium")
+                    row_validity = valid_general_input(row, "place-row-medium")
+                    if col_validity and row_validity:
+                        validity = True
+                    extra_validity = valid_specific_input(
+                        choice, "shoot", "enemy", "", "", "")
+                elif game_map == "Large":
+                    col_validity = valid_general_input(
+                        new_collumn, "place-col-large")
+                    row_validity = valid_general_input(row, "place-row-large")
+                    if col_validity and row_validity:
+                        validity = True
+                    extra_validity = valid_specific_input(
+                        choice, "shoot", "enemy", "", "", "")
+            elif focus_direction == "up":
+                new_row_num = row_num - 1
+                new_row = str(new_row_num)
+                choice = collumn + new_row
+                if game_map == "Small":
+                    col_validity = valid_general_input(
+                        collumn, "place-col-small")
+                    row_validity = valid_general_input(
+                        new_row, "place-row-small")
+                    if col_validity and row_validity:
+                        validity = True
+                    extra_validity = valid_specific_input(
+                        choice, "shoot", "enemy", "", "", "")
+                elif game_map == "Medium":
+                    col_validity = valid_general_input(
+                        collumn, "place-col-medium")
+                    row_validity = valid_general_input(
+                        new_row, "place-row-medium")
+                    if col_validity and row_validity:
+                        validity = True
+                    extra_validity = valid_specific_input(
+                        choice, "shoot", "enemy", "", "", "")
+                elif game_map == "Large":
+                    col_validity = valid_general_input(
+                        collumn, "place-col-large")
+                    row_validity = valid_general_input(
+                        new_row, "place-row-large")
+                    if col_validity and row_validity:
+                        validity = True
+                    extra_validity = valid_specific_input(
+                        choice, "shoot", "enemy", "", "", "")
+    enemy_turn_output(choice, validity, extra_validity, difficulty, size)
 
 
 def start_game(difficulty, size):
