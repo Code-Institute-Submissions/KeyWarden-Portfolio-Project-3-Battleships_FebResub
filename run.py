@@ -2563,7 +2563,6 @@ def place_ships(size):
 
 def ship_hit(choice, turn):
     """function for finding ship hit, and registering the hit"""
-    result
     if turn == "player":
         for i in range(len(enemy_carrier.segments)):
             if choice == enemy_carrier.segments[i]:
@@ -2667,14 +2666,14 @@ def player_turn_output(choice, game_map, size, validity, extra_validity):
                 enemy_ships_sunk += 1
         elif not has_hit:
             print("MISS!")
-            score -= 3
+            score -= 1
         if game_map == "Small":
             hidden_map_small.update_grid_shot(choice, has_hit)
         elif game_map == "Medium":
             hidden_map_medium.update_grid_shot(choice, has_hit)
         elif game_map == "Large":
             hidden_map_large.update_grid_shot(choice, has_hit)
-        if enemy_ships_sunk == 5:
+        if enemy_ships_sunk >= 5:
             game_finished = True
         if not game_finished:
             current_turn = "enemy"
@@ -2713,6 +2712,149 @@ def player_turn(size):
         choice.upper(), "shoot", "player", "", "", game_map)
     player_turn_output(
         choice.upper(), game_map, size, validity, extra_validity)
+
+
+def enemy_turn_output(choice, validity, extra_validity, difficulty, size):
+    """function that controls output of enemy_turn"""
+    global game_finished, current_turn, score, player_ships_sunk, hit_last
+    global core_hit, focus_direction
+    game_map = map_size(size)
+    a_i = ai_difficulty(difficulty)
+    has_hit = False
+    if a_i == "Easy":
+        if not validity or not extra_validity:
+            enemy_turn(difficulty, size)
+        if validity and extra_validity:
+            all_hit_grids_enemy.append(choice)
+            for i in range(len(player_map_input)):
+                if choice == player_map_input[i]:
+                    has_hit = True
+                    score -= 5
+            if has_hit:
+                shot_result = ship_hit(choice, "enemy")
+                if shot_result.sunk:
+                    score -= 50
+                    player_ships_sunk += 1
+            if game_map == "Small":
+                player_map_small.update_grid_shot(choice, has_hit)
+            elif game_map == "Medium":
+                player_map_medium.update_grid_shot(choice, has_hit)
+            elif game_map == "Large":
+                player_map_large.update_grid_shot(choice, has_hit)
+            if player_ships_sunk >= 5:
+                game_finished = True
+            if not game_finished:
+                current_turn = "player"
+    elif a_i == "Normal":
+        if not validity or not extra_validity:
+            hit_last = ""
+            enemy_turn(difficulty, size)
+        if validity and extra_validity:
+            all_hit_grids_enemy.append(choice)
+            for i in range(len(player_map_input)):
+                if choice == player_map_input[i]:
+                    has_hit = True
+                    score -= 5
+                    hit_last = choice
+            if has_hit:
+                shot_result = ship_hit(choice, "enemy")
+                if shot_result.sunk:
+                    score -= 50
+                    player_ships_sunk += 1
+                    hit_last = ""
+            elif not has_hit:
+                hit_last = ""
+            if game_map == "Small":
+                player_map_small.update_grid_shot(choice, has_hit)
+            elif game_map == "Medium":
+                player_map_medium.update_grid_shot(choice, has_hit)
+            elif game_map == "Large":
+                player_map_large.update_grid_shot(choice, has_hit)
+            if player_ships_sunk >= 5:
+                game_finished = True
+            if not game_finished:
+                current_turn = "player"
+    elif a_i == "Hard":
+        if core_hit == "":
+            if not validity or not extra_validity:
+                enemy_turn(difficulty, size)
+            if validity and extra_validity:
+                all_hit_grids_enemy.append(choice)
+                for i in range(len(player_map_input)):
+                    if choice == player_map_input[i]:
+                        has_hit = True
+                        score -= 5
+                        hit_last = choice
+                        core_hit = choice
+                if has_hit:
+                    shot_result = ship_hit(choice, "enemy")
+                    if shot_result.sunk:
+                        score -= 50
+                        player_ships_sunk += 1
+                        core_hit = ""
+                        hit_last = ""
+                elif not has_hit:
+                    hit_last = ""
+                    core_hit = ""
+                if game_map == "Small":
+                    player_map_small.update_grid_shot(choice, has_hit)
+                elif game_map == "Medium":
+                    player_map_medium.update_grid_shot(choice, has_hit)
+                elif game_map == "Large":
+                    player_map_large.update_grid_shot(choice, has_hit)
+                if player_ships_sunk >= 5:
+                    game_finished = True
+                if not game_finished:
+                    current_turn = "player"
+        else:
+            if not validity or not extra_validity:
+                if focus_direction == "right":
+                    focus_direction = "down"
+                    enemy_turn(difficulty, size)
+                elif focus_direction == "down":
+                    focus_direction = "left"
+                    enemy_turn(difficulty, size)
+                elif focus_direction == "left":
+                    focus_direction = "up"
+                    enemy_turn(difficulty, size)
+                elif focus_direction == "up":
+                    hit_last = core_hit
+                    focus_direction = "right"
+                    enemy_turn(difficulty, size)
+            if validity and extra_validity:
+                all_hit_grids_enemy.append(choice)
+                for i in range(len(player_map_input)):
+                    if choice == player_map_input[i]:
+                        has_hit = True
+                        score -= 5
+                        hit_last = choice
+                if has_hit:
+                    shot_result = ship_hit(choice, "enemy")
+                    if shot_result.sunk:
+                        score -= 50
+                        player_ships_sunk += 1
+                        core_hit = ""
+                        hit_last = ""
+                elif not has_hit:
+                    if focus_direction == "right":
+                        focus_direction = "down"
+                    elif focus_direction == "down":
+                        focus_direction = "left"
+                    elif focus_direction == "left":
+                        focus_direction = "up"
+                    elif focus_direction == "up":
+                        hit_last = core_hit
+                        focus_direction = "right"
+                if game_map == "Small":
+                    player_map_small.update_grid_shot(choice, has_hit)
+                elif game_map == "Medium":
+                    player_map_medium.update_grid_shot(choice, has_hit)
+                elif game_map == "Large":
+                    player_map_large.update_grid_shot(choice, has_hit)
+                if player_ships_sunk >= 5:
+                    game_finished = True
+                if not game_finished:
+                    current_turn = "player"
 
 
 def enemy_turn(difficulty, size):
