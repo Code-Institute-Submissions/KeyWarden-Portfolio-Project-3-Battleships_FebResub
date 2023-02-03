@@ -19,7 +19,9 @@ unsorted_leaderboard = SHEET.worksheet('hiddenBoard')
 sorted_leaderboard = SHEET.worksheet('board')
 
 """declare constants to be used for input verification"""
-MENU_INPUT = ["1", "s", "start", "2", "o", "options", "3", "l", "leaderboard"]
+MENU_INPUT = [
+    "1", "s", "start", "2", "o", "options", "3", "l", "leaderboard",
+    "4", "i", "instructions"]
 OPTIONS_INPUT = ["1", "d", "difficulty", "2", "m", "map", "3", "b", "back"]
 AI_INPUT = [
     "1", "e", "easy", "2", "n", "normal", "3", "h", "hard", "4", "b", "back"
@@ -78,7 +80,7 @@ current_turn = ""
 score = 0
 player_ships_sunk = 0
 enemy_ships_sunk = 0
-last_hit = ""
+hit_last = ""
 focus_direction = "right"
 core_hit = ""
 victory = False
@@ -2636,7 +2638,7 @@ def ship_hit(choice, turn):
 
 def player_turn_output(choice, game_map, size, validity, extra_validity):
     """function that controls output of the player's turn"""
-    global game_finished, current_turn, score, enemy_ships_sunk
+    global game_finished, current_turn, score, enemy_ships_sunk, victory
     has_hit = False
     if not validity:
         print("Invalid Input.")
@@ -2694,6 +2696,7 @@ def player_turn_output(choice, game_map, size, validity, extra_validity):
             enemy_map_large.update_grid_shot(choice, has_hit)
         if enemy_ships_sunk >= 5:
             game_finished = True
+            victory = True
         if not game_finished:
             current_turn = "enemy"
 
@@ -3322,7 +3325,7 @@ def save_score(choice, difficulty, size):
 def finish_game_output(difficulty, size, choice, validity):
     """function that controls output of finish_game"""
     global game_finished, current_turn, score, player_ships_sunk
-    global enemy_ships_sunk, last_hit, focus_direction, core_hit
+    global enemy_ships_sunk, hit_last, focus_direction, core_hit
     global victory, player_map_input, player_invalid_h
     global player_invalid_v, enemy_map_input, enemy_invalid_h
     global enemy_invalid_v, all_hit_grids_player
@@ -3340,7 +3343,7 @@ def finish_game_output(difficulty, size, choice, validity):
         score = 0
         player_ships_sunk = 0
         enemy_ships_sunk = 0
-        last_hit = ""
+        hit_last = ""
         focus_direction = "right"
         core_hit = ""
         victory = False
@@ -3373,6 +3376,7 @@ def finish_game_output(difficulty, size, choice, validity):
 def finish_game(difficulty, size):
     """function that controls the finishing of the game"""
     game_map = map_size(size)
+    global victory, score
     if game_map == "Small":
         print("Your Final Grid:")
         player_map_small.print_grid()
@@ -3412,7 +3416,7 @@ def finish_game(difficulty, size):
 
 def start_game(difficulty, size):
     """funtion that controls the game starting"""
-    global current_turn, victory
+    global current_turn
     place_ships(size)
     first_turn = random.randrange(1, 3)
     if first_turn == 1:
@@ -3457,6 +3461,9 @@ def menu_output(validity, choice, difficulty, size):
         options_screen(difficulty, size)
     elif choice == "3" or choice == "l" or choice == "leaderboard":
         leaderboard_screen(difficulty, size)
+    elif choice == "4" or choice == "i" or choice == "instructions":
+        print("Welcome to Battleships!")
+        print("Battleships is a simple game, with simple rules.")
 
 
 def menu_screen(difficulty, size):
@@ -3469,6 +3476,7 @@ def menu_screen(difficulty, size):
     print("1. [S]tart")
     print("2. [O]ptions")
     print("3. [L]eaderboard")
+    print("4. [I]nstructions")
     choice = input("Please enter your choice here: \n").lower()
     validity = valid_general_input(choice, "menu")
     menu_output(validity, choice, difficulty, size)
@@ -3588,12 +3596,13 @@ def leaderboard_output(validity, difficulty, size):
 
 def leaderboard_screen(difficulty, size):
     """function that controls the leaderboard screen"""
-    global score
-    a_i = ai_difficulty(difficulty)
     leaderboard_data = sorted_leaderboard.get_all_values()
     print(" Name|Score|Difficulty")
     for i in range(1, len(leaderboard_data)):
-        print(f" {leaderboard_data} | {score} | {a_i}")
+        print(
+            f" {leaderboard_data[i][0]} | {leaderboard_data[i][1]}" +
+            " | {leaderboard_data[i][2]}"
+            )
     print("   ")
     print("1. [B]ack")
     choice = input("Please enter your choice here: \n").lower()
