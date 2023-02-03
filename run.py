@@ -15,9 +15,8 @@ SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('project3_leaderboard')
 
-leaderboard = SHEET.worksheet('board')
-
-data = leaderboard.get_all_values()
+unsorted_leaderboard = SHEET.worksheet('hiddenBoard')
+sorted_leaderboard = SHEET.worksheet('board')
 
 """declare constants to be used for input verification"""
 MENU_INPUT = ["1", "s", "start", "2", "o", "options", "3", "l", "leaderboard"]
@@ -1767,6 +1766,10 @@ def valid_general_input(choice, screen):
         for i in range(len(ENDING_SCREEN)):
             if choice.lower() == ENDING_SCREEN[i]:
                 is_valid = True
+    elif screen == "saving":
+        for i in range(len(SAVING_SCREEN)):
+            if choice.lower() == SAVING_SCREEN[i]:
+                is_valid = True
     return is_valid
 
 
@@ -3257,9 +3260,63 @@ def enemy_turn(difficulty, size):
     enemy_turn_output(choice, validity, extra_validity, difficulty, size)
 
 
-def save_score(choice, difficulty):
+def save_score_output(name, choice, difficulty, size):
+    """function that controls the output of the save_score function"""
+    global score, unsorted_leaderboard
+    whitespace = False
+    a_i = ai_difficulty(difficulty)
+    if len(name) > 3:
+        print("Invalid Input")
+        print(
+            "Your string is too long! Remember, it must be" +
+            " at most 3 characters in length."
+            )
+        print("Please try again.")
+        save_score(choice, difficulty, size)
+    elif len(name) == 0:
+        print("Invalid Input")
+        print(
+            "Your string is empty! Remember, you need to " +
+            "enter something!"
+            )
+        print("Please try again.")
+        save_score(choice, difficulty, size)
+    elif len(name) > 0 and len(name) <= 3:
+        for i in range(len(name)):
+            if name[i] == " ":
+                print("Invalid Input")
+                print(
+                    "Your string contains a space! Remember" +
+                    " whitespace is not accepted for names."
+                    )
+                print("Please try again.")
+                whitespace = True
+        if whitespace:
+            save_score(choice, difficulty, size)
+        elif not whitespace:
+            data = [name, score, a_i]
+            unsorted_leaderboard.append_row(data)
+
+
+def save_score(choice, difficulty, size):
     """function that controls saving the score"""
-    print("placeholder")
+    validity = valid_general_input(choice, "saving")
+    if not validity:
+        print("Invalid Input")
+        print(f"Please enter one of the following: {SAVING_SCREEN}")
+        finish_game(difficulty, size)
+    elif validity:
+        if choice == "1" or "y" or "yes":
+            print(
+                "In order to save your score, you must enter a" +
+                " name. Your name can contain any characters, but must" +
+                " be no more than 3 character in length. e.g. TST"
+                )
+            name = input("Please enter your name here: \n").upper()
+            save_score_output(name, choice, difficulty, size)
+        elif choice == "2" or "n" or "no":
+            print("Understood. Thank you for playing regardless.")
+        print("I hope you enjoyed my game.")
 
 
 def finish_game_output(difficulty, size, choice, validity):
@@ -3339,7 +3396,7 @@ def finish_game(difficulty, size):
         print("1. [Y]es")
         print("2. [N]o")
         choice1 = input("Please enter your choice here: \n").lower()
-        save_score(choice1, difficulty)
+        save_score(choice1, difficulty, size)
     elif not victory:
         print("DEFEATED!")
         print("Your fleet has been sunk. Better luck next time.")
@@ -3519,11 +3576,29 @@ def map_screen(difficulty, size):
     map_output(validity, choice, difficulty, size)
 
 
+def leaderboard_output(validity, difficulty, size):
+    """function that controls the ouput of leaderboard_screen"""
+    if not validity:
+        print("Invalid Input")
+        print(f"Please enter one of the following: {LEADERBOARD_INPUT}")
+        leaderboard_screen(difficulty, size)
+    elif validity:
+        menu_screen(difficulty, size)
+
+
 def leaderboard_screen(difficulty, size):
     """function that controls the leaderboard screen"""
-    print("placeholder")
+    global score
+    a_i = ai_difficulty(difficulty)
+    leaderboard_data = sorted_leaderboard.get_all_values()
+    print(" Name|Score|Difficulty")
+    for i in range(1, len(leaderboard_data)):
+        print(f" {leaderboard_data} | {score} | {a_i}")
+    print("   ")
+    print("1. [B]ack")
+    choice = input("Please enter your choice here: \n").lower()
+    validity = valid_general_input(choice, "leaderboard")
+    leaderboard_output(validity, difficulty, size)
 
 
-# menu_screen(0, 0)
-victory = True
-finish_game(0, 0)
+menu_screen(0, 0)
