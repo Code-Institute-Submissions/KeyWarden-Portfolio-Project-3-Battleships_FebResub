@@ -1,8 +1,8 @@
 """code needed to connect game to leaderboard in Google Sheets, as well as to
 produce random numbers"""
 import random
-#import gspread
-#from google.oauth2.service_account import Credentials
+import gspread
+from google.oauth2.service_account import Credentials
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -10,14 +10,14 @@ SCOPE = [
     "https://www.googleapis.com/auth/drive"
     ]
 
-#CREDS = Credentials.from_service_account_file('creds.json')
-#SCOPED_CREDS = CREDS.with_scopes(SCOPE)
-#GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
-#SHEET = GSPREAD_CLIENT.open('project3_leaderboard')
+CREDS = Credentials.from_service_account_file('creds.json')
+SCOPED_CREDS = CREDS.with_scopes(SCOPE)
+GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
+SHEET = GSPREAD_CLIENT.open('project3_leaderboard')
 
-#leaderboard = SHEET.worksheet('board')
+leaderboard = SHEET.worksheet('board')
 
-#data = leaderboard.get_all_values()
+data = leaderboard.get_all_values()
 
 """declare constants to be used for input verification"""
 MENU_INPUT = ["1", "s", "start", "2", "o", "options", "3", "l", "leaderboard"]
@@ -1941,23 +1941,23 @@ def enemy_spaces(active_ship):
         enemy_invalid_h.extend(end_grids_h)
         enemy_invalid_v.extend(end_grids_v)
     elif active_ship.type == "submarine":
-        if player_destroyer.direction == 0:
+        if enemy_destroyer.direction == 0:
             enemy_invalid_h.pop()
             enemy_invalid_v.pop()
             enemy_invalid_v.pop()
             enemy_invalid_v.pop()
-        elif player_destroyer.direction == 1:
+        elif enemy_destroyer.direction == 1:
             enemy_invalid_h.pop()
             enemy_invalid_h.pop()
             enemy_invalid_h.pop()
             enemy_invalid_v.pop()
-        if player_battleship.direction == 0:
+        if enemy_battleship.direction == 0:
             enemy_invalid_h.remove(battleship_egrid1)
             enemy_invalid_v.remove(battleship_egrid2)
             enemy_invalid_v.remove(battleship_egrid3)
             enemy_invalid_v.remove(battleship_egrid4)
             enemy_invalid_v.remove(battleship_egrid5)
-        elif player_battleship.direction == 1:
+        elif enemy_battleship.direction == 1:
             enemy_invalid_v.remove(battleship_egrid1)
             enemy_invalid_h.remove(battleship_egrid2)
             enemy_invalid_h.remove(battleship_egrid3)
@@ -1993,6 +1993,9 @@ def enemy_spaces(active_ship):
             row = int(grid[1:])
             base_grid3 = collumn + str((row - 1))
             enemy_invalid_v.append(base_grid3)
+    elif active_ship.type == "gunboat":
+        for i in range(len(active_ship.segments)):
+            enemy_map_input.append(active_ship.segments[i])
 
 
 def enemy_place_current_ship_output(
@@ -2353,6 +2356,9 @@ def player_spaces(active_ship):
             row = int(grid[1:])
             base_grid3 = collumn + str((row - 1))
             player_invalid_v.append(base_grid3)
+    elif active_ship.type == "gunboat":
+        for i in range(len(active_ship.segments)):
+            player_map_input.append(active_ship.segments[i])
 
 
 def place_current_ship_output(
@@ -2558,6 +2564,7 @@ def place_ships(size):
             player_map_large.print_grid()
         placing_ship(current_ship, size)
         enemy_placing_ship(current_ship, size)
+        enemy_map_small.print_grid()
         current_ship += 1
 
 
@@ -2688,7 +2695,7 @@ def player_turn(size):
         " where the first # represents the collumn " +
         "letter, and the second the row number."
         )
-    choice = input("Please enter your choice here: \n").lower
+    choice = input("Please enter your choice here: \n").lower()
     collumn = choice[:1]
     row = choice[1:]
     validity = False
@@ -3251,6 +3258,13 @@ def start_game(difficulty, size):
         elif current_turn == "enemy":
             print("AI TURN")
             enemy_turn(difficulty, size)
+            if size == 0:
+                player_map_small.print_grid()
+            elif size == 1:
+                player_map_medium.print_grid()
+            elif size == 1:
+                player_map_large.print_grid()
+
 
 
 def menu_output(validity, choice, difficulty, size):
@@ -3391,4 +3405,5 @@ def leaderboard_screen(difficulty, size):
     print("placeholder")
 
 
-menu_screen(0, 0)
+# menu_screen(0, 0)
+print(data)
