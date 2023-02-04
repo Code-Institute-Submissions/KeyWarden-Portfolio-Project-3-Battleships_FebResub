@@ -3464,6 +3464,91 @@ def menu_output(validity, choice, difficulty, size):
     elif choice == "4" or choice == "i" or choice == "instructions":
         print("Welcome to Battleships!")
         print("Battleships is a simple game, with simple rules.")
+        print(
+            "Two players, or in this case, yourself and an AI," +
+            "compete to sink each others fleets."
+            )
+        print("   ")
+        print("First, you will need to navigate the menu.")
+        print(
+            "The menu is simple enough in design. 'Start game'" +
+            " will, as the name implies, start the game proper" +
+            " with the current settings, visible above the " +
+            "menu. 'Options' will allow you to change the settings" +
+            ", more specifically the AI difficulty and the Map " +
+            "Size. And 'Leaderboard' will allow you to see a " +
+            "leaderboard of scores from past victors, as well as " +
+            "the difficulty they played on."
+            )
+        print("   ")
+        print(
+            "The settings effects are as advertised: AI " +
+            "difficulty effects how smart the AI is, and Map Size " +
+            "affects how large the map you play on is. Both come " +
+            "in three options. For AI, these are:"
+            )
+        print(
+            " 1. Easy. At this level the AI will only select its " +
+            "targets randomly. \n 2. Normal. At this level the AI " +
+            "will target an adjacent space to the last it chose if" +
+            " that last choice hit one of your ships. It will " +
+            "reset to random if the AI then misses, however. \n 3." +
+            " Hard. At this level the AI will doggedly pursue any " +
+            "ship it hits, methodically hunting it until it is " +
+            "sunk. Only then will it return to random fire, until " +
+            "it strikes another vessel."
+            )
+        print("   ")
+        print("For Map Size, the three options are:")
+        print(
+            " 1. Small. This makes the map a 10 x 10 grid of spaces" +
+            ". \n 2. Medium. This makes the map a 15 x 15 grid of " +
+            "spaces. \n 3. Large. This makes the map a 20 x 20 " +
+            "grid of spaces."
+        )
+        print("   ")
+        print(
+            "It is recommended that you should only choose Large if" +
+            " you wish to take part in a long match. Small is the " +
+            "optimum size for shorter matches."
+            )
+        print("   ")
+        print(
+            "Upon starting the game, you will proceed to place your" +
+            " ships on the map, rotating and placing them until all" +
+            " five are set. These are your carrier (length 5), " +
+            "battleship (length 4), destroyer and submarine (both " +
+            "length 3), and finally your gunboat(length 2)."
+            )
+        print("   ")
+        print(
+            "The AI will place its own ships on another grid at random."
+        )
+        print("   ")
+        print(
+            "You and the AI will then take turns firing at one " +
+            "another, picking grid spaces and seeing if they hit a " +
+            "ship, or miss entirely, until one of you has sunk all " +
+            "the other's ships."
+        )
+        print("   ")
+        print(
+            "You will be rewarded points based on your performance." +
+            " Hitting an enemy ship awards 10 points, sinking an " +
+            "enemy ship awards 100. Missing costs you 1 point. If " +
+            "the AI hits one of your ships, you lose 5 points, and " +
+            "if they sink one of your ships, you lose 50."
+        )
+        print("   ")
+        print(
+            "Win or lose, you will be shown your score at the end. " +
+            "However, only victors can save their scores to the " +
+            "leaderboard, at which point you will enter a three " +
+            "character long name to label your score with."
+        )
+        print("   ")
+        print("Thanks for reading, and I hope you enjoy my game!")
+        menu_screen(difficulty, size)
 
 
 def menu_screen(difficulty, size):
@@ -3601,7 +3686,7 @@ def leaderboard_screen(difficulty, size):
     for i in range(1, len(leaderboard_data)):
         print(
             f" {leaderboard_data[i][0]} | {leaderboard_data[i][1]}" +
-            " | {leaderboard_data[i][2]}"
+            f" | {leaderboard_data[i][2]}"
             )
     print("   ")
     print("1. [B]ack")
